@@ -161,7 +161,6 @@
 				91055ED26C2F6B40B2E083E2 /* Pods-dingdong-tvOSTests.debug.xcconfig */,
 				C05A7850FD0F0AC93675EE89 /* Pods-dingdong-tvOSTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
