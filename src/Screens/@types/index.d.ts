@@ -5,17 +5,16 @@ type LoginNaviParamList = {
     PasswordReset : undefined;
 };
 
-type MyFeedTabParamList = {
-    MyFeed: undefined;
+type CalendarNaviParamList = {
+    Calendar: undefined;
 };
 
-type FeedsTabParamList = {
-    Feeds : undefined;
-    FeedListOnly : undefined;
+type CirclesNaviParamList = {
+    Circles : undefined;
 };
 
-type ProfileTabParamList = {
-    Profile : undefined
+type MypageNaviParamList = {
+    Mypage : undefined
 };
 
 type HomeNaviParamList = {

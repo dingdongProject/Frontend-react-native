@@ -1,9 +1,10 @@
-import React, {useContext} from 'react';
-import {Image,View,Text } from 'react-native';
+import React, {useContext,useLayoutEffect} from 'react';
+import {Image,View,Text, Alert } from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
+import {createStackNavigator,HeaderBackButton} from '@react-navigation/stack';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+
 
 import {UserContext} from '~/Context/User';
 import Loading from '~/Components/Loading';
@@ -13,6 +14,10 @@ import PasswordReset from '~/Screens/PasswordReset';
 import Signup from '~/Screens/Signup';
 import DDHome from './Home';
 import onboard from './Onboarding';
+import CustomDrawer from './Drawer';
+import Calendar from './Calendar';
+import Circles from './Circles';
+import Mypage from './Mypage';
 
 
 const Stack = createStackNavigator();
@@ -33,21 +38,30 @@ const LoginNavigator = () => {
 };
 
 
-const MainNavigator = () =>{
+const MainStackNavigator = () =>{
     return(
+
+        
+
         <Stack.Navigator screenOptions={{headerShown : true}}>
-            <Stack.Screen name="Home" component={DDHome}/>
+            <Stack.Screen name="dingdong" component={MainNavigator} 
+            
+            />
+            
         </Stack.Navigator>
+        
+
     )
 }
 
 
 const MainTab = () => {
     return (
+        
         <BottomTab.Navigator
             tabBarOptions={{showLabel: false}}>
                 <BottomTab.Screen
-                name = 'a'
+                name = 'Home'
                 component = {DDHome}
                 options={{
                     tabBarIcon : ({color, focused}) => (
@@ -62,8 +76,8 @@ const MainTab = () => {
                 }}
                 />
                 <BottomTab.Screen
-                name = "b"
-                component = {DDHome}
+                name = "Calendar"
+                component = {Calendar}
                 options={{
                     tabBarIcon : ({color, focused}) => (
                         <Image
@@ -78,8 +92,8 @@ const MainTab = () => {
                 }}
                 />
                 <BottomTab.Screen
-                name = "c"
-                component ={DDHome}
+                name = "Circles"
+                component ={Circles}
                 options={{
                     tabBarLabel : 'Third',
                     tabBarIcon : ({color, focused}) => (
@@ -95,8 +109,8 @@ const MainTab = () => {
                 }}
                 />
                 <BottomTab.Screen
-                name = "d"
-                component ={DDHome}
+                name = "Mypage"
+                component ={Mypage}
                 options={{
                     
                     tabBarIcon : ({color, focused}) => (
@@ -111,39 +125,22 @@ const MainTab = () => {
 
                 }}
                 />
-
-                <BottomTab.Screen
-                name = "e"
-                component ={DDHome}
-                options={{
-                    
-                    tabBarIcon : ({color, focused}) => (
-                        <Image
-                        source={
-                            focused
-                            ? require('~/Assets/Images/ic_all.png')
-                            : require('~/Assets/Images/ic_all.png')
-                        }
-                        />
-                    ),
-
-                }}
-                />  
+  
 
             </BottomTab.Navigator>
+            
     );
 };
 
-// const MainNavigator = () => {
-//     return (
-//         <Drawer.Navigator
-//             drawerPosition="left"
-//             drawerType='slide'
-//             drawerContent={(props)=><CustomDrawer props={props}/>}>
-//                 <Drawer.Screen name ="MainTabs" component={MainTab}/>
-//             </Drawer.Navigator>
-//     );
-// };
+const MainNavigator = () => {
+    return (
+        <Drawer.Navigator
+            drawerPosition="left"
+            drawerContent={(props)=><CustomDrawer props={props}/>}>
+                <Drawer.Screen name ="MainTabs" component={MainTab}/>
+            </Drawer.Navigator>
+    );
+};
 
 export default () => {
     const {isLoading, userInfo} = useContext<IUserContext>(UserContext);
@@ -154,7 +151,7 @@ export default () => {
 
     return (
         <NavigationContainer>
-            {userInfo? <MainNavigator/> : <LoginNavigator/>}
+            {userInfo? <MainStackNavigator/> : <LoginNavigator/>}
         </NavigationContainer>
     );
 };

@@ -11,13 +11,13 @@ const Icon = Styled.Image`
 
 interface Props {
     iconName : 
-        | 'camera'
-        | 'live'
-        | 'send'
-        | 'dotMenu'
-        | 'favorite'
-        | 'comment'
-        | 'bookmark'
+        // | 'camera'
+        // | 'live'
+        // | 'send'
+        // | 'dotMenu'
+        // | 'favorite'
+        // | 'comment'
+        // | 'bookmark'
         | 'menu';
     style? : object;
     onPress ?: ()=> void
@@ -26,14 +26,14 @@ interface Props {
 const IconButton = ({iconName,style,onPress}:Props)=>{
 
     const imageSource = {
-        camera : require('~/Assets/Image/ic_all.png'),
-        live : require('~/Assets/Image/ic_all.png'),
-        send : require('~/Assets/Image/ic_all.png'),
-        dotMenu : require('~/Assets/Image/ic_all.png'),
-        favorite : require('~/Assets/Image/ic_all.png'),
-        comment : require('~/Assets/Image/ic_all.png'),
-        bookmark : require('~/Assets/Image/ic_all.png'),
-        menu : require('~/Assets/Image/ic_all.png'),
+        // camera : require('~/Assets/Image/ic_all.png'),
+        // live : require('~/Assets/Image/ic_all.png'),
+        // send : require('~/Assets/Image/ic_all.png'),
+        // dotMenu : require('~/Assets/Image/ic_all.png'),
+        // favorite : require('~/Assets/Image/ic_all.png'),
+        // comment : require('~/Assets/Image/ic_all.png'),
+        // bookmark : require('~/Assets/Image/ic_all.png'),
+        menu : require('~/Assets/Images/Hamburger.jpg'),
     };
 
     return (

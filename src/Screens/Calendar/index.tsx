@@ -2,13 +2,9 @@ import React, {useContext, useLayoutEffect, useEffect} from 'react';
 import Styled from 'styled-components/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
-
-
-
 import {UserContext} from '~/Context/User';
-import IconButton from '~/Components/IconButton';
 
-type NavigationProp = StackNavigationProp<HomeNaviParamList, 'DDHome'>;
+type NavigationProp = StackNavigationProp<CalendarNaviParamList, 'Calendar'>;
 
 interface Props {
   navigation: NavigationProp;
@@ -35,19 +31,19 @@ const StyleButton = Styled.TouchableOpacity`
 const Icon = Styled.Image`
 `;
 
-const DDHome =  ({navigation } : Props) => {
+const Calendar =  ({navigation } : Props) => {
+  
 
     useEffect(() => {
         SplashScreen.hide();
       }, []);
 
-      
 
     return (
       <Container>
           <HomeView>
             <HomeText>
-              탭, 슬라이드 시 드로어
+              달력
             </HomeText>
         </HomeView>
       </Container> 
@@ -55,4 +51,4 @@ const DDHome =  ({navigation } : Props) => {
     );
 };
 
-export default DDHome;
+export default Calendar;

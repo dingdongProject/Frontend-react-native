@@ -69,7 +69,6 @@ const UserContextProvider = ({children}:Props) => {
             console.log(data)
 
         });
-        console.warn(username)
     }
 
     const getUserInfo = () : void => {
