@@ -19,6 +19,7 @@
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		977D2BDBAB26DD6D8599E7A7 /* libPods-dingdong.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E01049A498DEF20DF17A99E /* libPods-dingdong.a */; };
 		D01E56D91B8F3C979D5C4559 /* libPods-dingdong-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B724B4C99668202D0FDAD46 /* libPods-dingdong-tvOS.a */; };
+		EF27D29825556E6D00D2552C /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF27D29725556E6D00D2552C /* SplashScreen.storyboard */; };
 		F64180BCC17453B7CC273B5F /* libPods-dingdong-dingdongTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B9368FFA1A6E54CCB5A6DBCD /* libPods-dingdong-dingdongTests.a */; };
 /* End PBXBuildFile section */
 
@@ -67,6 +68,7 @@
 		D53CD52A712B8C9F9F579E1E /* Pods-dingdong.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dingdong.debug.xcconfig"; path = "Target Support Files/Pods-dingdong/Pods-dingdong.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
+		EF27D29725556E6D00D2552C /* SplashScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SplashScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +134,7 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				EF27D29725556E6D00D2552C /* SplashScreen.storyboard */,
 			);
 			name = dingdong;
 			sourceTree = "<group>";
@@ -340,6 +343,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				EF27D29825556E6D00D2552C /* SplashScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
