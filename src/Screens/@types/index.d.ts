@@ -1,4 +1,5 @@
 type LoginNaviParamList = {
+    onboard : undefined;
     Login : undefined;
     Signup : undefined;
     PasswordReset : undefined;

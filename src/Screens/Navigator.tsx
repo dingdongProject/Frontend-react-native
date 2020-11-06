@@ -12,6 +12,7 @@ import Login from '~/Screens/Login';
 import PasswordReset from '~/Screens/PasswordReset';
 import Signup from '~/Screens/Signup';
 import DDHome from './Home';
+import onboard from './Onboarding';
 
 
 const Stack = createStackNavigator();
@@ -21,7 +22,8 @@ const Drawer = createDrawerNavigator();
 const LoginNavigator = () => {
     return (
        //header가 필요한 컴포넌트들
-       <Stack.Navigator screenOptions={{headerShown : true}}>
+       <Stack.Navigator screenOptions={{headerShown : false}}>
+           <Stack.Screen name="onboard" component={onboard}/>
             <Stack.Screen name="Login" component={Login}/>
             <Stack.Screen name="Signup" component={Signup}/>
             <Stack.Screen name="PasswordReset" component={PasswordReset}/>
