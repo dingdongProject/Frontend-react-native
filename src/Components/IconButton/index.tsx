@@ -2,7 +2,7 @@ import React from 'react';
 import Styled from 'styled-components/native';
 
 const Container = Styled.TouchableOpacity`
-    padding : 8px;
+    padding : 16px;
 `;
 
 const Icon = Styled.Image`
@@ -18,7 +18,8 @@ interface Props {
         // | 'favorite'
         // | 'comment'
          | 'drawericon'
-        | 'menu';
+        | 'menu'
+        | 'search'
     style? : object;
     onPress ?: ()=> void
 }
@@ -33,7 +34,8 @@ const IconButton = ({iconName,style,onPress}:Props)=>{
         // favorite : require('~/Assets/Image/ic_all.png'),
         // comment : require('~/Assets/Image/ic_all.png'),
         drawericon : require('~/Assets/Images/ic_all.png'),
-        menu : require('~/Assets/Images/Hamburger.png'),
+        menu : require('~/Assets/Images/menu.png'),
+        search : require('~/Assets/Images/search.png'),
     };
 
     return (

@@ -23,6 +23,8 @@ import IconButton from '~/Components/IconButton';
 import MyCirlce from './MyCircle';
 import MyPageEdit from './MyPageEdit';
 import AddCircle from './AddCircle';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
+import Constants from '~/Constants/constants'
 
 
 const Stack = createStackNavigator();
@@ -56,16 +58,40 @@ const MainStackNavigator = ({navigation } : Props) =>{
             <Stack.Screen name="dingdong" component={MainTab} 
                 options={{
                     headerStyle:{
-                        backgroundColor : '#ffffff',
+                        backgroundColor : Constants.PRIMARY,
                     },
+                    headerTintColor: '#fff',
                     headerLeft : () => (
                         <IconButton
                             onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
                             iconName='menu'/>
+                    ),
+                    headerRight: () => (
+                        <IconButton
+                            onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
+                            iconName='search'/>
                     )
                 }}
             />
-            <Stack.Screen name = "MyCircle" component={MyCirlce}/>
+            <Stack.Screen name = "MyCircle" component={MyCirlce} 
+                options={{
+                    headerStyle:{
+                        backgroundColor : Constants.PRIMARY,
+                    },
+                    headerTintColor: '#fff',
+                    headerLeft : () => (
+                        <IconButton
+                            onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
+                            iconName='menu'/>
+                    ),
+                    headerRight: () => (
+                        <IconButton
+                            onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
+                            iconName='search'/>
+                    )
+                }}
+            
+            />
             <Stack.Screen name = "MyPageEdit" component={MyPageEdit}/>
             <Stack.Screen name = "AddCircle" component={AddCircle}/>
             

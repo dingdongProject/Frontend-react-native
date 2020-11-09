@@ -8,6 +8,7 @@ import {UserContext} from '~/Context/User';
 import Input from '~/Components/Input';
 import Button from '~/Components/Button';
 import { AppRegistry } from 'react-native';
+import Colors from '~/Constants/constants';
 
 const Container = Styled.SafeAreaView`
     flex :1;
@@ -24,7 +25,7 @@ const FormContainer = Styled.View`
 `;
 
 const Logo = Styled.Text`
-    color : #5F89FA;
+    color : ${Colors.PRIMARY};
     font-size : 40px;
     font-weight : bold;
     text-align : center;
@@ -33,18 +34,18 @@ const Logo = Styled.Text`
 
 const PasswordReset = Styled.Text`
     width : 100%;
-    color : #5F89FA;
+    color : ${Colors.PRIMARY};
     text-align : right;
     margin-bottom : 24px;
 `;
 
 const SignupText = Styled.Text`
-    color : #000000;
+    color : ${Colors.TEXT2};
     text-align : center;
 `;
 
 const SignupLink = Styled.Text`
-    color : #5F89FA;
+    color : ${Colors.PRIMARY};
 `;
 
 const Footer = Styled.View`
@@ -76,7 +77,7 @@ const Login = ({navigation} :Props) => {
         <Container>
             <FormContainer>
                 <Logo>dingdong</Logo>
-                <Input style={{marginBottom:16}} placeholder="이메일"/>
+                <Input style={{marginBottom:16}} placeholder="아이디"/>
                 <Input style={{marginBottom:16}} placeholder="비밀번호" secureTextEntry={true}/>
                 <PasswordReset onPress={()=>navigation.navigate('PasswordReset')}>
                     비밀번호 재설정

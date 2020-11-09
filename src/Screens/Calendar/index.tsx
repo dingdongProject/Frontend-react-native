@@ -3,8 +3,8 @@ import Styled from 'styled-components/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import {UserContext} from '~/Context/User';
-
 import CalendarPicker from 'react-native-calendar-picker';
+import Constants from '~/Constants/constants';
 
 type NavigationProp = StackNavigationProp<CalendarNaviParamList, 'Calendar'>;
 
@@ -14,7 +14,7 @@ interface Props {
 
 const Container = Styled.SafeAreaView`
   flex: 1;
-  background-color: #5F89FA;
+  background-color: #fff;
   align-items: center;
   justify-content: center;
 `;
@@ -52,7 +52,7 @@ const Calendar =  ({navigation } : Props) => {
               weekdays={['일','월','화','수','목','금','토']}
               months={['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']}
               textStyle={{
-                color : '#000000',
+                color : Constants.TEXT1,
               }}
               />
             </HomeText>

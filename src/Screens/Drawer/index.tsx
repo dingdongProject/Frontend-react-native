@@ -69,7 +69,7 @@ const Drawer = ({props}:Props) => {
             onPress={()=>{props.navigation.navigate('MyPageEdit',{screen : 'MyPageEdit'})}}
             >
             <Header>
-                <Title>Jun Slim</Title>
+                <Title>junslim11</Title>
             </Header>
             </Button>
             <Button

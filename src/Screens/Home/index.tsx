@@ -17,7 +17,7 @@ interface Props {
 
 const Container = Styled.SafeAreaView`
   flex: 1;
-  background-color: #5F89FA;
+  background-color: #fff;
   align-items: center;
   justify-content: center;
 `;
