@@ -14,10 +14,19 @@ type CirclesNaviParamList = {
 };
 
 type MypageNaviParamList = {
-    Mypage : undefined
+    Mypage : undefined;
+    MyPadgeEdit : undefined;
 };
 
 type HomeNaviParamList = {
     DDHome : undefined;
+};
+
+type MyCircleNaviParamList = {
+    MyCircle : undefined;
+};
+
+type MyPageEditNaviParamList = {
+    MyPageEdit : undefined;
 };
 

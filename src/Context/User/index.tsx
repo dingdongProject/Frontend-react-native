@@ -38,7 +38,9 @@ const UserContextProvider = ({children}:Props) => {
         setUSerInfo({
             username : username[1],
             password : password[1]
+            
         });
+
     })
     .catch(error => {
         setIsLoading(true);
@@ -51,7 +53,11 @@ const UserContextProvider = ({children}:Props) => {
             });
             setIsLoading(true);
         });
+    
     };
+    
+    
+    
 
 
     const signup = (username : string, password : string) : void =>{
@@ -72,6 +78,7 @@ const UserContextProvider = ({children}:Props) => {
     }
 
     const getUserInfo = () : void => {
+        
         AsyncStorage.getItem('token')
         .then(value => {
             if(value){
@@ -97,6 +104,21 @@ const UserContextProvider = ({children}:Props) => {
     useEffect(()=>{
         getUserInfo();
     },[]);
+
+    // useEffect(() => {
+    //     let mounted = true
+    //     fetch('http://junslim11.pythonanywhere.com/signup').then(() => {
+    //         if (mounted) {
+    //             setIsLoading(false)
+    //         }
+    //     })
+
+    //     return function cleanup() {
+    //         mounted = false
+    //     }
+    // }, [])
+
+
 
     
     return (

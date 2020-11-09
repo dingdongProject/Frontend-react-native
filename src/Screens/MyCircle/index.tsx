@@ -2,14 +2,9 @@ import React, {useContext, useLayoutEffect, useEffect} from 'react';
 import Styled from 'styled-components/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
-
-
-
 import {UserContext} from '~/Context/User';
-import IconButton from '~/Components/IconButton';
-import { DrawerActions } from '@react-navigation/native';
 
-type NavigationProp = StackNavigationProp<HomeNaviParamList, 'DDHome'>;
+type NavigationProp = StackNavigationProp<MyCircleNaviParamList, 'MyCircle'>;
 
 interface Props {
   navigation: NavigationProp;
@@ -36,30 +31,19 @@ const StyleButton = Styled.TouchableOpacity`
 const Icon = Styled.Image`
 `;
 
-const DDHome =  ({navigation } : Props) => {
+const MyCirlce =  ({navigation } : Props) => {
+  
 
     useEffect(() => {
         SplashScreen.hide();
       }, []);
 
-    //   useLayoutEffect(()=>{
-    //     console.log("aa")
-    //     navigation.setOptions({
-    //         headerRight: () => (
-    //             <IconButton
-    //                 iconName="menu"
-    //                 onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
-    //             />
-    //         ),
-    //     });
-    // },[]);
-      
 
     return (
       <Container>
           <HomeView>
             <HomeText>
-              탭, 슬라이드 시 드로어
+              circle
             </HomeText>
         </HomeView>
       </Container> 
@@ -67,4 +51,4 @@ const DDHome =  ({navigation } : Props) => {
     );
 };
 
-export default DDHome;
+export default MyCirlce;

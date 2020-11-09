@@ -17,7 +17,7 @@ interface Props {
         // | 'dotMenu'
         // | 'favorite'
         // | 'comment'
-        // | 'bookmark'
+         | 'drawericon'
         | 'menu';
     style? : object;
     onPress ?: ()=> void
@@ -32,8 +32,8 @@ const IconButton = ({iconName,style,onPress}:Props)=>{
         // dotMenu : require('~/Assets/Image/ic_all.png'),
         // favorite : require('~/Assets/Image/ic_all.png'),
         // comment : require('~/Assets/Image/ic_all.png'),
-        // bookmark : require('~/Assets/Image/ic_all.png'),
-        menu : require('~/Assets/Images/Hamburger.jpg'),
+        drawericon : require('~/Assets/Images/ic_all.png'),
+        menu : require('~/Assets/Images/Hamburger.png'),
     };
 
     return (

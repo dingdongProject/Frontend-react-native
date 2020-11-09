@@ -6,8 +6,14 @@ import {
     DrawerContentOptions
 
 } from '@react-navigation/drawer';
+import {createStackNavigator,HeaderBackButton} from '@react-navigation/stack';
+
 
 import {UserContext} from '~/Context/User';
+
+import IconButton from '~/Components/IconButton';
+import MyCircle from '~/Screens/MyCircle';
+import { Alert } from 'react-native';
 
 const Header = Styled.View`
     border-bottom-width : 1px;
@@ -44,18 +50,34 @@ interface Props {
     props : DrawerContentComponentProps<DrawerContentOptions>;
 }
 
+// const Stack = createStackNavigator();
 
+// const MycircleStackNavigator = () => {
+//     return(
+//         <Stack.Navigator>
+//             <Stack.Screen name = "MyCircle" component={MyCircle}/>
+//         </Stack.Navigator>
+//     )
+// }
 
 const Drawer = ({props}:Props) => {
     const {logout} = useContext<IUserContext>(UserContext);
 
     return (
         <DrawerContentScrollView {...props}>
+            <Button
+            onPress={()=>{props.navigation.navigate('MyPageEdit',{screen : 'MyPageEdit'})}}
+            >
             <Header>
                 <Title>Jun Slim</Title>
             </Header>
-            <Button>
-                <ButtonContainer>
+            </Button>
+            <Button
+                onPress={()=>{props.navigation.navigate('MyCircle',{screen : 'MyCircle'})}}
+            >
+                
+                <ButtonContainer
+                >
                     <Icon source={require('~/Assets/Images/ic_all.png')}/>
                     <Label>동아리1</Label>
                 </ButtonContainer>

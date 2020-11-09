@@ -7,6 +7,7 @@ import {UserContext} from '~/Context/User';
 
 import Input from '~/Components/Input';
 import Button from '~/Components/Button';
+import { AppRegistry } from 'react-native';
 
 const Container = Styled.SafeAreaView`
     flex :1;
@@ -65,7 +66,7 @@ interface Props {
 
 const Login = ({navigation} :Props) => {
     const {login} = useContext<IUserContext>(UserContext);
-
+    
     useEffect(()=> {
         SplashScreen.hide();
 

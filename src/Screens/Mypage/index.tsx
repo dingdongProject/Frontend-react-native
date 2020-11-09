@@ -3,11 +3,15 @@ import Styled from 'styled-components/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import {UserContext} from '~/Context/User';
+import IconButton from '~/Components/IconButton';
+import MyPageEdit from '~/Screens/MyPageEdit';
 
-type NavigationProp = StackNavigationProp<MypageNaviParamList, 'Mypage'>;
+type NavigationProp = StackNavigationProp<MyPageEditNaviParamList, 'MyPageEdit'>;
+
 
 interface Props {
   navigation: NavigationProp;
+  
 }
 
 const Container = Styled.SafeAreaView`
@@ -25,11 +29,20 @@ const HomeText = Styled.Text`
     align-items : center;
     color : black;
 `;
-const StyleButton = Styled.TouchableOpacity`
-  padding: 8px;
+
+const Button = Styled.TouchableHighlight`
+    padding : 8px 16px;
 `;
+
+const ButtonContainer = Styled.View`
+    flex-direction : row;
+    align-items : center;
+    `;
+
 const Icon = Styled.Image`
+    margin-right : 8px;
 `;
+
 
 const Mypage =  ({navigation } : Props) => {
   
@@ -45,6 +58,13 @@ const Mypage =  ({navigation } : Props) => {
             <HomeText>
               mypage
             </HomeText>
+            
+              <ButtonContainer>
+                <IconButton iconName = 'menu'
+                onPress={()=>{navigation.navigate("MyPageEdit")}}
+                />
+              </ButtonContainer>
+            
         </HomeView>
       </Container> 
        

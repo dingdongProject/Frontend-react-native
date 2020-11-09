@@ -1,9 +1,10 @@
 import React, {useContext,useLayoutEffect} from 'react';
 import {Image,View,Text, Alert } from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
+import {DrawerActions, NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator,HeaderBackButton} from '@react-navigation/stack';
-import {createDrawerNavigator} from '@react-navigation/drawer';
+import {createDrawerNavigator, useIsDrawerOpen} from '@react-navigation/drawer';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 
 import {UserContext} from '~/Context/User';
@@ -18,11 +19,20 @@ import CustomDrawer from './Drawer';
 import Calendar from './Calendar';
 import Circles from './Circles';
 import Mypage from './Mypage';
+import IconButton from '~/Components/IconButton';
+import MyCirlce from './MyCircle';
+import MyPageEdit from './MyPageEdit';
 
 
 const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
+
+type NavigationProp = StackNavigationProp<HomeNaviParamList, 'DDHome'>;
+
+interface Props {
+  navigation: NavigationProp;
+}
 
 const LoginNavigator = () => {
     return (
@@ -32,25 +42,41 @@ const LoginNavigator = () => {
             <Stack.Screen name="Login" component={Login}/>
             <Stack.Screen name="Signup" component={Signup}/>
             <Stack.Screen name="PasswordReset" component={PasswordReset}/>
-
+            
         </Stack.Navigator>
     );
 };
 
 
-const MainStackNavigator = () =>{
+const MainStackNavigator = ({navigation } : Props) =>{
+    
     return(
-
-        
-
         <Stack.Navigator screenOptions={{headerShown : true}}>
-            <Stack.Screen name="dingdong" component={MainNavigator} 
-            
+            <Stack.Screen name="dingdong" component={MainTab} 
+                options={{
+                    headerLeft : () => (
+                        <IconButton
+                            onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
+                            iconName='menu'/>
+                    )
+                }}
             />
+            <Stack.Screen name = "MyCircle" component={MyCirlce}/>
+            <Stack.Screen name = "MyPageEdit" component={MyPageEdit}/>
+            
             
         </Stack.Navigator>
         
 
+    )
+}
+
+const SubStackNavigator = () => {
+    return(
+        <Stack.Navigator>
+            <Stack.Screen name = "MyCircle" component={MyCirlce}/>
+            <Stack.Screen name = "MyPageEdit" component={MyPageEdit}/>
+        </Stack.Navigator>
     )
 }
 
@@ -137,10 +163,12 @@ const MainNavigator = () => {
         <Drawer.Navigator
             drawerPosition="left"
             drawerContent={(props)=><CustomDrawer props={props}/>}>
-                <Drawer.Screen name ="MainTabs" component={MainTab}/>
+                 <Drawer.Screen name="dingdong" component={MainStackNavigator}/> 
             </Drawer.Navigator>
     );
 };
+
+
 
 export default () => {
     const {isLoading, userInfo} = useContext<IUserContext>(UserContext);
@@ -151,7 +179,7 @@ export default () => {
 
     return (
         <NavigationContainer>
-            {userInfo? <MainStackNavigator/> : <LoginNavigator/>}
+            {userInfo? <MainNavigator/> : <LoginNavigator/>}
         </NavigationContainer>
     );
 };

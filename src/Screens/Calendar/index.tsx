@@ -4,6 +4,8 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import {UserContext} from '~/Context/User';
 
+import CalendarPicker from 'react-native-calendar-picker';
+
 type NavigationProp = StackNavigationProp<CalendarNaviParamList, 'Calendar'>;
 
 interface Props {
@@ -43,7 +45,8 @@ const Calendar =  ({navigation } : Props) => {
       <Container>
           <HomeView>
             <HomeText>
-              달력
+              
+              <CalendarPicker/>
             </HomeText>
         </HomeView>
       </Container> 
