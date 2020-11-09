@@ -11,7 +11,7 @@ import { AppRegistry } from 'react-native';
 
 const Container = Styled.SafeAreaView`
     flex :1;
-    background-color : #FEFFFF;
+    background-color : #ffffff;
 
 `;
 
@@ -24,7 +24,7 @@ const FormContainer = Styled.View`
 `;
 
 const Logo = Styled.Text`
-    color : #292929;
+    color : #5F89FA;
     font-size : 40px;
     font-weight : bold;
     text-align : center;
@@ -33,29 +33,29 @@ const Logo = Styled.Text`
 
 const PasswordReset = Styled.Text`
     width : 100%;
-    color : #3796EF;
+    color : #5F89FA;
     text-align : right;
     margin-bottom : 24px;
 `;
 
 const SignupText = Styled.Text`
-    color : #929292;
+    color : #000000;
     text-align : center;
 `;
 
 const SignupLink = Styled.Text`
-    color : #3796EF;
+    color : #5F89FA;
 `;
 
 const Footer = Styled.View`
     width : 100%;
     border-top-width : 1px;
-    border-color : #D3D3D3;
+    border-color : #000000;
     padding : 8px;
 `;
 
 const Copyright = Styled.Text`
-    color : #929292;
+    color : #000000;
     text-align : center;
 `;
 
@@ -91,7 +91,7 @@ const Login = ({navigation} :Props) => {
                     }}
                     />
                 <SignupText>
-                    계정이 없으신가요?{''}
+                    계정이 없으신가요?{'  '}
                     <SignupLink onPress={()=>navigation.navigate('Signup')}>
                         회원가입
                     </SignupLink>

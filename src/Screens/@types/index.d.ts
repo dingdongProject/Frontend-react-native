@@ -30,3 +30,8 @@ type MyPageEditNaviParamList = {
     MyPageEdit : undefined;
 };
 
+type AddCircleNaviParamList = {
+    AddCircle : undefined;
+};
+
+

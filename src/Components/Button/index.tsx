@@ -7,7 +7,7 @@ const StyleButton = Styled.TouchableOpacity`
   border-radius: 4px;
   justify-content: center;
   align-items: center;
-  background-color: #3796EF;
+  background-color: #5F89FA;
 `;
 const Label = Styled.Text`
   color: #FFFFFF;

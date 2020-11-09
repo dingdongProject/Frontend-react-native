@@ -12,7 +12,7 @@ import { onChange } from 'react-native-reanimated';
 
 const Container = Styled.SafeAreaView`
     flex : 1;
-    background-color : #FEFFFF;
+    background-color : #ffffff;
 `;
 
 const FormContainer = Styled.View`
@@ -29,25 +29,18 @@ const Description = Styled.Text`
     margin : 0px 8px;
 `;
 
-const TabContainer = Styled.View`
-    flex-direction : row;
-    margin-bottom : 16px;
-`;
-
 const Footer = Styled.View`
     width : 100%;
-    border-top-width : 1px;
-    border-color : #D3D3D3;
     padding : 8px;
 `;
 
 const FooterDescription = Styled.Text`
-    color : #929292;
+    color : #000000;
     text-align : center;
 `;
 
 const GoBack = Styled.Text`
-    color : #3796EF;
+    color : #5F89FA;
 `;
 
 type NavigationProp = StackNavigationProp<LoginNaviParamList, 'Signup'>;
@@ -91,7 +84,9 @@ const Signup = ({navigation}:Props) => {
                 
                 }
                 label="가입완료" 
-                style={{marginBottom : 24}}/>
+                style={{marginBottom : 24,
+                    
+                        }}/>
             </FormContainer>
            <Footer>
             <FooterDescription>

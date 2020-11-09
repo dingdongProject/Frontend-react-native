@@ -6,10 +6,11 @@ import Styled from 'styled-components/native';
 import Input from '~/Components/Input';
 import Button from '~/Components/Button';
 import Tab from '~/Components/Tab';
+import {TextInput} from 'react-native';
 
 const Container = Styled.SafeAreaView`
     flex : 1;
-    background-color : #FEFFFF;
+    background-color : #ffffff;
 
 `;
 
@@ -30,6 +31,7 @@ const LockImageContainer = Styled.View`
 
 const LockImage = Styled.Image``;
 const Title = Styled.Text`
+    color : #5F89FA;
     font-size : 16px;
     margin-bottom: 16px;
 `;
@@ -37,27 +39,21 @@ const Title = Styled.Text`
 const Description = Styled.Text`
     text-align : center;
     margin-bottom : 16px;
-    color : #292929;
+    color : #ffffff;
 `;
 
-const TabContainer = Styled.View`
-    flex-direction : row;
-    margin-bottom : 16px;
-`;
 
 const HelpLabel = Styled.Text`
-    color : #3796EF;
+    color : #ffffff;
 `;
 
 const Footer = Styled.View`
     width : 100%;
-    border-top-width : 1px;
-    border-color : #D3D3D3;
     padding : 8px;
 `;
 
 const GoBack = Styled.Text`
-    color : #3796EF;
+    color : #5F89FA;
     text-align : center;
 `;
 
@@ -68,13 +64,7 @@ interface Props {
 }
 
 const PasswordReset = ({navigation}:Props) => {
-    const [tabIndex, setTabIndex] = useState<number>(0);
-    const tabs = ['사용자 이름', '전화번호'];
-    const tabDescriptions = [
-        '이메일 입력',
-        '전화번호 입력'
-    ];
-    const placeholders = ['사용자 이름 또는 이메일','전화번호']
+    const [username,onChangename] = useState('')
 
     return (
         <Container>
@@ -83,21 +73,16 @@ const PasswordReset = ({navigation}:Props) => {
                     <LockImage source={require('~/Assets/Images/ic_all.png')} />
                 </LockImageContainer>
             <Title>비밀번호를 잊어버리셨나요?</Title>
-    <Description>{tabDescriptions[tabIndex]}</Description>
-        <TabContainer>
-            {tabs.map((label : string, index: number)=> (
-                <Tab
-                    key ={'tab-${index}'}
-                    selected={tabIndex === index}
-                    label ={label}
-                    onPress={()=>setTabIndex(index)}
-                />
-            ))}
-        </TabContainer>
-            <Input
-                style ={{marginBottom : 16}}
-                placeholder={placeholders[tabIndex]}
-            />
+    
+       
+        <TextInput
+                    style ={{marginBottom:16}}
+                    placeholder={'Email' }
+                    onChangeText={text => onChangename(text)}
+                    value={username}
+        />
+       
+
             <Button label="다음" style={{marginBottom : 24}} />
             <HelpLabel>도움</HelpLabel>
             </FormContainer>

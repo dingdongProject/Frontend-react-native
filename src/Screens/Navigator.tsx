@@ -22,6 +22,7 @@ import Mypage from './Mypage';
 import IconButton from '~/Components/IconButton';
 import MyCirlce from './MyCircle';
 import MyPageEdit from './MyPageEdit';
+import AddCircle from './AddCircle';
 
 
 const Stack = createStackNavigator();
@@ -54,6 +55,9 @@ const MainStackNavigator = ({navigation } : Props) =>{
         <Stack.Navigator screenOptions={{headerShown : true}}>
             <Stack.Screen name="dingdong" component={MainTab} 
                 options={{
+                    headerStyle:{
+                        backgroundColor : '#ffffff',
+                    },
                     headerLeft : () => (
                         <IconButton
                             onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
@@ -63,7 +67,7 @@ const MainStackNavigator = ({navigation } : Props) =>{
             />
             <Stack.Screen name = "MyCircle" component={MyCirlce}/>
             <Stack.Screen name = "MyPageEdit" component={MyPageEdit}/>
-            
+            <Stack.Screen name = "AddCircle" component={AddCircle}/>
             
         </Stack.Navigator>
         
