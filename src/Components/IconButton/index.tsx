@@ -2,7 +2,7 @@ import React from 'react';
 import Styled from 'styled-components/native';
 
 const Container = Styled.TouchableOpacity`
-    padding : 8px;
+    padding : 16px;
 `;
 
 const Icon = Styled.Image`

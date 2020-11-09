@@ -82,12 +82,6 @@ const Drawer = ({props}:Props) => {
                     <Label>동아리1</Label>
                 </ButtonContainer>
             </Button>
-            <Button>
-                <ButtonContainer>
-                    <Icon source={require('~/Assets/Images/ic_all.png')}/>
-                    <Label>동아리2</Label>
-                </ButtonContainer>
-            </Button>
             <Button
                 onPress={()=>{props.navigation.navigate('AddCircle',{screen : 'AddCircle'})}}
             >
