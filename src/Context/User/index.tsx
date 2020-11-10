@@ -1,6 +1,7 @@
 import React , { createContext, useState, useEffect } from 'react';
 import Alert from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import api from '~/Api/api'
 
 
 const defaultContext : IUserContext = {
@@ -56,25 +57,16 @@ const UserContextProvider = ({children}:Props) => {
     
     };
     
-    
-    
-
-
-    const signup = (username : string, password : string) : void =>{
-        fetch('http://junslim11.pythonanywhere.com/signup',{
-            method : 'POST',
-            headers : {
-                Accept: 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                username: username,
-                password: password
-            })
-        }).then( response => response.json()).then( data => {
-            console.log(data)
-
-        });
+    const signup = (email: string, username : string, password : string) : void =>{
+        api.signUp({
+            username: username,
+            email: email, 
+            password: password
+        }).then((response) => {
+            return response.data
+        }).then((data) => {
+            console.warn("token: ", data.token)
+        })
     }
 
     const getUserInfo = () : void => {
