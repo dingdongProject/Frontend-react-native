@@ -7,10 +7,13 @@ import api from '~/Api/api'
 const defaultContext : IUserContext = {
     isLoading : false,
     userInfo : undefined,
+    tokenInfo : undefined,
     login : (username: string, password: string) => {},
-    signup : (username: string, password: string) => {},
+    signup : (username: string, password: string, email : string) => {},
     getUserInfo: () => {},
     logout: () =>{},
+    withdraw : (username : string, password : string) => {},
+    user : () => {},
 };
 
 
@@ -24,6 +27,7 @@ const UserContextProvider = ({children}:Props) => {
     const [userInfo, setUSerInfo]= useState<IUserInfo | 
         undefined>(undefined);
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [tokenInfo,setTokenInfo] = useState<ITokenInfo |undefined>(undefined);
 
     const showError = (message: string) : void => {
         setTimeout(()=> {
@@ -33,27 +37,37 @@ const UserContextProvider = ({children}:Props) => {
     };
 
     const login = (username: string, password : string) : void => {
-        fetch ('http://junslim11.pythonanywhere.com/signup')
-        .then(response => response.json())
-        .then(json => {
-        setUSerInfo({
-            username : username[1],
-            password : password[1]
-            
-        });
+    //     fetch ('http://junslim11.pythonanywhere.com/signup')
+    //     .then((response) => 
+    //     {
+    //         console.warn(response.json)
+    //         return response.json()
 
-    })
-    .catch(error => {
-        setIsLoading(true);
-        showError('fail');
-    })
-        AsyncStorage.setItem('token','save your token').then(()=>{
-            setUSerInfo({
-                username : username,
-                password : password
-            });
-            setIsLoading(true);
-        });
+    //     }).then((response) => {
+    //         console.warn(response)
+    //     setUSerInfo({
+    //         username : username,
+    //         password : password
+            
+    //     });
+
+    // })
+    // .catch(error => {
+    //     setIsLoading(true);
+    //     showError('fail');
+    // })
+        api.logIn({
+            username : username,
+            password : password,
+        }).then((response)=>{
+            return response.data
+        }).then((data)=>{
+            AsyncStorage.setItem('token',data.token)
+            setTokenInfo(data.token)
+        }).catch(error => {
+                setIsLoading(true);
+                showError('잘못된 정보 입력입니다!');
+            })
     
     };
     
@@ -65,19 +79,37 @@ const UserContextProvider = ({children}:Props) => {
         }).then((response) => {
             return response.data
         }).then((data) => {
-            console.warn("token: ", data.token)
+                AsyncStorage.setItem('token',data.token)
+                setTokenInfo(data.token)
+               console.warn('token',tokenInfo)
+        }).then(()=>{
+            setUSerInfo(undefined);
+        })
+            
+            
+        
+    };
+    const user = () : void => {
+        api.user().then((response)=>{
+            return response.data
+
+        }).then((data)=>{
+            setUSerInfo({
+                username : data.username,
+                email : data.email,
+                picture : data.picture,
+            })
         })
     }
+
+
 
     const getUserInfo = () : void => {
         
         AsyncStorage.getItem('token')
         .then(value => {
             if(value){
-                setUSerInfo({
-                    username : 'aa',
-                    password : 'bb',
-                });
+                return (userInfo?.username);
             }
             setIsLoading(true);
         })
@@ -92,6 +124,15 @@ const UserContextProvider = ({children}:Props) => {
         AsyncStorage.removeItem('token');
         setUSerInfo(undefined);
     };
+
+    const withdraw = (username : string, password : string):void => {
+        api.withDraw({
+            username : username,
+            password : password
+        })
+        AsyncStorage.removeItem('token');
+        setUSerInfo(undefined);
+    }
 
     useEffect(()=>{
         getUserInfo();
@@ -118,10 +159,13 @@ const UserContextProvider = ({children}:Props) => {
             value = {{
                 isLoading,
                 userInfo,
+                tokenInfo,
                 login,
                 signup,
                 getUserInfo,
                 logout,
+                withdraw,
+                user,
             }}>
                 {children}
             </UserContext.Provider>

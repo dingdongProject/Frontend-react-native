@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import Styled from 'styled-components/native';
 import {
     DrawerContentScrollView,
@@ -14,6 +14,8 @@ import {UserContext} from '~/Context/User';
 import IconButton from '~/Components/IconButton';
 import MyCircle from '~/Screens/MyCircle';
 import { Alert } from 'react-native';
+import { PrivateValueStore } from '@react-navigation/native';
+import { PageContext } from '~/Context/Page';
 
 const Header = Styled.View`
     border-bottom-width : 1px;
@@ -61,16 +63,33 @@ interface Props {
 // }
 
 const Drawer = ({props}:Props) => {
-    const {logout} = useContext<IUserContext>(UserContext);
+    const {logout,getUserInfo} = useContext<IUserContext>(UserContext);
+    const {pagetracer} = useContext<IPageContext>(PageContext);
+
+    const Pagename = () => {
+
+    }
+    const username = getUserInfo()
 
     return (
         <DrawerContentScrollView {...props}>
             <Button
-            onPress={()=>{props.navigation.navigate('MyPageEdit',{screen : 'MyPageEdit'})}}
+            onPress={()=>{props.navigation.navigate('DDHome')}}
+            
             >
             <Header>
-                <Title>junslim11</Title>
+                <Title>1:{username}</Title>
             </Header>
+            </Button>
+            <Button
+                onPress={()=>{props.navigation.navigate('dingdong',{screen : 'MainTab'})}}
+            >
+                
+                <ButtonContainer
+                >
+                    <Icon source={require('~/Assets/Images/ic_all.png')}/>
+                    <Label>HOME</Label>
+                </ButtonContainer>
             </Button>
             <Button
                 onPress={()=>{props.navigation.navigate('MyCircle',{screen : 'MyCircle'})}}

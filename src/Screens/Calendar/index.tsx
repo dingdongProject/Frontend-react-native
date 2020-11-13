@@ -11,7 +11,7 @@ type NavigationProp = StackNavigationProp<CalendarNaviParamList, 'Calendar'>;
 
 interface Props {
   navigation?: NavigationProp;
-  date?:string;
+
 }
 
 const Container = Styled.SafeAreaView`
@@ -38,14 +38,21 @@ const Icon = Styled.Image`
 
 
 const Calendar =  ({navigation } : Props) => {
-    const minDate =  new Date();
+    const minDate =  new Date(2017,11,8);
     const maxDate = new Date(2022,11,8);
-    
+    // const [selectedStartDate,setSelectedStartDate] = useState<any>(null);
+    // const startDate = selectedStartDate? selectedStartDate : null;
     
     useEffect(() => {
         SplashScreen.hide();
       }, []);
-    
+      
+    // const onDateChange = (date : any) => {
+    //   setSelectedStartDate({
+        
+    //    selectedStartDate : date,
+    //   });
+    // } 
 
 
     return (
@@ -53,7 +60,7 @@ const Calendar =  ({navigation } : Props) => {
           <HomeView>
             <Modals/>
             <HomeText>
-              <CalendarPicker
+              {/* <CalendarPicker
               minDate={minDate}
               maxDate={maxDate}
               
@@ -63,10 +70,11 @@ const Calendar =  ({navigation } : Props) => {
                 color : Constants.TEXT1,
               }}
               selectedDayColor="#7300e6"
+              // onDateChange={onDateChange}
               
               
               
-              />
+              /> */}
               
               select : {}
             </HomeText>

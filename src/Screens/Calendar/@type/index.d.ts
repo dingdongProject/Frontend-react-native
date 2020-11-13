@@ -1,4 +1,0 @@
-// interface dateinfo {
-//     dateinfo : string;
-    
-// }

@@ -15,7 +15,7 @@ const SearchBar = () => {
     return (
         <Container>
             <Input style={{flex : 1, marginLeft : 8 , height : 32}} placeholder = "검색" />
-            <IconButton iconName="camera"/>
+            <IconButton iconName="menu"/>
         </Container>
     );
 };

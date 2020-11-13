@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const BASE_URL = "http://52.78.45.254:8000/"
+export const BASE_URL = "http://52.78.45.254/"
 // export const BASE_URL = "http://localhost:5000"
 export const METHOD = {
     GET: { num: 0, type: "get" },

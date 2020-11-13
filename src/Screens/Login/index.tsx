@@ -1,4 +1,4 @@
-import React , { useContext, useEffect } from 'react';
+import React , { useContext, useEffect, useState } from 'react';
 import Styled from 'styled-components/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
@@ -65,8 +65,19 @@ interface Props {
     navigation : NavigationProp;
 }
 
+
+
 const Login = ({navigation} :Props) => {
+    const [email,onChangeEmail] = useState('');
+    const [password,onChangePassword] =useState('');
     const {login} = useContext<IUserContext>(UserContext);
+
+    const checkInputs= () => {
+        let emailTest = true;
+        let pwTest = true;
+        return (emailTest && pwTest);
+    
+    }
     
     useEffect(()=> {
         SplashScreen.hide();
@@ -77,8 +88,8 @@ const Login = ({navigation} :Props) => {
         <Container>
             <FormContainer>
                 <Logo>dingdong</Logo>
-                <Input style={{marginBottom:16}} placeholder="아이디"/>
-                <Input style={{marginBottom:16}} placeholder="비밀번호" secureTextEntry={true}/>
+                <Input style={{marginBottom:16}} placeholder="아이디" onChangeText={text => onChangeEmail(text)}/>
+                <Input style={{marginBottom:16}} placeholder="비밀번호" onChangeText={text => onChangePassword(text)} secureTextEntry={true}/>
                 <PasswordReset onPress={()=>navigation.navigate('PasswordReset')}>
                     비밀번호 재설정
                 </PasswordReset>
@@ -88,7 +99,14 @@ const Login = ({navigation} :Props) => {
                         marginBottom : 24
                     }}
                     onPress={()=>{
-                        login('ding-dong@naver.com','password'); //수정
+                        if(checkInputs()){
+                            login(email,password); //수정
+                        }
+                        else
+                        {
+                            console.warn('No!')
+                        }
+                        
                     }}
                     />
                 <SignupText>

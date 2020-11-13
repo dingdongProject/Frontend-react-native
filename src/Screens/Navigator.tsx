@@ -1,4 +1,4 @@
-import React, {useContext,useLayoutEffect} from 'react';
+import React, {useContext,useLayoutEffect,useState} from 'react';
 import {Image,View,Text, Alert } from 'react-native';
 import {DrawerActions, NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator,HeaderBackButton} from '@react-navigation/stack';
@@ -8,6 +8,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 
 
 import {UserContext} from '~/Context/User';
+import {PageContext} from '~/Context/Page';
 import Loading from '~/Components/Loading';
 
 import Login from '~/Screens/Login';
@@ -31,6 +32,8 @@ const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 
+
+
 type NavigationProp = StackNavigationProp<HomeNaviParamList, 'DDHome'>;
 
 interface Props {
@@ -47,6 +50,18 @@ const LoginNavigator = () => {
             <Stack.Screen name="PasswordReset" component={PasswordReset}/>
             
         </Stack.Navigator>
+    );
+};
+
+const MainNavigator = () => {
+    
+
+    return (
+        <Drawer.Navigator
+            drawerPosition="left"
+            drawerContent={(props)=><CustomDrawer props={props}/>}>
+                 <Drawer.Screen name="dingdong" component={MainStackNavigator}/> 
+            </Drawer.Navigator>
     );
 };
 
@@ -79,11 +94,11 @@ const MainStackNavigator = ({navigation } : Props) =>{
                         backgroundColor : Constants.PRIMARY,
                     },
                     headerTintColor: '#fff',
-                    headerLeft : () => (
-                        <IconButton
-                            onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
-                            iconName='menu'/>
-                    ),
+                    // headerLeft : () => (
+                    //     <IconButton
+                    //         onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
+                    //         iconName='menu'/>
+                    // ),
                     headerRight: () => (
                         <IconButton
                             onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
@@ -112,6 +127,7 @@ const SubStackNavigator = () => {
 
 
 const MainTab = () => {
+    const {protopage} = useContext<IPageContext>(PageContext);
     return (
         
         <BottomTab.Navigator
@@ -188,20 +204,12 @@ const MainTab = () => {
     );
 };
 
-const MainNavigator = () => {
-    return (
-        <Drawer.Navigator
-            drawerPosition="left"
-            drawerContent={(props)=><CustomDrawer props={props}/>}>
-                 <Drawer.Screen name="dingdong" component={MainStackNavigator}/> 
-            </Drawer.Navigator>
-    );
-};
+
 
 
 
 export default () => {
-    const {isLoading, userInfo} = useContext<IUserContext>(UserContext);
+    const {isLoading, tokenInfo} = useContext<IUserContext>(UserContext);
 
     if(isLoading === false){
         return <Loading />;
@@ -209,7 +217,7 @@ export default () => {
 
     return (
         <NavigationContainer>
-            {userInfo? <MainNavigator/> : <LoginNavigator/>}
+            {tokenInfo? <MainNavigator/> : <LoginNavigator/>}
         </NavigationContainer>
     );
 };

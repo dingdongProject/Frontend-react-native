@@ -64,25 +64,24 @@ const StyledModalOutputText = styled.Text`
   font-size: 30px;
 `;
 
-const Modals = (Props: any): React.ReactElement => {
-  //State를 이용하여 Modal을 제어함
+interface Props{
+  date : string;
+}
+
+const Modals = () => { //선택한 날짜 프롭스 계승할 것
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-  //Output을 State로 받아서 화면에 표출하거나 정보 값으로 활용
   const [modalOutput, setModalOutput] = useState<string>("Open Modal");
   return (
     <StyledSafeAreaView>
-      {/* Modal이 StyledModalOpenButto의 아래에 있더라도 무관함. Container안에 들어가만 있으면 됨 */}
       <Modal
-        //isVisible Props에 State 값을 물려주어 On/off control
         isVisible={modalVisible}
-        //아이폰에서 모달창 동작시 깜박임이 있었는데, useNativeDriver Props를 True로 주니 해결되었다.
         useNativeDriver={true}
         hideModalContentWhileAnimating={true}
         style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
       >
         <StyledModalContainer>
           <StyledModalGradeWrapper>
-            <StyledModalGradeText>선택지</StyledModalGradeText>
+            <StyledModalGradeText>일단</StyledModalGradeText>
           </StyledModalGradeWrapper>
 
           <StyledModalButton
@@ -90,7 +89,7 @@ const Modals = (Props: any): React.ReactElement => {
               setModalVisible(false);
             }}
           >
-            <Text style={{ alignSelf: "center" }}>취소</Text>
+            <Text style={{ alignSelf: "center" }}>보류</Text>
           </StyledModalButton>
         </StyledModalContainer>
       </Modal>
@@ -100,8 +99,6 @@ const Modals = (Props: any): React.ReactElement => {
           setModalVisible(true);
         }}
       >
-        {/* 모달에서 선택 결과 값을 State로 받아서 화면에 표시 */}
-        <StyledModalOutputText> {modalOutput}</StyledModalOutputText>
       </StyledModalOpenButton>
     </StyledSafeAreaView>
   );

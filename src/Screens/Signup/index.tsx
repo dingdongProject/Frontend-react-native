@@ -115,7 +115,7 @@ const Signup = ({navigation}:Props) => {
                         console.warn(username, password, email)
                         if (checkInputs()) {
                             signup(email, username, password);
-                            navigation.goBack()
+                            navigation.navigate('Login')
                         }
                         else {
                             console.warn('wrong email or pw');

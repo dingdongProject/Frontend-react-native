@@ -45,7 +45,7 @@ const Icon = Styled.Image`
 
 
 const Mypage =  ({navigation } : Props) => {
-  
+  const {user} = useContext<IUserContext>(UserContext);
 
     useEffect(() => {
         SplashScreen.hide();
@@ -57,6 +57,7 @@ const Mypage =  ({navigation } : Props) => {
           <HomeView>
             <HomeText>
               mypage
+              {user}
             </HomeText>
             
               <ButtonContainer>
