@@ -12,7 +12,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 interface Props {}
 
 const App = ({}:Props) => {
-  AsyncStorage.clear();
+  //AsyncStorage.clear();
+  AsyncStorage.getAllKeys().then(AsyncStorage.multiRemove)
   return (
     
       <UserContextProvider>

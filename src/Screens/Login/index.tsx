@@ -100,7 +100,8 @@ const Login = ({navigation} :Props) => {
                     }}
                     onPress={async ()=>{
                         if(checkInputs()){
-                            await login(email,password); //수정
+                            await login(email,password);
+                             //수정
                         }
                         else
                         {

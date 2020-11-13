@@ -16,8 +16,6 @@ interface IUserContext {
     tokenInfo : ITokenInfo | undefined;
     login : (username : string, password : string) => void;
     signup : (email: string,username : string, password : string) => void;
-    getUserInfo : () => IUserInfo | undefined;
     logout: () => void;
     withdraw: (username : string, password : string) => void;
-    user: ()=>void;
 }

@@ -45,7 +45,6 @@ const Icon = Styled.Image`
 
 
 const Mypage =  ({navigation } : Props) => {
-  const {getUserInfo} = useContext(UserContext);
   const [myuser, setMyuser] = useState<IUserInfo>();
 
 
@@ -53,9 +52,8 @@ const Mypage =  ({navigation } : Props) => {
   
     
     useEffect(() => {
-        setMyuser(getUserInfo());
-        SplashScreen.hide();
-      }, []);
+      SplashScreen.hide();
+    }, []);
       
      
       

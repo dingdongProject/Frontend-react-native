@@ -26,6 +26,7 @@ import MyPageEdit from './MyPageEdit';
 import AddCircle from './AddCircle';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Constants from '~/Constants/constants'
+import SplashScreen from 'react-native-splash-screen';
 
 
 const Stack = createStackNavigator();
@@ -214,7 +215,6 @@ export default () => {
     if(isLoading === false){
         return <Loading />;
     }
-
     return (
         <NavigationContainer>
             {tokenInfo? <MainTab/> : <LoginNavigator/>}

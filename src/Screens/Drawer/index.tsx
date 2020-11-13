@@ -63,13 +63,12 @@ interface Props {
 // }
 
 const Drawer = ({props}:Props) => {
-    const {logout,getUserInfo} = useContext<IUserContext>(UserContext);
+    const {logout,userInfo} = useContext<IUserContext>(UserContext);
     const {pagetracer} = useContext<IPageContext>(PageContext);
 
     const Pagename = () => {
 
     }
-    const username = getUserInfo()
 
     return (
         <DrawerContentScrollView {...props}>
@@ -78,7 +77,8 @@ const Drawer = ({props}:Props) => {
             
             >
             <Header>
-                <Title>1:{username}</Title>
+            <Title>{userInfo?.username}</Title>
+            <Title>{userInfo?.email}</Title>
             </Header>
             </Button>
             <Button
