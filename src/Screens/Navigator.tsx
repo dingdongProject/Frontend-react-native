@@ -31,7 +31,7 @@ import Constants from '~/Constants/constants'
 const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
-
+//tab->drawer->stack
 
 
 type NavigationProp = StackNavigationProp<HomeNaviParamList, 'DDHome'>;
@@ -70,7 +70,7 @@ const MainStackNavigator = ({navigation } : Props) =>{
     
     return(
         <Stack.Navigator screenOptions={{headerShown : true}}>
-            <Stack.Screen name="dingdong" component={MainTab} 
+            <Stack.Screen name="dingdong" component={DDHome} 
                 options={{
                     headerStyle:{
                         backgroundColor : Constants.PRIMARY,
@@ -127,14 +127,14 @@ const SubStackNavigator = () => {
 
 
 const MainTab = () => {
-    const {protopage} = useContext<IPageContext>(PageContext);
+    
     return (
         
         <BottomTab.Navigator
             tabBarOptions={{showLabel: false}}>
                 <BottomTab.Screen
                 name = 'Home'
-                component = {DDHome}
+                component = {MainNavigator}
                 options={{
                     tabBarIcon : ({color, focused}) => (
                         <Image
@@ -217,7 +217,7 @@ export default () => {
 
     return (
         <NavigationContainer>
-            {tokenInfo? <MainNavigator/> : <LoginNavigator/>}
+            {tokenInfo? <MainTab/> : <LoginNavigator/>}
         </NavigationContainer>
     );
 };

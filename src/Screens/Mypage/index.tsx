@@ -1,4 +1,4 @@
-import React, {useContext, useLayoutEffect, useEffect} from 'react';
+import React, {useContext, useLayoutEffect, useEffect,useState} from 'react';
 import Styled from 'styled-components/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
@@ -16,7 +16,7 @@ interface Props {
 
 const Container = Styled.SafeAreaView`
   flex: 1;
-  background-color: #5F89FA;
+  background-color: #ffffff;
   align-items: center;
   justify-content: center;
 `;
@@ -45,19 +45,28 @@ const Icon = Styled.Image`
 
 
 const Mypage =  ({navigation } : Props) => {
-  const {user} = useContext<IUserContext>(UserContext);
+  const {getUserInfo} = useContext(UserContext);
+  const [myuser, setMyuser] = useState<IUserInfo>();
 
+
+
+  
+    
     useEffect(() => {
+        setMyuser(getUserInfo());
         SplashScreen.hide();
       }, []);
-
+      
+     
+      
 
     return (
       <Container>
           <HomeView>
             <HomeText>
               mypage
-              {user}
+              
+              
             </HomeText>
             
               <ButtonContainer>

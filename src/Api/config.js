@@ -1,3 +1,5 @@
+import AsyncStorage from "@react-native-community/async-storage";
+import React, {useState} from 'react';
 import axios from "axios";
 
 export const BASE_URL = "http://52.78.45.254/"
@@ -11,7 +13,17 @@ export const METHOD = {
     LOGIN: { num: 5, type: "get" }
 };
 
-export function _promise(method, url, payload = {}) {
+
+
+
+export function _promise(method, url, payload = {}, sendToken = false) {
+    var token = AsyncStorage.getItem('token').then( (val) => {
+        console.log('async', val);
+        return val;
+    }).catch((error)=> {
+        console.log(error)
+        return '';
+    });
     let axiosConfig = { method: method.type, url: url };
     if (method.num <= 1) {
         axiosConfig = {...axiosConfig };
@@ -23,13 +35,15 @@ export function _promise(method, url, payload = {}) {
             headers: { "Content-Type": "multipart/form-data" },
             data: payload
         }
-    } else {
+    }
+    if (sendToken) {
         axiosConfig = {
             ...axiosConfig,
-            headers: payload,
-        }
+            headers: {"Authorization": `Token ${token}`}
+            }
     }
-
+    
+    console.log(axiosConfig)
     return new Promise((resolve, reject) => {
         axios(axiosConfig)
             .then(resp => {

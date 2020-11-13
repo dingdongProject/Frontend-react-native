@@ -12,7 +12,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 interface Props {}
 
 const App = ({}:Props) => {
-  // AsyncStorage.clear();
+  AsyncStorage.clear();
   return (
     
       <UserContextProvider>

@@ -98,9 +98,9 @@ const Login = ({navigation} :Props) => {
                     style = {{
                         marginBottom : 24
                     }}
-                    onPress={()=>{
+                    onPress={async ()=>{
                         if(checkInputs()){
-                            login(email,password); //수정
+                            await login(email,password); //수정
                         }
                         else
                         {

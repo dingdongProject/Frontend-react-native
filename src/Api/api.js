@@ -11,7 +11,7 @@ export default {
         return _promise(METHOD.DELETE, BASE_URL + 'withdraw',payload)
     },
     user : function() {
-        return _promise(METHOD.GET,BASE_URL+`user`)
+        return _promise(METHOD.GET,BASE_URL+`user`,{}, true)
     },
     circle: function(payload) {
         return _promise(METHOD.GET, BASE_URL + `circle/${payload}`)

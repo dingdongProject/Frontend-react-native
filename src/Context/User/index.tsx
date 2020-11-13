@@ -10,7 +10,7 @@ const defaultContext : IUserContext = {
     tokenInfo : undefined,
     login : (username: string, password: string) => {},
     signup : (username: string, password: string, email : string) => {},
-    getUserInfo: () => {},
+    getUserInfo: () => undefined,
     logout: () =>{},
     withdraw : (username : string, password : string) => {},
     user : () => {},
@@ -18,6 +18,7 @@ const defaultContext : IUserContext = {
 
 
 const UserContext = createContext(defaultContext);
+
 
 interface Props {
     children: JSX.Element | Array<JSX.Element>;
@@ -64,7 +65,7 @@ const UserContextProvider = ({children}:Props) => {
         }).then((data)=>{
             AsyncStorage.setItem('token',data.token)
             setTokenInfo(data.token)
-            console.warn(data.token);
+            console.warn('login',data.token);
         }).catch(error => {
                 setIsLoading(true);
                 showError('잘못된 정보 입력입니다!');
@@ -80,11 +81,10 @@ const UserContextProvider = ({children}:Props) => {
         }).then((response) => {
             return response.data
         }).then((data) => {
-                AsyncStorage.setItem('token',data.token)
-                setTokenInfo(data.token)
-                console.warn('token',data.token)
+                
+                console.warn() //boolean 성공 실패 성공 시 로그인창
         }).then(()=>{
-            setUSerInfo(undefined);
+            setTokenInfo(undefined);
         })
             
             
@@ -92,32 +92,43 @@ const UserContextProvider = ({children}:Props) => {
     };
     const user = () : void => {
         api.user().then((response)=>{
+            console.log(response.data)
             return response.data
-
+            
         }).then((data)=>{
             setUSerInfo({
                 username : data.username,
                 email : data.email,
                 picture : data.picture,
             })
+            return userInfo
         })
     }
 
 
 
-    const getUserInfo = () : void => {
-        
-        AsyncStorage.getItem('token')
-        .then(value => {
-            if(value){
-                return (userInfo?.username);
+    const getUserInfo = () : IUserInfo | undefined => {
+        console.log('get user')
+            api.user().then((response)=>{
+                console.log(response.data)
+                return response.data
+            }).then((data) => {
+            if(data){
+                setUSerInfo({
+                    username : data.username,
+                    email : data.email,
+                    picture : data.picture,
+                });
             }
             setIsLoading(true);
+            return userInfo;
         })
         .catch(()=>{
             setUSerInfo(undefined);
             setIsLoading(true);
         });
+        return userInfo;
+        
     };
 
 
