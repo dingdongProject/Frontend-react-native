@@ -64,6 +64,7 @@ const UserContextProvider = ({children}:Props) => {
         }).then((data)=>{
             AsyncStorage.setItem('token',data.token)
             setTokenInfo(data.token)
+            console.warn(data.token);
         }).catch(error => {
                 setIsLoading(true);
                 showError('잘못된 정보 입력입니다!');
@@ -81,7 +82,7 @@ const UserContextProvider = ({children}:Props) => {
         }).then((data) => {
                 AsyncStorage.setItem('token',data.token)
                 setTokenInfo(data.token)
-               console.warn('token',tokenInfo)
+                console.warn('token',data.token)
         }).then(()=>{
             setUSerInfo(undefined);
         })
@@ -122,7 +123,7 @@ const UserContextProvider = ({children}:Props) => {
 
     const logout = ():void => {
         AsyncStorage.removeItem('token');
-        setUSerInfo(undefined);
+        setTokenInfo(undefined);
     };
 
     const withdraw = (username : string, password : string):void => {
