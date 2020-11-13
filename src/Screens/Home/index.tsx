@@ -10,6 +10,7 @@ import IconButton from '~/Components/IconButton';
 import { DrawerActions } from '@react-navigation/native';
 
 import Mainnotice from '~/Components/Mainnotice';
+import Prac from '~/Components/Mainnotice/practice';
 
 type NavigationProp = StackNavigationProp<HomeNaviParamList, 'DDHome'>;
 
@@ -17,26 +18,6 @@ interface Props {
   navigation: NavigationProp;
 }
 
-const Container = Styled.SafeAreaView`
-  flex: 1;
-  background-color: #fff;
-  align-items: center;
-  justify-content: center;
-`;
-
-const HomeView = Styled.View`
-    align-items : center;
-`;
-
-const HomeText = Styled.Text`
-    align-items : center;
-    color : black;
-`;
-const StyleButton = Styled.TouchableOpacity`
-  padding: 8px;
-`;
-const Icon = Styled.Image`
-`;
 
 const DDHome =  ({navigation } : Props) => {
   
@@ -60,13 +41,17 @@ const DDHome =  ({navigation } : Props) => {
       
 
     return (
-      <Container>
-          <HomeView>
-            <Mainnotice/>
-        </HomeView>
-      </Container> 
+      
+            <Mainnotice
+            title ={'a'}
+            item = {"b"}
+            />
+            // <Prac/>
+        
        
     );
 };
 
 export default DDHome;
+
+

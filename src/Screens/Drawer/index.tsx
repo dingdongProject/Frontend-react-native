@@ -64,19 +64,14 @@ interface Props {
 
 const Drawer = ({props}:Props) => {
     const {logout,userInfo} = useContext<IUserContext>(UserContext);
-    const {pagetracer} = useContext<IPageContext>(PageContext);
-
-    const Pagename = () => {
-
-    }
 
     return (
         <DrawerContentScrollView {...props}>
             <Button
-            onPress={()=>{props.navigation.navigate('DDHome')}}
-            
+            onPress={()=>{props.navigation.navigate('MyPageEdit',{screen : 'MyPageEdit'})}}
             >
             <Header>
+            <Icon source={require('~/Assets/Images/default_my.png')}/>
             <Title>{userInfo?.username}</Title>
             <Title>{userInfo?.email}</Title>
             </Header>
@@ -87,7 +82,7 @@ const Drawer = ({props}:Props) => {
                 
                 <ButtonContainer
                 >
-                    <Icon source={require('~/Assets/Images/ic_all.png')}/>
+                    <Icon source={require('~/Assets/Images/home.png')}/>
                     <Label>HOME</Label>
                 </ButtonContainer>
             </Button>
@@ -105,7 +100,7 @@ const Drawer = ({props}:Props) => {
                 onPress={()=>{props.navigation.navigate('AddCircle',{screen : 'AddCircle'})}}
             >
                 <ButtonContainer>
-                    <Icon source={require('~/Assets/Images/ic_all.png')}/>
+                    <Icon source={require('~/Assets/Images/add_circle.png')}/>
                     <Label>새로만들기</Label>
                 </ButtonContainer>
             </Button>

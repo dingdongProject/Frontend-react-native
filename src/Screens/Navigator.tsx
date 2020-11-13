@@ -41,7 +41,7 @@ interface Props {
 
 const LoginNavigator = () => {
     return (
-       //header가 필요한 컴포넌트들
+       
        <Stack.Navigator screenOptions={{headerShown : false}}>
            <Stack.Screen name="onboard" component={onboard}/>
             <Stack.Screen name="Login" component={Login}/>
@@ -208,8 +208,8 @@ const MainTab = () => {
                         <Image
                         source={
                             focused
-                            ? require('~/Assets/Images/ic_all.png')
-                            : require('~/Assets/Images/ic_all.png')
+                            ? require('~/Assets/Images/home.png')
+                            : require('~/Assets/Images/home.png')
                         }
                         />
                     ),
@@ -223,8 +223,8 @@ const MainTab = () => {
                         <Image
                         source={
                             focused
-                            ? require('~/Assets/Images/ic_all.png')
-                            : require('~/Assets/Images/ic_all.png')
+                            ? require('~/Assets/Images/calendar.png')
+                            : require('~/Assets/Images/calendar.png')
                         }
                         />
                     ),
@@ -240,8 +240,8 @@ const MainTab = () => {
                         <Image
                         source={
                             focused
-                            ? require('~/Assets/Images/ic_all.png')
-                            : require('~/Assets/Images/ic_all.png')
+                            ? require('~/Assets/Images/blur_circle.png')
+                            : require('~/Assets/Images/blur_circle.png')
                         }
                         />
                     ),
@@ -257,8 +257,8 @@ const MainTab = () => {
                         <Image
                         source={
                             focused
-                            ? require('~/Assets/Images/ic_all.png')
-                            : require('~/Assets/Images/ic_all.png')
+                            ? require('~/Assets/Images/My.png')
+                            : require('~/Assets/Images/My.png')
                         }
                         />
                     ),
@@ -286,7 +286,8 @@ export default () => {
     
     return (
         <NavigationContainer>
-            {tokenInfo? <MainTab/> : <LoginNavigator/>}
+            {/* {tokenInfo? <MainTab/> : <LoginNavigator/>}   */}
+            {<MainTab/>}
         </NavigationContainer>
     );
 };
