@@ -11,6 +11,7 @@ const defaultContext : IUserContext = {
     login : (username: string, password: string) => {},
     signup : (username: string, password: string, email : string) => {},
     logout: () =>{},
+    user : () => {},
     withdraw : (username : string, password : string) => {},
 };
 
@@ -72,16 +73,30 @@ const UserContextProvider = ({children}:Props) => {
                 }
                 setIsLoading(true);
             })
-            .catch(()=>{
+         }).catch(()=>{
                 setUSerInfo(undefined);
                 setIsLoading(true);
-            });  
+            // });  
         }).catch(error => {
                 setIsLoading(true);
                 showError('잘못된 정보 입력입니다!');
             })
     
     };
+
+    const user = () => {
+        api.user().then((response)=>{
+            console.log('token exist')
+            if(response.data){
+                setUSerInfo(response.data);
+            }
+            setIsLoading(true);
+        })
+        .catch(()=>{
+            setUSerInfo(undefined);
+            setIsLoading(true);
+        });
+    }
     
     const signup = (email: string, username : string, password : string) : void =>{
         api.signUp({
@@ -143,6 +158,7 @@ const UserContextProvider = ({children}:Props) => {
                 login,
                 signup,
                 logout,
+                user,
                 withdraw,
             }}>
                 {children}

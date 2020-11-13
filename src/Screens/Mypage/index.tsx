@@ -46,6 +46,7 @@ const Icon = Styled.Image`
 
 const Mypage =  ({navigation } : Props) => {
   const [myuser, setMyuser] = useState<IUserInfo>();
+  
 
 
 

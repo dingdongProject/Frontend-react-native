@@ -9,6 +9,8 @@ import {UserContext} from '~/Context/User';
 import IconButton from '~/Components/IconButton';
 import { DrawerActions } from '@react-navigation/native';
 
+import Mainnotice from '~/Components/Mainnotice';
+
 type NavigationProp = StackNavigationProp<HomeNaviParamList, 'DDHome'>;
 
 interface Props {
@@ -37,8 +39,10 @@ const Icon = Styled.Image`
 `;
 
 const DDHome =  ({navigation } : Props) => {
+  
 
     useEffect(() => {
+        
         SplashScreen.hide();
       }, []);
 
@@ -58,9 +62,7 @@ const DDHome =  ({navigation } : Props) => {
     return (
       <Container>
           <HomeView>
-            <HomeText>
-              탭, 슬라이드 시 드로어
-            </HomeText>
+            <Mainnotice/>
         </HomeView>
       </Container> 
        

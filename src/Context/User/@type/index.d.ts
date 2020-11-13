@@ -17,5 +17,6 @@ interface IUserContext {
     login : (username : string, password : string) => void;
     signup : (email: string,username : string, password : string) => void;
     logout: () => void;
+    user: () => void;
     withdraw: (username : string, password : string) => void;
 }

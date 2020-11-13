@@ -24,9 +24,7 @@ import IconButton from '~/Components/IconButton';
 import MyCirlce from './MyCircle';
 import MyPageEdit from './MyPageEdit';
 import AddCircle from './AddCircle';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
 import Constants from '~/Constants/constants'
-import SplashScreen from 'react-native-splash-screen';
 
 
 const Stack = createStackNavigator();
@@ -117,18 +115,87 @@ const MainStackNavigator = ({navigation } : Props) =>{
     )
 }
 
-const SubStackNavigator = () => {
+const CalendarNavigator = ({navigation } : Props) => {
     return(
         <Stack.Navigator>
-            <Stack.Screen name = "MyCircle" component={MyCirlce}/>
-            <Stack.Screen name = "MyPageEdit" component={MyPageEdit}/>
+            <Stack.Screen name = "Calendar" component={Calendar}
+            options={{
+                headerStyle:{
+                    backgroundColor : Constants.PRIMARY,
+                },
+                headerTintColor: '#fff',
+                // headerLeft : () => (
+                //     <IconButton
+                //         onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
+                //         iconName='menu'/>
+                // ),
+                // headerRight: () => (
+                //     <IconButton
+                //         onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
+                //         iconName='search'/>
+                // )
+            }}
+            />
+        </Stack.Navigator>
+    )
+}
+
+const CirclesNavigator = ({navigation } : Props) => {
+    return(
+        <Stack.Navigator>
+            <Stack.Screen name = "Circles" component={Circles}
+            options={{
+                headerStyle:{
+                    backgroundColor : Constants.PRIMARY,
+                },
+                headerTintColor: '#fff',
+                // headerLeft : () => (
+                //     <IconButton
+                //         onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
+                //         iconName='menu'/>
+                // ),
+                // headerRight: () => (
+                //     <IconButton
+                //         onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
+                //         iconName='search'/>
+                // )
+            }}
+            />
+        </Stack.Navigator>
+    )
+}
+
+const MypageNavigator = ({navigation } : Props) => {
+    return(
+        <Stack.Navigator>
+            <Stack.Screen name = "Mypage" component={Mypage}
+            options={{
+                headerStyle:{
+                    backgroundColor : Constants.PRIMARY,
+                },
+                headerTintColor: '#fff',
+                // headerLeft : () => (
+                //     <IconButton
+                //         onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
+                //         iconName='menu'/>
+                // ),
+                // headerRight: () => (
+                //     <IconButton
+                //         onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
+                //         iconName='search'/>
+                // )
+            }}
+            />
         </Stack.Navigator>
     )
 }
 
 
 const MainTab = () => {
-    
+    // const {tokenInfo,user} = useContext<IUserContext>(UserContext);
+    //     if(tokenInfo){
+    //         user();
+    //     }
     return (
         
         <BottomTab.Navigator
@@ -150,7 +217,7 @@ const MainTab = () => {
                 />
                 <BottomTab.Screen
                 name = "Calendar"
-                component = {Calendar}
+                component = {CalendarNavigator}
                 options={{
                     tabBarIcon : ({color, focused}) => (
                         <Image
@@ -166,7 +233,7 @@ const MainTab = () => {
                 />
                 <BottomTab.Screen
                 name = "Circles"
-                component ={Circles}
+                component ={CirclesNavigator}
                 options={{
                     tabBarLabel : 'Third',
                     tabBarIcon : ({color, focused}) => (
@@ -183,7 +250,7 @@ const MainTab = () => {
                 />
                 <BottomTab.Screen
                 name = "Mypage"
-                component ={Mypage}
+                component ={MypageNavigator}
                 options={{
                     
                     tabBarIcon : ({color, focused}) => (
@@ -211,10 +278,12 @@ const MainTab = () => {
 
 export default () => {
     const {isLoading, tokenInfo} = useContext<IUserContext>(UserContext);
+    
 
     if(isLoading === false){
         return <Loading />;
     }
+    
     return (
         <NavigationContainer>
             {tokenInfo? <MainTab/> : <LoginNavigator/>}
