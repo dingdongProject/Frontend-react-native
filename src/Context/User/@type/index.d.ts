@@ -13,10 +13,10 @@ interface ITokenInfo {
 interface IUserContext {
     isLoading : boolean;
     userInfo : IUserInfo | undefined;
-    tokenInfo : ITokenInfo | undefined;
+    tokenInfo : ITokenInfo | undefined | null;
     login : (username : string, password : string) => void;
     signup : (email: string,username : string, password : string) => void;
     logout: () => void;
-    user: () => void;
+    userset: () => void;
     withdraw: (username : string, password : string) => void;
 }

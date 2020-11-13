@@ -46,6 +46,7 @@ const Icon = Styled.Image`
 
 const Mypage =  ({navigation } : Props) => {
   const [myuser, setMyuser] = useState<IUserInfo>();
+  const {userInfo,tokenInfo} = useContext<IUserContext>(UserContext);
   
 
 
@@ -63,9 +64,13 @@ const Mypage =  ({navigation } : Props) => {
       <Container>
           <HomeView>
             <HomeText>
-              mypage
-              
-              
+              {userInfo?.email}
+            </HomeText>
+            <HomeText>
+              {userInfo?.picture}
+            </HomeText>
+            <HomeText>
+              {userInfo?.username}
             </HomeText>
             
               <ButtonContainer>

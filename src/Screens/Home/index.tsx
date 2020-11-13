@@ -1,7 +1,8 @@
-import React, {useContext, useLayoutEffect, useEffect} from 'react';
+import React, {useContext, useLayoutEffect, useEffect, useState} from 'react';
 import Styled from 'styled-components/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
+import AsyncStorage from '@react-native-community/async-storage';
 
 
 
@@ -20,12 +21,11 @@ interface Props {
 
 
 const DDHome =  ({navigation } : Props) => {
-  
-
+  const {userInfo} = useContext<IUserContext>(UserContext);
     useEffect(() => {
-        
         SplashScreen.hide();
       }, []);
+      
 
     //   useLayoutEffect(()=>{
     //     console.log("aa")
@@ -41,7 +41,7 @@ const DDHome =  ({navigation } : Props) => {
       
 
     return (
-      
+
             <Mainnotice
             title ={'a'}
             item = {"b"}

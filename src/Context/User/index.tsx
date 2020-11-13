@@ -1,6 +1,7 @@
 import React , { createContext, useState, useEffect } from 'react';
 import Alert from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
+import SplashScreen from 'react-native-splash-screen';
 import api from '~/Api/api'
 
 
@@ -11,7 +12,7 @@ const defaultContext : IUserContext = {
     login : (username: string, password: string) => {},
     signup : (username: string, password: string, email : string) => {},
     logout: () =>{},
-    user : () => {},
+    userset : () => {},
     withdraw : (username : string, password : string) => {},
 };
 
@@ -27,14 +28,24 @@ const UserContextProvider = ({children}:Props) => {
     const [userInfo, setUSerInfo]= useState<IUserInfo | 
         undefined>(undefined);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [tokenInfo,setTokenInfo] = useState<ITokenInfo |undefined>(undefined);
+    const [tokenInfo,setTokenInfo] = useState<ITokenInfo | undefined | null>(undefined);
 
     const showError = (message: string) : void => {
         setTimeout(()=> {
-            Alert;
+            console.warn(message);
     
         },200);
     };
+
+    
+
+    useEffect(() => {
+        SplashScreen.hide();
+        setIsLoading(true)
+        userset();
+        console.log('check usercontext useEffect')
+      }, []);
+    
 
     const login = (username: string, password : string) : void => {
     //     fetch ('http://junslim11.pythonanywhere.com/signup')
@@ -64,29 +75,30 @@ const UserContextProvider = ({children}:Props) => {
         }).then((data)=>{
             AsyncStorage.setItem('token',data.token)
             setTokenInfo(data.token)
-            console.warn('login',data.token);
         }).then(() => {
             api.user().then((response)=>{
-                console.log(response.data)
+                console.log('usercontext, after login get',response.data)
                 if(response.data){
                     setUSerInfo(response.data);
                 }
                 setIsLoading(true);
             })
-         }).catch(()=>{
-                setUSerInfo(undefined);
-                setIsLoading(true);
-            // });  
-        }).catch(error => {
+         }).catch(error =>{
+                
                 setIsLoading(true);
                 showError('잘못된 정보 입력입니다!');
-            })
+            // });  
+        })
     
     };
 
-    const user = () => {
+    const userset = () => {
+            // AsyncStorage.getItem('token').then((data) => {
+            //     if(data ===null){
+            //     setTokenInfo(data);
+            //     }
+            // });
         api.user().then((response)=>{
-            console.log('token exist')
             if(response.data){
                 setUSerInfo(response.data);
             }
@@ -115,9 +127,12 @@ const UserContextProvider = ({children}:Props) => {
             
         
     };
+
+
     const logout = ():void => {
         AsyncStorage.removeItem('token');
         setTokenInfo(undefined);
+        setUSerInfo(undefined);
     };
 
     const withdraw = (username : string, password : string):void => {
@@ -129,9 +144,7 @@ const UserContextProvider = ({children}:Props) => {
         setUSerInfo(undefined);
     }
 
-    useEffect(()=>{
-        setIsLoading(true);
-    },[]);
+    
 
     // useEffect(() => {
     //     let mounted = true
@@ -158,7 +171,7 @@ const UserContextProvider = ({children}:Props) => {
                 login,
                 signup,
                 logout,
-                user,
+                userset,
                 withdraw,
             }}>
                 {children}

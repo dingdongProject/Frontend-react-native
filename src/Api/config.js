@@ -18,7 +18,7 @@ export const METHOD = {
 
 export async function _promise(method, url, payload = {}, sendToken = false) {
     var token = await AsyncStorage.getItem('token').then( (val) => {
-        console.log('async', val);
+        console.log('config.js : async : ', val);
         return val;
     }).catch((error)=> {
         console.log(error)

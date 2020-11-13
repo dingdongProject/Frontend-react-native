@@ -1,11 +1,11 @@
-import React, {useContext,useLayoutEffect,useState} from 'react';
+import React, {useContext,useEffect,useLayoutEffect,useState} from 'react';
 import {Image,View,Text, Alert } from 'react-native';
 import {DrawerActions, NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator,HeaderBackButton} from '@react-navigation/stack';
 import {createDrawerNavigator, useIsDrawerOpen} from '@react-navigation/drawer';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {StackNavigationProp} from '@react-navigation/stack';
-
+import AsyncStorage from '@react-native-community/async-storage';
 
 import {UserContext} from '~/Context/User';
 import {PageContext} from '~/Context/Page';
@@ -25,6 +25,7 @@ import MyCirlce from './MyCircle';
 import MyPageEdit from './MyPageEdit';
 import AddCircle from './AddCircle';
 import Constants from '~/Constants/constants'
+import SplashScreen from 'react-native-splash-screen';
 
 
 const Stack = createStackNavigator();
@@ -43,7 +44,7 @@ const LoginNavigator = () => {
     return (
        
        <Stack.Navigator screenOptions={{headerShown : false}}>
-           <Stack.Screen name="onboard" component={onboard}/>
+           {/* <Stack.Screen name="onboard" component={onboard}/> */}
             <Stack.Screen name="Login" component={Login}/>
             <Stack.Screen name="Signup" component={Signup}/>
             <Stack.Screen name="PasswordReset" component={PasswordReset}/>
@@ -277,17 +278,25 @@ const MainTab = () => {
 
 
 export default () => {
-    const {isLoading, tokenInfo} = useContext<IUserContext>(UserContext);
+    const {isLoading,userInfo} = useContext<IUserContext>(UserContext);
+    const [tokenflag,setTokenflag] = useState<String>('');
     
-
+        
     if(isLoading === false){
-        return <Loading />;
+        return <Loading/>
     }
+    AsyncStorage.getItem('token').then( (val) => {
+      return val;
+  }).then((val)=>{
+    if(val !== null)  
+        setTokenflag(val)
+  })
+    
+    
     
     return (
         <NavigationContainer>
-            {/* {tokenInfo? <MainTab/> : <LoginNavigator/>}   */}
-            {<MainTab/>}
+            {userInfo? <MainTab/> : <LoginNavigator/>}  
         </NavigationContainer>
     );
 };
