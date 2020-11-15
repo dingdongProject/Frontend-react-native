@@ -3,8 +3,12 @@ import { View,Text,StyleSheet } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import Styled from 'styled-components/native';
 import Constants from '~/Constants/constants';
+import {Dimensions} from 'react-native'
 
 import NoticeList from '~/Components/NoticeList';
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const Container = Styled.SafeAreaView`
     flex : 1
@@ -21,27 +25,23 @@ const SubContainer = Styled.ScrollView`
 
 const NoticeContainer = Styled.View`
     flex : 1;
-    padding : 25px;
     align-items : flex-start;
-    
+    padding: 25px;
 
 `;
 const NoticeTitleBox = Styled.View`
     flex : 1;
-    
-    border-bottom-width : 1px;
+    border-bottom-width : 0px;
     margin-bottom : 10px;
 `;
 const NoticeTitle=Styled.Text`
 font-size:20px;
 text-align:left;
-color:#212529;
+color: ${Constants.PRIMARY};
 font-weight : bold;
 
 `;
 const NoticeBodyBox = Styled.View`
-    
-    flex : 9;
     border:1px solid #ccc;
     border-radius:15px;
     box-shadow:0 0 10px #ccc;
@@ -49,9 +49,8 @@ const NoticeBodyBox = Styled.View`
     justify-content : space-between;
     flex-direction: column;
     align-items : flex-start
-    width : 280px;
-    height : 300px;
-    margin : 10px;
+    width :  ${windowWidth -50};
+    height : ${windowHeight * 0.2}; 
 
 `;
 const NoticeBodyTitleBox = Styled.View`
@@ -87,13 +86,13 @@ const NewsContainer = Styled.View`
 `;
 const NewsTitleBox = Styled.View`
     flex : 1;
-    border-bottom-width : 1px;
+    border-bottom-width : 0px;
     margin-bottom : 10px;
 `;
 const NewsTitle=Styled.Text`
 font-size:20px;
 text-align:left;
-color:#212529;
+color: ${Constants.PRIMARY};
 font-weight : bold;
 
 `;
@@ -121,6 +120,7 @@ interface Props {
     item : string;
     title : string;
 }
+
 
 const Mainnotice = ({item,title}:Props) => {
     const data = [
@@ -200,7 +200,6 @@ const Mainnotice = ({item,title}:Props) => {
                 </Newsbox>
                 </NewsContainer>
             </SubContainer>
-            
         </Container>
         
     )

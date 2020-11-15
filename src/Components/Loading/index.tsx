@@ -1,7 +1,7 @@
 import React from 'react';
 import {ActivityIndicator} from 'react-native';
 import Styled from 'styled-components/native';
-
+import Constants from '~/Constants/constants'
 const Container = Styled.View`
     flex : 1;
     align-items : center;
@@ -12,7 +12,7 @@ const Container = Styled.View`
 const Loading = () => {
     return (
         <Container>
-            <ActivityIndicator size='large' color='green'/>
+            <ActivityIndicator size='large' color={Constants.PRIMARY}/>
         </Container>
     );
 };

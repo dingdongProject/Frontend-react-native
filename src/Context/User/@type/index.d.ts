@@ -9,16 +9,11 @@ interface ICircleInfo {
     picture: string;
 }
 
-interface ITokenInfo {
-    token : string;
-}
-
-
 interface IUserContext {
     isLoading : boolean;
     userInfo : IUserInfo | undefined;
-    tokenInfo : ITokenInfo | undefined | null;
     circleInfo : Array<ICircleInfo>;
+    tokenInfo : string | null;
     login : (username : string, password : string) => void;
     logout: () => void;
     userset: () => void;

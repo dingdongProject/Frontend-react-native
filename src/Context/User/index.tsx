@@ -8,8 +8,8 @@ import api from '~/Api/api'
 const defaultContext : IUserContext = {
     isLoading : false,
     userInfo : undefined,
-    tokenInfo : undefined,
     circleInfo: [],
+    tokenInfo : null,
     login : (username: string, password: string) => {},
     logout: () =>{},
     userset : () => {},
@@ -28,8 +28,8 @@ const UserContextProvider = ({children}:Props) => {
     const [userInfo, setUSerInfo]= useState<IUserInfo | 
         undefined>(undefined);
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [tokenInfo,setTokenInfo] = useState<ITokenInfo | undefined | null>(undefined);
     const [circleInfo, setCircleInfo] = useState<Array<ICircleInfo>>([]);
+    const [tokenInfo,setTokenInfo] = useState<string | null>(null);
 
     const showError = (message: string) : void => {
         setTimeout(()=> {
@@ -42,8 +42,11 @@ const UserContextProvider = ({children}:Props) => {
 
     useEffect(() => {
         SplashScreen.hide();
-        setIsLoading(true)
-        userset();
+        userset().then(() => 
+        {
+            setIsLoading(true)
+        });
+        
         console.log('check usercontext useEffect')
       }, []);
     
@@ -88,13 +91,13 @@ const UserContextProvider = ({children}:Props) => {
     
     };
 
-    const userset = () => {
-            // AsyncStorage.getItem('token').then((data) => {
-            //     if(data ===null){
-            //     setTokenInfo(data);
-            //     }
-            // });
-        api.user().then((response)=>{
+    const userset = async () => {
+           await AsyncStorage.getItem('token').then((data) => {
+                if(data !==null)
+                setTokenInfo(data);
+                
+            });
+        await api.user().then((response)=>{
             if(response.data){
                 setUSerInfo(response.data);
             }
@@ -107,10 +110,9 @@ const UserContextProvider = ({children}:Props) => {
     }
     
 
-
     const logout = ():void => {
         AsyncStorage.removeItem('token');
-        setTokenInfo(undefined);
+        setTokenInfo(null);
         setUSerInfo(undefined);
         setCircleInfo([]);
     };
