@@ -278,25 +278,18 @@ const MainTab = () => {
 
 
 export default () => {
-    const {isLoading,userInfo} = useContext<IUserContext>(UserContext);
-    const [tokenflag,setTokenflag] = useState<String>('');
+    const {isLoading,userInfo,tokenInfo} = useContext<IUserContext>(UserContext);
+    
     
         
     if(isLoading === false){
         return <Loading/>
     }
-    AsyncStorage.getItem('token').then( (val) => {
-      return val;
-  }).then((val)=>{
-    if(val !== null)  
-        setTokenflag(val)
-  })
-    
-    
+    console.log('여긴가?',tokenInfo);
     
     return (
         <NavigationContainer>
-            {userInfo? <MainTab/> : <LoginNavigator/>}  
+            {tokenInfo? <MainTab/> : <LoginNavigator/>}  
         </NavigationContainer>
     );
 };

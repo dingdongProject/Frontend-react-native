@@ -5,15 +5,11 @@ interface IUserInfo {
 
 }
 
-interface ITokenInfo {
-    token : string;
-}
-
 
 interface IUserContext {
     isLoading : boolean;
     userInfo : IUserInfo | undefined;
-    tokenInfo : ITokenInfo | undefined | null;
+    tokenInfo : string | null;
     login : (username : string, password : string) => void;
     signup : (email: string,username : string, password : string) => void;
     logout: () => void;
