@@ -9,8 +9,8 @@ const defaultContext : IUserContext = {
     isLoading : false,
     userInfo : undefined,
     tokenInfo : undefined,
+    circleInfo: [],
     login : (username: string, password: string) => {},
-    signup : (username: string, password: string, email : string) => {},
     logout: () =>{},
     userset : () => {},
     withdraw : (username : string, password : string) => {},
@@ -29,6 +29,7 @@ const UserContextProvider = ({children}:Props) => {
         undefined>(undefined);
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [tokenInfo,setTokenInfo] = useState<ITokenInfo | undefined | null>(undefined);
+    const [circleInfo, setCircleInfo] = useState<Array<ICircleInfo>>([]);
 
     const showError = (message: string) : void => {
         setTimeout(()=> {
@@ -75,16 +76,11 @@ const UserContextProvider = ({children}:Props) => {
         }).then((data)=>{
             AsyncStorage.setItem('token',data.token)
             setTokenInfo(data.token)
+            setUSerInfo(data.user);
+            setCircleInfo(data.circles);
         }).then(() => {
-            api.user().then((response)=>{
-                console.log('usercontext, after login get',response.data)
-                if(response.data){
-                    setUSerInfo(response.data);
-                }
-                setIsLoading(true);
-            })
+            setIsLoading(true);
          }).catch(error =>{
-                
                 setIsLoading(true);
                 showError('잘못된 정보 입력입니다!');
             // });  
@@ -110,29 +106,13 @@ const UserContextProvider = ({children}:Props) => {
         });
     }
     
-    const signup = (email: string, username : string, password : string) : void =>{
-        api.signUp({
-            username: username,
-            email: email, 
-            password: password
-        }).then((response) => {
-            return response.data
-        }).then((data) => {
-                
-                console.warn() //boolean 성공 실패 성공 시 로그인창
-        }).then(()=>{
-            setTokenInfo(undefined);
-        })
-            
-            
-        
-    };
 
 
     const logout = ():void => {
         AsyncStorage.removeItem('token');
         setTokenInfo(undefined);
         setUSerInfo(undefined);
+        setCircleInfo([]);
     };
 
     const withdraw = (username : string, password : string):void => {
@@ -168,8 +148,8 @@ const UserContextProvider = ({children}:Props) => {
                 isLoading,
                 userInfo,
                 tokenInfo,
+                circleInfo,
                 login,
-                signup,
                 logout,
                 userset,
                 withdraw,

@@ -10,6 +10,8 @@ import Button from '~/Components/Button';
 import { onChange } from 'react-native-reanimated';
 import Colors from '~/Constants/constants';
 
+import api from '~/Api/api'
+
 const Container = Styled.SafeAreaView`
     flex : 1;
     background-color : #ffffff;
@@ -112,10 +114,22 @@ const Signup = ({navigation}:Props) => {
                 onPress={()=>
                  {
                      {
-                        console.warn(username, password, email)
                         if (checkInputs()) {
-                            signup(email, username, password);
-                            navigation.navigate('Login')
+                            api.signUp({
+                                username: username,
+                                email: email, 
+                                password: password
+                            }).then((response) => {
+                                return response.data
+                            }).then((data) => {
+                                if (data.success) {
+                                    navigation.navigate('Login')
+                                    console.warn('sign up successful')
+                                }
+                                else {
+                                    console.warn('sign up failed')
+                                }
+                            })
                         }
                         else {
                             console.warn('wrong email or pw');
