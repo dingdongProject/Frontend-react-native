@@ -67,7 +67,6 @@ const Signup = ({navigation}:Props) => {
     const [username,onChangeName] = useState('')
     const [password,onChangePassword] =useState('')
     const [rePassword,onChangeRepassword] =useState('')
-    const {signup} = useContext<IUserContext>(UserContext);
     
     const checkInputs= () => {
         let re = /\S+@\S+\.\S+/;

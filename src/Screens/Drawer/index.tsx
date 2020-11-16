@@ -108,6 +108,7 @@ const Drawer = ({props}:Props) => {
                 </ButtonContainer>
             </Button>
             {
+            circleInfo?
             circleInfo.map((circle, key) => {
                 return (
                     <Button onPress={()=>{props.navigation.navigate('MyCircle',{screen : 'MyCircle'})}}>
@@ -117,7 +118,7 @@ const Drawer = ({props}:Props) => {
                         </ButtonContainer>
                     </Button>
                 )
-            })
+            }) : console.log('a')
             }
             <Button
                 onPress={()=>{props.navigation.navigate('AddCircle',{screen : 'AddCircle'})}}

@@ -4,6 +4,9 @@ export default {
     signUp: function(payload) {
         return _promise(METHOD.POST, BASE_URL + `signup` , payload)
     },
+    addCircle: function(payload) {
+        return _promise(METHOD.POST, BASE_URL + `addCircle` , payload)
+    },
     logIn: function(payload) {
         return _promise(METHOD.POST, BASE_URL + 'login' , payload)
     },

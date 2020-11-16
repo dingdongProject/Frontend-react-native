@@ -10,6 +10,7 @@ const defaultContext : IUserContext = {
     userInfo : undefined,
     circleInfo: [],
     tokenInfo : null,
+    addCircle : (name : string, explanation : string, email : string) => {},
     login : (username: string, password: string) => {},
     logout: () =>{},
     userset : () => {},
@@ -36,11 +37,11 @@ const UserContextProvider = ({children}:Props) => {
             console.warn(message);
     
         },200);
-    };
+        };
 
     
 
-    useEffect(() => {
+        useEffect(() => {
         SplashScreen.hide();
         userset().then(() => 
         {
@@ -48,8 +49,10 @@ const UserContextProvider = ({children}:Props) => {
         });
         
         console.log('check usercontext useEffect')
-      }, []);
+        }, []);
     
+
+        
 
     const login = (username: string, password : string) : void => {
     //     fetch ('http://junslim11.pythonanywhere.com/signup')
@@ -91,6 +94,7 @@ const UserContextProvider = ({children}:Props) => {
     
     };
 
+
     const userset = async () => {
            await AsyncStorage.getItem('token').then((data) => {
                 if(data !==null)
@@ -100,6 +104,7 @@ const UserContextProvider = ({children}:Props) => {
         await api.user().then((response)=>{
             if(response.data){
                 setUSerInfo(response.data);
+                setCircleInfo(response.circles);
             }
             setIsLoading(true);
         })
@@ -108,7 +113,19 @@ const UserContextProvider = ({children}:Props) => {
             setIsLoading(true);
         });
     }
-    
+
+    const addCircle = (name : string, explaination : string , picture : string) : void=> {
+        api.addCircle({
+            name : name,
+            explaination: explaination, 
+            picture: picture,
+    }).then((response)=> {
+        return response.data
+    }).then((data)=>{
+        setCircleInfo(data)
+        console.warn(data)
+    })
+};
 
     const logout = ():void => {
         AsyncStorage.removeItem('token');
@@ -126,21 +143,6 @@ const UserContextProvider = ({children}:Props) => {
         setUSerInfo(undefined);
     }
 
-    
-
-    // useEffect(() => {
-    //     let mounted = true
-    //     fetch('http://junslim11.pythonanywhere.com/signup').then(() => {
-    //         if (mounted) {
-    //             setIsLoading(false)
-    //         }
-    //     })
-
-    //     return function cleanup() {
-    //         mounted = false
-    //     }
-    // }, [])
-
 
 
     
@@ -151,6 +153,7 @@ const UserContextProvider = ({children}:Props) => {
                 userInfo,
                 tokenInfo,
                 circleInfo,
+                addCircle,
                 login,
                 logout,
                 userset,

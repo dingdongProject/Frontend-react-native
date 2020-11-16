@@ -1,11 +1,15 @@
-import React, {useContext, useLayoutEffect, useEffect} from 'react';
+import React, {useContext, useLayoutEffect, useEffect,useState} from 'react';
 import Styled from 'styled-components/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import {UserContext} from '~/Context/User';
 
-
 import Input from '~/Components/Input';
+import Button from '~/Components/Button';
+import { onChange } from 'react-native-reanimated';
+import Colors from '~/Constants/constants';
+
+import api from '~/Api/api'
 
 type NavigationProp = StackNavigationProp<AddCircleNaviParamList, 'AddCircle'>;
 
@@ -16,57 +20,111 @@ interface Props {
 
 const Container = Styled.SafeAreaView`
     flex : 1;
-    background-color : #5F89FA;
+    background-color : #ffffff;
 `;
-
+const Logo = Styled.Text`
+    color : ${Colors.PRIMARY};
+    font-size : 40px;
+    font-weight : bold;
+    text-align : center;
+    margin-bottom : 40px;
+`;
 const FormContainer = Styled.View`
-    flex : 2;
+    flex : 1;
     width : 100%;
     align-items : center;
+    justify-content : center;
     padding : 32px;
 `;
-const StyleButton = Styled.TouchableOpacity`
-  padding: 8px;
-`;
-const Icon = Styled.Image`
+
+const Description = Styled.Text`
+    width: 100%;
+    text-align : left;
+    font-size : 12px;
+    color : #929292;
+    margin-left: 20px;
+    margin-bottom: 5px;
 `;
 
 const Footer = Styled.View`
     width : 100%;
-    border-top-width : 1px;
-    border-color : #D3D3D3;
     padding : 8px;
 `;
 
-const GoBack = Styled.Text`
+const FooterDescription = Styled.Text`
     color : #000000;
     text-align : center;
 `;
 
+const GoBack = Styled.Text`
+    color : #5F89FA;
+`;
+
 const AddCircle =  ({navigation } : Props) => {
+  const [circleName,onChangecircleName] = useState('')
+  const [circleExplaination,onChangeExplaination] = useState('')
+  const [circlePicture,onChangecirclePicture] =useState('')
+  const {addCircle} = useContext<IUserContext>(UserContext)
+
+  const checkInputs= () => {
+    
+    return true;
+}
   
 
-    useEffect(() => {
-        SplashScreen.hide();
-      }, []);
+    
 
 
     return (
       <Container>
-          <FormContainer>
-          <Input style={{marginBottom:32}} placeholder="동아리명"/>
-          <Input style={{marginBottom:32}} placeholder="태그"/>
-          <Input style={{marginBottom:32, flex:1}} placeholder="동아리소개"/>
-          </FormContainer>
-          <FormContainer>
-          <GoBack onPress={()=>navigation.goBack()}>생성완료</GoBack>
-          </FormContainer>
-    
-            <Footer>
-                <GoBack onPress={()=>navigation.goBack()}>돌아가기</GoBack>
+            <FormContainer>
+            <Logo>dingdong</Logo>
+            <Description>circlename</Description>
+            <Input
+                style ={{marginBottom:16}}
+                placeholder={'circlename should be valid' }
+                onChangeText={text => onChangecircleName(text)}
+            />
+            <Description>explaination</Description>
+            <Input
+                style ={{marginBottom:16}}
+                placeholder={'circle explaination' }
+                onChangeText={text => onChangeExplaination(text)}
+            />
+            <Description>picture</Description>
+            <Input
+                style ={{marginBottom:16}}
+                placeholder={'Password must be at least 8 characters long' }
+                onChangeText={text => onChangecirclePicture(text)}
+                
+            />
+            
+                <Button 
+                onPress={()=>
+                 {
+                     {
+                        if (checkInputs()) {
+                          addCircle(circleName,circleExplaination,circlePicture);
+                        }
+                        else {
+                            console.warn('wrong email or pw');
+                        }
+                     }
+                 }
+                
+                }
+                label="회원가입" 
+                style={{marginBottom : 24,
+                    
+                        }}/>
+            </FormContainer>
+           <Footer>
+            <FooterDescription>
+                이미 계정이 있으신가요?{' '}
+                <GoBack onPress={()=>navigation.goBack()}>로그인</GoBack>
+            </FooterDescription>
             </Footer>
-        
-      </Container> 
+        </Container>
        
     );
 };

@@ -6,6 +6,7 @@ import {createDrawerNavigator, useIsDrawerOpen} from '@react-navigation/drawer';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {StackNavigationProp} from '@react-navigation/stack';
 import AsyncStorage from '@react-native-community/async-storage';
+import Styled from 'styled-components/native';
 
 import {UserContext} from '~/Context/User';
 import {PageContext} from '~/Context/Page';
@@ -26,12 +27,22 @@ import MyPageEdit from './MyPageEdit';
 import AddCircle from './AddCircle';
 import Constants from '~/Constants/constants'
 import SplashScreen from 'react-native-splash-screen';
+import constants from '~/Constants/constants';
 
 
 const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 //tab->drawer->stack
+const CircleIcon = Styled.Image`
+    margin-right : 10px;
+    width: 25px;
+    height: 25px;
+    border-radius: 100;
+    border: 0.5px;
+    border-color : ${constants.TEXT2};
+    resize-mode:center;
+`;
 
 
 type NavigationProp = StackNavigationProp<HomeNaviParamList, 'DDHome'>;
@@ -119,7 +130,7 @@ const MainStackNavigator = ({navigation } : Props) =>{
 const CalendarNavigator = ({navigation } : Props) => {
     return(
         <Stack.Navigator>
-            <Stack.Screen name = "Calendar" component={Calendar}
+            <Stack.Screen name = "Calendar" component={MyCirlce}  //edit
             options={{
                 headerStyle:{
                     backgroundColor : Constants.PRIMARY,
@@ -197,6 +208,7 @@ const MainTab = () => {
     //     if(tokenInfo){
     //         user();
     //     }
+    const {userInfo} = useContext<IUserContext>(UserContext);
     return (
         
         <BottomTab.Navigator
@@ -255,12 +267,13 @@ const MainTab = () => {
                 options={{
                     
                     tabBarIcon : ({color, focused}) => (
-                        <Image
-                        source={
-                            focused
-                            ? require('~/Assets/Images/My.png')
-                            : require('~/Assets/Images/My.png')
-                        }
+                        <CircleIcon
+                        // source={
+                        //     focused
+                        //     ? userInfo?.picture
+                        //     : userInfo?.picture
+                        // }
+                        source={{uri: userInfo?.picture ? userInfo.picture : 'https://dingdong-bucket.s3.ap-northeast-2.amazonaws.com/1593075284.jpg'}}
                         />
                     ),
 
