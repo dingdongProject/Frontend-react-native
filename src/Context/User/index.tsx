@@ -99,7 +99,8 @@ const UserContextProvider = ({children}:Props) => {
             });
         await api.user().then((response)=>{
             if(response.data){
-                setUSerInfo(response.data);
+                setUSerInfo(response.data.user);
+                setCircleInfo(response.data.circles)
             }
             setIsLoading(true);
         })
