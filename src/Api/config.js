@@ -3,11 +3,7 @@ import React, {useState} from 'react';
 import axios from "axios";
 
 export const BASE_URL = "http://52.78.45.254/"
-<<<<<<< HEAD
-// export const BASE_URL = "http://localhost:5000"
-=======
 //export const BASE_URL = "http://127.0.0.1:8000/"
->>>>>>> 83327fd6a0eeb0254f38a960332b1310d7bcfd59
 export const METHOD = {
     GET: { num: 0, type: "get" },
     DELETE: { num: 1, type: "delete" },
