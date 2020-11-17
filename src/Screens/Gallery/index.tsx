@@ -64,7 +64,7 @@ width : 100%;
 height : 100px;
 resize-mode:center;
 `;
-type NavigationProp = StackNavigationProp<MyCircleNaviParamList, 'MyCircle'>;
+type NavigationProp = StackNavigationProp<GalleryNaviParamList, 'Gallery'>;
 
 interface Props {
   navigation: NavigationProp;

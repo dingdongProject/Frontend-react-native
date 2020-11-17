@@ -8,11 +8,11 @@ import { FlatList } from 'react-native-gesture-handler';
 import {UserContext} from '~/Context/User';
 import {Dimensions} from 'react-native';
 import Constants from '~/Constants/constants';
-type NavigationProp = StackNavigationProp<GalleryNaviParamList, 'Gallery'>;
 
-interface Props {
-  navigation: NavigationProp;
-}
+//notice 수평 플랫리스트
+//board 는 플랫리스트 넘버링 & map
+//gallery는 음..
+
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -121,6 +121,11 @@ flex :1;
 padding : 25px;
 align-items : flex-start;
 `;
+
+const BulleteinTouch = Styled.TouchableOpacity`
+  flex :1;
+`;
+
 const BulleteinboardTitleContainer=Styled.View`
 flex : 1;
 align-items : flex-start;
@@ -194,6 +199,12 @@ height : 250px;
 const Galleryproto = Styled.Image`
 resize-mode:center;
 `;
+
+type NavigationProp = StackNavigationProp<MyCircleNaviParamList>;
+
+interface Props {
+  navigation: NavigationProp;
+}
 
 
 interface Props {
@@ -283,6 +294,9 @@ https://zoom.us/j/97079917004?pwd=Nnpmck4xNktuMzJyNlRvVUNVaXRCZz09
                 </NoticeContainer>
                 <BulleteinboardContainer>
                   <BulleteinboardSubConatiner>
+                    <BulleteinTouch
+                    onPress={()=>{navigation.navigate('BulleteinBoard')}}
+                    >
                   <BulleteinboardTitleContainer>
                     <BulleteinboardTitleText>
                     Board
@@ -314,6 +328,7 @@ https://zoom.us/j/97079917004?pwd=Nnpmck4xNktuMzJyNlRvVUNVaXRCZz09
                     @애니동호회8
                     </BulleteinboardBodyText>
                   </BulleteinboardBodyContainer>
+                  </BulleteinTouch>
                   </BulleteinboardSubConatiner>
                 </BulleteinboardContainer>
                 <GalleryContainer>

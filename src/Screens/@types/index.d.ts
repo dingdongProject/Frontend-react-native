@@ -23,11 +23,17 @@ type HomeNaviParamList = {
 };
 
 type MyCircleNaviParamList = {
-    MyCircle : undefined;
+    MyCircle : {CircleName : string};
+    Gallery : undefined;
+    BulleteinBoard : undefined;
+    Read : undefined;
+    Write : undefined;
 };
 
 type MyPageEditNaviParamList = {
     MyPageEdit : undefined;
+    Gallery : undefined;
+    BulleteinBoard : undefined;
 };
 
 type AddCircleNaviParamList = {
@@ -36,6 +42,24 @@ type AddCircleNaviParamList = {
 
 type GalleryNaviParamList = {
     Gallery : undefined;
+}
+
+type BulleteinBoardNaviParamList = {
+    Read : undefined;
+    Write : undefined;
+}
+
+type TotalNaviParamList = {
+    DDHome : undefined;
+    Calendar: undefined;
+    Circles : undefined;
+    Mypage : undefined;
+    MyPadgeEdit : undefined;
+    MyCircle : undefined;
+    Gallery : undefined;
+    BulleteinBoard : undefined;
+    Read : undefined;
+    Write : undefined;
 }
 
 

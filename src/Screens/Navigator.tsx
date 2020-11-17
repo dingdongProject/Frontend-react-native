@@ -28,7 +28,9 @@ import AddCircle from './AddCircle';
 import Constants from '~/Constants/constants'
 import SplashScreen from 'react-native-splash-screen';
 import constants from '~/Constants/constants';
-import Gallery from './Gallery';
+import Gallery from '~/Screens/Gallery';
+import BulleteinBoard from '~/Screens/BulleteinBoard';
+import Write from '~/Screens/Write';
 
 
 const Stack = createStackNavigator();
@@ -46,7 +48,7 @@ const CircleIcon = Styled.Image`
 `;
 
 
-type NavigationProp = StackNavigationProp<HomeNaviParamList, 'DDHome'>;
+type NavigationProp = StackNavigationProp<TotalNaviParamList>;
 
 interface Props {
   navigation: NavigationProp;
@@ -72,7 +74,7 @@ const MainNavigator = () => {
         <Drawer.Navigator
             drawerPosition="left"
             drawerContent={(props)=><CustomDrawer props={props}/>}>
-                 <Drawer.Screen name="dingdong" component={MainStackNavigator}/> 
+                 <Drawer.Screen name="dingdong" component={MainStackNavigator}/>  
             </Drawer.Navigator>
     );
 };
@@ -82,7 +84,7 @@ const MainStackNavigator = ({navigation } : Props) =>{
     
     return(
         <Stack.Navigator screenOptions={{headerShown : true}}>
-            <Stack.Screen name="dingdong" component={DDHome} 
+            <Stack.Screen name="dingdong" component={MyCirlce} 
                 options={{
                     headerStyle:{
                         backgroundColor : Constants.PRIMARY,
@@ -131,6 +133,8 @@ const MainStackNavigator = ({navigation } : Props) =>{
             }}
                 />
             <Stack.Screen name = "Gallery" component={Gallery}/>
+            <Stack.Screen name = "BulleteinBoard" component={BulleteinBoard}/>
+            <Stack.Screen name = "Write" component={Write}/>
         </Stack.Navigator>
         
 
@@ -146,16 +150,16 @@ const CalendarNavigator = ({navigation } : Props) => {
                     backgroundColor : Constants.PRIMARY,
                 },
                 headerTintColor: '#fff',
-                // headerLeft : () => (
-                //     <IconButton
-                //         onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
-                //         iconName='menu'/>
-                // ),
-                // headerRight: () => (
-                //     <IconButton
-                //         onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
-                //         iconName='search'/>
-                // )
+                headerLeft : () => (
+                    <IconButton
+                        onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
+                        iconName='menu'/>
+                ),
+                headerRight: () => (
+                    <IconButton
+                        onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
+                        iconName='search'/>
+                )
             }}
             />
         </Stack.Navigator>
