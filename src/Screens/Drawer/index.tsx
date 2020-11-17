@@ -46,7 +46,7 @@ const Icon = Styled.Image`
 const CircleIcon = Styled.Image`
     margin-right : 8px;
     width: 35px;
-    height: 35px;
+    height: 35px;   
     border-radius: 100;
     border: 0.5px;
     border-color : ${constants.PRIMARY};
@@ -94,7 +94,7 @@ const Drawer = ({props}:Props) => {
                 onPress={()=>{props.navigation.navigate('MyPageEdit',{screen : 'MyPageEdit'})}}
                 >
                 <Header>
-                <ProfilePic source={{uri: userInfo?.picture ? userInfo.picture : 'https://dingdong-bucket.s3.ap-northeast-2.amazonaws.com/1593075284.jpg'}}
+                <ProfilePic source={{uri: userInfo?.picture ? userInfo.picture : constants.DEFAULT_USER_IMG}}
                 />
                 <Title>{userInfo?.username}</Title>
                 <Title>{userInfo?.email}</Title>
@@ -113,7 +113,7 @@ const Drawer = ({props}:Props) => {
                 return (
                     <Button onPress={()=>{props.navigation.navigate('MyCircle',{screen : 'MyCircle'})}}>
                         <ButtonContainer>
-                            <CircleIcon source={{uri: circle.picture ? circle.picture : 'https://dingdong-bucket.s3.ap-northeast-2.amazonaws.com/1593075284.jpg'}}/>
+                            <CircleIcon source={{uri: circle.picture ? circle.picture : constants.DEFAULT_CIRCLE_IMG}}/>
                             <Label>{circle.name}</Label>
                         </ButtonContainer>
                     </Button>

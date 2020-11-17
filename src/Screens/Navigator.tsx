@@ -119,7 +119,16 @@ const MainStackNavigator = ({navigation } : Props) =>{
             
             />
             <Stack.Screen name = "MyPageEdit" component={MyPageEdit}/>
-            <Stack.Screen name = "AddCircle" component={AddCircle}/>
+            <Stack.Screen name = "AddCircle" component={AddCircle}
+                options={{
+                headerStyle:{
+                    backgroundColor : Constants.PRIMARY,
+                },
+                headerTintColor: '#fff',
+                headerTitle: 'Add New Circle',
+                headerBackTitleVisible: false
+            }}
+                />
             
         </Stack.Navigator>
         
