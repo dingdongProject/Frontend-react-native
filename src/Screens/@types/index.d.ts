@@ -34,6 +34,9 @@ type AddCircleNaviParamList = {
     AddCircle : undefined;
 };
 
+type GalleryNaviParamList = {
+    Gallery : undefined;
+}
 
 
 

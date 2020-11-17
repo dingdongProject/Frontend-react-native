@@ -8,7 +8,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import {UserContext} from '~/Context/User';
 import {Dimensions} from 'react-native';
 import Constants from '~/Constants/constants';
-type NavigationProp = StackNavigationProp<MyCircleNaviParamList, 'MyCircle'>;
+type NavigationProp = StackNavigationProp<GalleryNaviParamList, 'Gallery'>;
 
 interface Props {
   navigation: NavigationProp;
@@ -64,8 +64,8 @@ const NoticeBodyBox = Styled.View`
     align-items : flex-start;
     padding : 20px;
     margin-right : 10px;
-    width :  ${windowWidth *0.855};
-    height : ${windowHeight * 0.3}; 
+    width :  ${windowWidth *0.855}px;
+    height : ${windowHeight * 0.3}px; 
 
 `;
 const NoticeBodyTitleBox = Styled.View`
@@ -145,8 +145,8 @@ const BulleteinboardBodyContainer=Styled.View`
     align-items : flex-start;
     padding : 20px;
     margin-right : 0px;
-    width :  ${windowWidth *0.855};
-    height : ${windowHeight * 0.3}; 
+    width :  ${windowWidth *0.855}px;
+    height : ${windowHeight * 0.3}px; 
 `;//터쳐블로 바꿔야함
 const BulleteinboardBodyText=Styled.Text`
 font-size:15px;
@@ -174,6 +174,10 @@ color: ${Constants.PRIMARY};
 font-weight : bold;
 
 `;
+const GalleryTouch = Styled.TouchableOpacity`
+  flex :1;
+`;
+
 
 const Gallerybox = Styled.View`
 flex:9;
@@ -318,6 +322,10 @@ https://zoom.us/j/97079917004?pwd=Nnpmck4xNktuMzJyNlRvVUNVaXRCZz09
                       Gallery
                     </GalleryTitle>
                   </GalleryTitleBox>
+                  <GalleryTouch 
+                  onPress={()=>{navigation.navigate('Gallery')}}
+                  >
+
                   <Gallerybox>
                     <Galleryproto
                     source={{uri: 'https://dingdong-bucket.s3.ap-northeast-2.amazonaws.com/1593075284.jpg'}}
@@ -325,6 +333,7 @@ https://zoom.us/j/97079917004?pwd=Nnpmck4xNktuMzJyNlRvVUNVaXRCZz09
                     
                     
                   </Gallerybox>
+                  </GalleryTouch>
                 </GalleryContainer>
 
                 </SubContainer>

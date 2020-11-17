@@ -16,7 +16,7 @@ interface Props {
         // | 'send'
         // | 'dotMenu'
         // | 'favorite'
-        // | 'comment'
+         | 'upload'
          | 'drawericon'
         | 'menu'
         | 'search'
@@ -32,7 +32,7 @@ const IconButton = ({iconName,style,onPress}:Props)=>{
         // send : require('~/Assets/Image/ic_all.png'),
         // dotMenu : require('~/Assets/Image/ic_all.png'),
         // favorite : require('~/Assets/Image/ic_all.png'),
-        // comment : require('~/Assets/Image/ic_all.png'),
+        upload : require('~/Assets/Images/upload.png'),
         drawericon : require('~/Assets/Images/ic_all.png'),
         menu : require('~/Assets/Images/menu.png'),
         search : require('~/Assets/Images/search.png'),

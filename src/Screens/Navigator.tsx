@@ -28,6 +28,7 @@ import AddCircle from './AddCircle';
 import Constants from '~/Constants/constants'
 import SplashScreen from 'react-native-splash-screen';
 import constants from '~/Constants/constants';
+import Gallery from './Gallery';
 
 
 const Stack = createStackNavigator();
@@ -129,7 +130,7 @@ const MainStackNavigator = ({navigation } : Props) =>{
                 headerBackTitleVisible: false
             }}
                 />
-            
+            <Stack.Screen name = "Gallery" component={Gallery}/>
         </Stack.Navigator>
         
 

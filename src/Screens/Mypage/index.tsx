@@ -110,15 +110,6 @@ const Icon = Styled.Image`
 const Mypage =  ({navigation } : Props) => {
   const [myuser, setMyuser] = useState<IUserInfo>();
   const {userInfo,tokenInfo} = useContext<IUserContext>(UserContext);
-  
-
-
-
-  
-    
-    useEffect(() => {
-      SplashScreen.hide();
-    }, []);
       
      
       

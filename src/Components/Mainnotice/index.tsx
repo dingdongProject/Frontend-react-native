@@ -69,7 +69,8 @@ const NoticeBodyTitleBox = Styled.View`
     border-bottom-width : 0px;
     margin-top : 0px;
     margin-bottom : 20px;
-    margin-left : 10px;
+    margin-left : 5px;
+    margin-right : 50px;
     border : 0px;
     
 `;
