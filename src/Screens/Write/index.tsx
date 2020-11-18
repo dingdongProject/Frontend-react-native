@@ -27,36 +27,36 @@ const SubContainer = Styled.View`
 `;
 
 const FuncBox = Styled.View`
-    flex : 0.25;
+    margin-top : 20px;
     border : 0px;
-    flex-direction : row-reverse;
+    
     
 `;
 const FuncFlex = Styled.View`
-    flex-direction : column;
+flex-direction : row;
 `;
 const FunctionBox = Styled.View`
-    width : 150px;
-    height : 60px;
+    width : 130px;
+    height : auto;
     padding : 20px;
     border : 0px;
     
 `;
 const FuncText = Styled.Text`
     font-weight : bold;
-    text-align : left;
+    text-align : right;
     color : ${constants.TEXT1}
 `;
 
 const BodyContainer = Styled.View`
-    flex : 0.75;
+    
     align-items : center;
 `
 
 const TitleInputBox = Styled.View`
     margin-top : 20px;
     width : 350px;
-    height : 50px;
+    height : auto;
     border : 0px;
 `;
 const BodyInputScroll = Styled.ScrollView`
@@ -64,7 +64,7 @@ const BodyInputScroll = Styled.ScrollView`
 const BodyInputBox = Styled.View`
     margin-top : 20px;
     width : 350px;
-    height : 350px;
+    height : 450px;
     border : 0px;
 `;
 
@@ -72,7 +72,10 @@ const FooterTouch = Styled.TouchableOpacity`
 
 `;
 const Footer = Styled.View`
+    
     border : 0px;
+    margin-top : 20px;
+    width : auto;
     height : 30px;
     align-items : center;
 `;
@@ -95,7 +98,7 @@ const Write =  ({navigation } : Props) => {
                   <FuncFlex>
                 <FunctionBox>
                     <FuncText>
-                        확인했어요~
+                        확인했어요
                     </FuncText>
                 </FunctionBox>
                 <FunctionBox>
@@ -133,14 +136,14 @@ const Write =  ({navigation } : Props) => {
                 <TextInput
                     style={{
                         borderWidth : 1,
-                        height : 350,
+                        height : 450,
                         width : 350,
                         paddingTop : 20,
                         padding : 20,
                     }}
                     multiline = {true}
-                    numberOfLines={4}
-                    placeholder={'약관'}
+                    numberOfLines={1}
+                    placeholder={'데뷔 후 지금까지 철저하게 지켜온 게 있나요? 음…. 아! 나를 아는 사람은 나를 좋아하게 만들자! 성향이 그래요. 어릴 때도 친구들과 두루두루 친했고요. 모르는 사람은 날 싫어할 수 있죠. 그런데 나를 아는 사람에게는 좋은 인상으로 남자는 생각을 계속 해왔어요. 누군가와 틀어지는 거 별로 안 좋아해요. 저는 사람 자체를 별로 싫어하지 않아요. 나를 욕하는 사람이 있으면 그 사람 이야기도 한번 들어보고 싶고요. 왜 싫어해? 흐흐.      '}
                     placeholderTextColor={constants.TEXT2}
 
                     // onChangeText={text=>onChangeText(text)}
@@ -148,6 +151,13 @@ const Write =  ({navigation } : Props) => {
               </BodyInputBox>
               </BodyInputScroll>
               </BodyContainer>
+              <FooterTouch>
+                  <Footer>
+                      <FooterText>
+                          카메라
+                      </FooterText>
+                  </Footer>
+              </FooterTouch>
               <FooterTouch>
                   <Footer>
                       <FooterText>

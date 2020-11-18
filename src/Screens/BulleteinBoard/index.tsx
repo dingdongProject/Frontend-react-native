@@ -28,12 +28,14 @@ const Container = Styled.SafeAreaView`
 const SubContainer = Styled.View`
   flex : 1;
   width  : 410px;
-  height : 400px;
+  height : auto;
   border : 0px;
   padding : 10px;
 `;
 const ScrollContainer = Styled.ScrollView`
     flex :1;
+`;
+const ReadBox = Styled.TouchableOpacity`
 `;
 const BulleteinMainContainer = Styled.View`
     flex : 1;
@@ -42,15 +44,16 @@ const BulleteinMainContainer = Styled.View`
 `;
 const BulleteinContainer = Styled.View`
     width : 300px;
-    height : 110px;
+    height : auto;
     border : 0px;
     
 `;
 
 const BulleteinTitleBox = Styled.View`
     width : 300px;
-    height : 40px;
+    height : auto;
     border : 0px;
+    padding : 0px;
     padding-top : 10px;
     padding-left : 13px;
 `;
@@ -62,20 +65,21 @@ const BulleteinTitleText = Styled.Text`
 const BulleteinBodyBox =Styled.View`
     width : 300px;
     height : 40px;
-    padding-top : 10px;
-    padding-left : 13px;
+    padding-top : 5px;
+    padding-left : 10px;
     border : 0px;
     
 `;
 const BulleteinBodyText = Styled.Text`
     color : ${constants.TEXT1};
-    font-size : 13;
+    font-size : 12;
 `;
 const BulleteinCommentBox = Styled.View`
     width : 300px;
-    height : 30px;
-    padding-top : 10px;
-    padding-left : 13px;
+    height : auto;
+    padding-top : 5px;
+    padding-left : 10px;
+    padding-bottom : 5px;
     border : 0px;
 `;
 const BulleteinCommentText = Styled.Text`
@@ -117,6 +121,9 @@ const BulleteinBoard =  ({navigation } : Props) => {
       <Container>
           <SubContainer>
             <ScrollContainer>
+                <ReadBox
+                onPress={()=>{navigation.navigate('Read')}}
+                >
                 <BulleteinMainContainer>
                 <BulleteinContainer>
                     <BulleteinTitleBox>
@@ -152,6 +159,7 @@ Thanks!
                         />
                     </BulleteinImageBox>
                 </BulleteinMainContainer>
+                </ReadBox>
 
 
 

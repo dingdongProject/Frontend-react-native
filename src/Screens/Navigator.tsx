@@ -31,6 +31,7 @@ import constants from '~/Constants/constants';
 import Gallery from '~/Screens/Gallery';
 import BulleteinBoard from '~/Screens/BulleteinBoard';
 import Write from '~/Screens/Write';
+import Read from '~/Screens/Read';
 
 
 const Stack = createStackNavigator();
@@ -84,7 +85,7 @@ const MainStackNavigator = ({navigation } : Props) =>{
     
     return(
         <Stack.Navigator screenOptions={{headerShown : true}}>
-            <Stack.Screen name="dingdong" component={MyCirlce} 
+            <Stack.Screen name="dingdong" component={DDHome} 
                 options={{
                     headerStyle:{
                         backgroundColor : Constants.PRIMARY,
@@ -135,6 +136,7 @@ const MainStackNavigator = ({navigation } : Props) =>{
             <Stack.Screen name = "Gallery" component={Gallery}/>
             <Stack.Screen name = "BulleteinBoard" component={BulleteinBoard}/>
             <Stack.Screen name = "Write" component={Write}/>
+            <Stack.Screen name = "Read" component={Read}/>
         </Stack.Navigator>
         
 
