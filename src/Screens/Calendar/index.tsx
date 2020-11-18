@@ -4,10 +4,10 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import {UserContext} from '~/Context/User';
 import CalendarPicker from 'react-native-calendar-picker';
-import Constants from '~/Constants/constants';
+import constants from '~/Constants/constants';
 import Modals from '~/Components/Modal';
 
-type NavigationProp = StackNavigationProp<CalendarNaviParamList, 'Calendar'>;
+type NavigationProp = StackNavigationProp<TotalNaviParamList>;
 
 interface Props {
   navigation?: NavigationProp;
@@ -16,24 +16,53 @@ interface Props {
 
 const Container = Styled.SafeAreaView`
   flex: 1;
-  background-color: #fff;
+  background-color: #f4f4f4;
   align-items: center;
   justify-content: center;
+  flex-direction : column;
 `;
 
-const HomeView = Styled.View`
-    align-items : center;
+
+const BubbleContainer = Styled.View`
+  width : 400px;
+  height : 200px;
+  padding : 25px;
+  border : 0px;
+  flex-direction : row;
+`;
+//추후 수평 플랫리스트로 구현.
+
+const BubbleBox = Styled.View`
+  width : 100px;
+  height : 100px;
+  margin-right : 20px;
+  padding : 0px;
+  border : 0px;
 `;
 
-const HomeText = Styled.Text`
-    align-items : center;
-    color : black;
+const Bubble = Styled.Image`
+margin-right : 8px;
+width: 100px;
+height: 100px;   
+border-radius: 100;
+border: 2px;
+border-color : ${constants.PRIMARY};
+resize-mode:center
 `;
-const StyleButton = Styled.TouchableOpacity`
-  padding: 8px;
+const BubbleTouch = Styled.TouchableOpacity`
 `;
-const Icon = Styled.Image`
+
+const CalendarContainer = Styled.View`
+  width : 400px;
+  height : 500px;
+  border : 0px;
+  padding : 25px;
 `;
+const CalendarText = Styled.Text`
+
+`;
+
+
 
 
 
@@ -42,10 +71,7 @@ const Calendar =  ({navigation } : Props) => {
     const maxDate = new Date(2022,11,8);
     // const [selectedStartDate,setSelectedStartDate] = useState<any>(null);
     // const startDate = selectedStartDate? selectedStartDate : null;
-    
-    useEffect(() => {
-        SplashScreen.hide();
-      }, []);
+    const {circleInfo} = useContext<IUserContext>(UserContext)
       
     // const onDateChange = (date : any) => {
     //   setSelectedStartDate({
@@ -57,28 +83,65 @@ const Calendar =  ({navigation } : Props) => {
 
     return (
       <Container>
-          <HomeView>
-            <Modals/>
-            <HomeText>
-              {/* <CalendarPicker
+        <BubbleContainer>
+          <BubbleTouch>
+          <BubbleBox>
+          {/* {
+            circleInfo?
+            circleInfo.map((circle, key) => {
+                return (      
+
+                            <Bubble source={{uri: circle.picture ? circle.picture : constants.DEFAULT_CIRCLE_IMG}}/>
+                )
+            }) : 
+            <Bubble source={{uri : constants.DEFAULT_CIRCLE_IMG}}/>
+            
+          } */}
+          <Bubble source={{uri : constants.DEFAULT_CIRCLE_IMG}}/>
+          </BubbleBox>
+          </BubbleTouch>
+          <BubbleTouch>
+          <BubbleBox>
+          {/* {
+            circleInfo?
+            circleInfo.map((circle, key) => {
+                return (      
+
+                            <Bubble source={{uri: circle.picture ? circle.picture : constants.DEFAULT_CIRCLE_IMG}}/>
+                )
+            }) : 
+            <Bubble source={{uri : constants.DEFAULT_CIRCLE_IMG}}/>
+            
+          } */}
+          <Bubble source={{uri : constants.DEFAULT_CIRCLE_IMG}}/>
+          </BubbleBox>
+          </BubbleTouch>
+
+        </BubbleContainer>
+        <CalendarContainer>
+          <CalendarText>
+          <CalendarPicker
               minDate={minDate}
               maxDate={maxDate}
               
               weekdays={['일','월','화','수','목','금','토']}
               months={['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']}
               textStyle={{
-                color : Constants.TEXT1,
+                color : constants.TEXT1,
               }}
               selectedDayColor="#7300e6"
               // onDateChange={onDateChange}
               
               
               
-              /> */}
+              />
               
               select : {}
-            </HomeText>
-        </HomeView>
+              </CalendarText>
+        </CalendarContainer>
+          
+              
+            
       </Container> 
        
     );

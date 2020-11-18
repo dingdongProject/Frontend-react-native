@@ -3,12 +3,14 @@ import Styled from 'styled-components/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import {UserContext} from '~/Context/User';
+import ImagePicker from 'react-native-image-picker';
 
 import { onChange } from 'react-native-reanimated';
 import constants from '~/Constants/constants';
 
 import api from '~/Api/api'
 import {Text, TouchableOpacity} from 'react-native';
+import IconButton from '~/Components/IconButton';
 import Button from '~/Components/Button';
 import Input from '~/Components/Input';
 
@@ -55,6 +57,20 @@ const AddCircle =  ({navigation } : Props) => {
   const [circleExplaination,onChangeExplaination] = useState('')
   const [circlePicture,onChangecirclePicture] =useState('')
   const {addCircle} = useContext<IUserContext>(UserContext)
+  
+  
+  const [Avatar,setAvatar] = useState('')
+
+    const addImage = () => {
+        ImagePicker.showImagePicker({
+            takePhotoButtonTitle : '사진찍기',
+            chooseFromLibraryButtonTitle : '앨범에서 고르기',
+            cancelButtonTitle : '취소'
+        },response=>{
+            setAvatar(response.uri)
+            console.log(response.uri)
+        })
+    }
 
   const checkInputs= () => {
     
@@ -68,7 +84,10 @@ const AddCircle =  ({navigation } : Props) => {
     return (
       <Container>
           <FormContainer> 
-          <Icon source={{uri: constants.DEFAULT_CIRCLE_IMG}}/>
+          <IconButton 
+          iconName = 'upload'
+          onPress={()=>{addImage()}}
+          />
           <Description>Name</Description>
           <Input style={{marginBottom:32, flex:1}} placeholder="동아리명"/>
           <Description>Tags</Description>

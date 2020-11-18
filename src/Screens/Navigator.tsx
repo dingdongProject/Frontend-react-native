@@ -146,7 +146,7 @@ const MainStackNavigator = ({navigation } : Props) =>{
 const CalendarNavigator = ({navigation } : Props) => {
     return(
         <Stack.Navigator>
-            <Stack.Screen name = "Calendar" component={MyCirlce}  //edit
+            <Stack.Screen name = "Calendar" component={Calendar}  //edit
             options={{
                 headerStyle:{
                     backgroundColor : Constants.PRIMARY,

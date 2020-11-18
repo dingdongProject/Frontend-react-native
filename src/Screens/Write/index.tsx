@@ -1,10 +1,13 @@
-import React, {useContext, useLayoutEffect, useEffect} from 'react';
+import React, {useContext, useLayoutEffect, useEffect,useState} from 'react';
 import Styled from 'styled-components/native';
 import {TextInput} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import {UserContext} from '~/Context/User';
 import { onChange } from 'react-native-reanimated';
+import ImagePicker from 'react-native-image-picker';
+
+
 import Input from '~/Components/Input';
 import constants from '~/Constants/constants';
 
@@ -86,7 +89,18 @@ const FooterText = Styled.Text`
 `; 
 
 const Write =  ({navigation } : Props) => {
-  
+    const [Avatar,setAvatar] = useState('')
+
+    const addImage = () => {
+        ImagePicker.showImagePicker({
+            takePhotoButtonTitle : '사진찍기',
+            chooseFromLibraryButtonTitle : '앨범에서 고르기',
+            cancelButtonTitle : '취소'
+        },response=>{
+            setAvatar(response.uri)
+            console.log(response.uri)
+        })
+    }
 
     
 
@@ -151,7 +165,9 @@ const Write =  ({navigation } : Props) => {
               </BodyInputBox>
               </BodyInputScroll>
               </BodyContainer>
-              <FooterTouch>
+              <FooterTouch
+              onPress={()=>{addImage()}}
+              >
                   <Footer>
                       <FooterText>
                           카메라
