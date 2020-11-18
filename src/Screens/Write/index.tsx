@@ -174,7 +174,9 @@ const Write =  ({navigation } : Props) => {
                       </FooterText>
                   </Footer>
               </FooterTouch>
-              <FooterTouch>
+              <FooterTouch
+                onPress={()=>{navigation.goBack()}}
+              >
                   <Footer>
                       <FooterText>
                           저장

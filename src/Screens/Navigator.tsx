@@ -85,7 +85,7 @@ const MainStackNavigator = ({navigation } : Props) =>{
     
     return(
         <Stack.Navigator screenOptions={{headerShown : true}}>
-            <Stack.Screen name="dingdong" component={DDHome} 
+            <Stack.Screen name="dingdong" component={MyCirlce} 
                 options={{
                     headerStyle:{
                         backgroundColor : Constants.PRIMARY,
