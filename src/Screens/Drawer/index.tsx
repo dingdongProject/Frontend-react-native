@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState, createContext} from 'react';
 import Styled from 'styled-components/native';
 import {
     DrawerContentScrollView,
@@ -18,6 +18,7 @@ import { PrivateValueStore } from '@react-navigation/native';
 import { PageContext } from '~/Context/Page';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import constants from '~/Constants/constants';
+import { CircleContext } from '~/Context/Circle';
 
 const Header = Styled.View`
     border-bottom-width : 1px;
@@ -86,8 +87,10 @@ interface Props {
 //     )
 // }
 
+
 const Drawer = ({props}:Props) => {
     const {logout,userInfo, circleInfo} = useContext<IUserContext>(UserContext);
+    const {changeIsCircle} = useContext<ICircleContext>(CircleContext);
     return (
         <DrawerContentScrollView {...props}>
             <Button
@@ -100,7 +103,7 @@ const Drawer = ({props}:Props) => {
                 <Title>{userInfo?.email}</Title>
                 </Header>
             </Button>
-            <Button>
+            <Button onPress={()=>{changeIsCircle(false); props.navigation.closeDrawer();}}>
             <ButtonContainer
                 >
                     <Icon source={require('~/Assets/Images/home.png')}/>
@@ -111,7 +114,9 @@ const Drawer = ({props}:Props) => {
             circleInfo?
             circleInfo.map((circle, key) => {
                 return (
-                    <Button onPress={()=>{props.navigation.navigate('MyCircle',{screen : 'MyCircle'})}}>
+                    <Button 
+                    //onPress={()=>{props.navigation.navigate('MyCircle',{screen : 'MyCircle'})}}
+                    onPress={()=>{changeIsCircle(true); props.navigation.closeDrawer();}}>
                         <ButtonContainer>
                             <CircleIcon source={{uri: circle.picture ? circle.picture : constants.DEFAULT_CIRCLE_IMG}}/>
                             <Label>{circle.name}</Label>
@@ -122,6 +127,7 @@ const Drawer = ({props}:Props) => {
             }
             <Button
                 onPress={()=>{props.navigation.navigate('AddCircle',{screen : 'AddCircle'})}}
+                
             >
                 <ButtonContainer>
                     <Icon source={require('~/Assets/Images/add_circle.png')}/>

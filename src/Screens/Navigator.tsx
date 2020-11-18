@@ -9,7 +9,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import Styled from 'styled-components/native';
 
 import {UserContext} from '~/Context/User';
-import {PageContext} from '~/Context/Page';
+import {CircleContext} from '~/Context/Circle';
 import Loading from '~/Components/Loading';
 
 import Login from '~/Screens/Login';
@@ -82,11 +82,12 @@ const MainNavigator = () => {
 
 
 const MainStackNavigator = ({navigation } : Props) =>{
-    
+    const {isCircle} = useContext<ICircleContext>(CircleContext);
+    console.warn('isCircle: ', isCircle);
     return(
         <Stack.Navigator screenOptions={{headerShown : true}}>
-            <Stack.Screen name="dingdong" component={DDHome} 
-                options={{
+            <Stack.Screen name={isCircle ? "MyCircle1": "dingdong"} component={isCircle ? MyCirlce: DDHome } 
+                options={{  
                     headerStyle:{
                         backgroundColor : Constants.PRIMARY,
                     },
@@ -142,6 +143,7 @@ const MainStackNavigator = ({navigation } : Props) =>{
 
     )
 }
+
 
 const CalendarNavigator = ({navigation } : Props) => {
     return(

@@ -22,34 +22,33 @@ interface Props {
 
 const DDHome =  ({navigation } : Props) => {
   const {userInfo} = useContext<IUserContext>(UserContext);
-    useEffect(() => {
-        SplashScreen.hide();
-      }, []);
+  useEffect(() => {
+      SplashScreen.hide();
+    }, []);
+    
+
+  //   useLayoutEffect(()=>{
+  //     console.log("aa")
+  //     navigation.setOptions({
+  //         headerRight: () => (
+  //             <IconButton
+  //                 iconName="menu"
+  //                 onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
+  //             />
+  //         ),
+  //     });
+  // },[]);
+  
+  return (
+
+          <Mainnotice
+          title ={'a'}
+          item = {"b"}
+          />
+          // <Prac/>
       
-
-    //   useLayoutEffect(()=>{
-    //     console.log("aa")
-    //     navigation.setOptions({
-    //         headerRight: () => (
-    //             <IconButton
-    //                 iconName="menu"
-    //                 onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
-    //             />
-    //         ),
-    //     });
-    // },[]);
       
-
-    return (
-
-            <Mainnotice
-            title ={'a'}
-            item = {"b"}
-            />
-            // <Prac/>
-        
-       
-    );
+  );
 };
 
 export default DDHome;
