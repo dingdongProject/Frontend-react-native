@@ -118,12 +118,8 @@ border : 0px;
 `;
 const BulleteinboardSubConatiner = Styled.View`
 flex :1;
-padding : 25px;
+padding :25px;
 align-items : flex-start;
-`;
-
-const BulleteinTouch = Styled.TouchableOpacity`
-  flex :1;
 `;
 
 const BulleteinboardTitleContainer=Styled.View`
@@ -140,9 +136,8 @@ color: ${Constants.PRIMARY};
 font-weight : bold;
 `;
 const BulleteinboardBodyContainer=Styled.View`
-  border:0px solid #ccc;
+  border:1px solid #ccc;
     border-radius:10px;
-    border-bottom-width : 0px;
     box-shadow:0 0 0px #ccc;
     background-color:#f4f4f4;
     justify-content : space-between;
@@ -151,12 +146,25 @@ const BulleteinboardBodyContainer=Styled.View`
     padding : 20px;
     margin-right : 0px;
     width :  ${windowWidth *0.855}px;
-    height : ${windowHeight * 0.3}px; 
 `;//터쳐블로 바꿔야함
+
+const BulletinboardItemContainer=Styled.TouchableOpacity`
+  width: 100%;
+  margin: 5px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`
+const BulletinboardItemIcon=Styled.Image`
+  width: 15px;
+  height: 15px;
+`
+
 const BulleteinboardBodyText=Styled.Text`
 font-size:15px;
 text-align:left;
-color: ${Constants.TEXT2};
+color: ${Constants.TEXT1};
+margin: 5px;
 `;
 
 
@@ -294,41 +302,38 @@ https://zoom.us/j/97079917004?pwd=Nnpmck4xNktuMzJyNlRvVUNVaXRCZz09
                 </NoticeContainer>
                 <BulleteinboardContainer>
                   <BulleteinboardSubConatiner>
-                    <BulleteinTouch
-                    onPress={()=>{navigation.navigate('BulleteinBoard')}}
-                    >
                   <BulleteinboardTitleContainer>
                     <BulleteinboardTitleText>
                     Board
                     </BulleteinboardTitleText>
                   </BulleteinboardTitleContainer>
                   <BulleteinboardBodyContainer>
+                    <BulletinboardItemContainer>
+                      <BulletinboardItemIcon source={require('~/Assets/Images/blur_circle.png')}></BulletinboardItemIcon>
                     <BulleteinboardBodyText>
-                    @애니동호회1
+                    애니동호회1
                     </BulleteinboardBodyText>
+                    </BulletinboardItemContainer>
+                    <BulletinboardItemContainer>
+                    <BulletinboardItemIcon source={require('~/Assets/Images/blur_circle.png')}></BulletinboardItemIcon>
                     <BulleteinboardBodyText>
-                    @애니동호회2
+                    애니동호회2
                     </BulleteinboardBodyText>
+                    </BulletinboardItemContainer>
+                    <BulletinboardItemContainer>
+                    <BulletinboardItemIcon source={require('~/Assets/Images/blur_circle.png')}></BulletinboardItemIcon>
                     <BulleteinboardBodyText>
-                    @애니동호회3
+                    애니동호회3
                     </BulleteinboardBodyText>
+                    </BulletinboardItemContainer>
+                    <BulletinboardItemContainer>
+                    <BulletinboardItemIcon source={require('~/Assets/Images/blur_circle.png')}></BulletinboardItemIcon>
                     <BulleteinboardBodyText>
-                    @애니동호회4
+                    애니동호회4
                     </BulleteinboardBodyText>
-                    <BulleteinboardBodyText>
-                    @애니동호회5
-                    </BulleteinboardBodyText>
-                    <BulleteinboardBodyText>
-                    @애니동호회6
-                    </BulleteinboardBodyText>
-                    <BulleteinboardBodyText>
-                    @애니동호회7
-                    </BulleteinboardBodyText>
-                    <BulleteinboardBodyText>
-                    @애니동호회8
-                    </BulleteinboardBodyText>
+                    </BulletinboardItemContainer>
+                    
                   </BulleteinboardBodyContainer>
-                  </BulleteinTouch>
                   </BulleteinboardSubConatiner>
                 </BulleteinboardContainer>
                 <GalleryContainer>
