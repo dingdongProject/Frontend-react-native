@@ -4,6 +4,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import Styled from 'styled-components/native';
 import Constants from '~/Constants/constants';
 import {Dimensions} from 'react-native'
+import {StackNavigationProp} from '@react-navigation/stack';
 
 import NoticeList from '~/Components/NoticeList';
 import { UserContext } from '~/Context/User';
@@ -12,18 +13,6 @@ import constants from '~/Constants/constants';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-const Container = Styled.SafeAreaView`
-    flex : 1
-    background-color:#f4f4f4;
-    justify-content : space-between;
-    flex-direction: column;
-    
-`;
-
-const SubContainer = Styled.ScrollView`
-    flex : 1;
-    
-`;
 
 const NoticeContainer = Styled.View`
     flex : 1;
@@ -102,51 +91,13 @@ color:${Constants.TEXT2};
 margin-bottom : 0px;
 `;
 
-const NewsContainer = Styled.View`
-    flex : 1;
-    padding : 25px;
-    align-items : flex-start;
-
-`;
-const NewsTitleBox = Styled.View`
-    flex : 1;
-    border-bottom-width : 0px;
-    margin-bottom : 10px;
-`;
-const NewsTitle=Styled.Text`
-font-size:20px;
-text-align:left;
-color: ${Constants.PRIMARY};
-font-weight : bold;
-
-`;
-
-const Newsbox = Styled.View`
-flex:9;
-border:1px solid #ccc;
-margin:2px;
-margin-bottom : 10px;
-border-radius:10px;
-box-shadow:0 0 10px #ccc;
-background-color:#fff;
-padding:10px;
-width : 350px;
-height : 250px;
-`;
-const Newsproto = Styled.Text`
-font-size:20px;
-text-align:left;
-color:#212529;
-margin-bottom : 0px;
-`;
-
 interface Props {
     item : string;
     title : string;
 }
 
 
-const Mainnotice = ({item,title}:Props) => {
+const NoticeBox = ({item,title}:Props) => {
     const {circleInfo} = useContext<IUserContext>(UserContext);
     const data = [
         {
@@ -207,8 +158,7 @@ https://zoom.us/j/97079917004?pwd=Nnpmck4xNktuMzJyNlRvVUNVaXRCZz09
     
 
     return(
-        <Container>
-            <SubContainer>
+        
                 <NoticeContainer>
                 <NoticeTitleBox>
                     <NoticeTitle>Notice</NoticeTitle>    
@@ -225,27 +175,10 @@ https://zoom.us/j/97079917004?pwd=Nnpmck4xNktuMzJyNlRvVUNVaXRCZz09
                 />
 
                 </NoticeContainer>
-                <NewsContainer>
-                    <NewsTitleBox>
-                        <NewsTitle>News</NewsTitle>
-                    </NewsTitleBox>
-
-                <Newsbox>
-                    <Newsproto></Newsproto>
-                </Newsbox>
-
-                <Newsbox>
-                <Newsproto></Newsproto>
-                </Newsbox>
-
-                <Newsbox>
-                <Newsproto></Newsproto>
-                </Newsbox>
-                </NewsContainer>
-            </SubContainer>
-        </Container>
-        
+               
     )
-
 }
-export default Mainnotice;
+
+export default NoticeBox;
+
+            

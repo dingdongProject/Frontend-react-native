@@ -99,14 +99,21 @@ const FooterTouch = Styled.TouchableOpacity`
     align-items : center;
 `
 const Footer = Styled.View`
-    border : 0px;
-    height : 30px;
-    align-items : center;
+    border : 2px;
+    border-radius : 20;
+    border-color : ${constants.PRIMARY}
+    background-color : ${constants.PRIMARY}
+    width : 100px;
+    height : 45px;
+    bottom : 20;
+    position : absolute;
+    padding : 5px;
 `;
 const FooterText = Styled.Text`
     font-weight : bold;
     text-align : center;
-    color : ${constants.PRIMARY}
+    font-size : 30;
+    color : ${constants.TEXT1}
 `; 
 
 
@@ -119,8 +126,9 @@ const BulleteinBoard =  ({navigation } : Props) => {
 
     return (
       <Container>
+          <ScrollContainer>
           <SubContainer>
-            <ScrollContainer>
+            
                 <ReadBox
                 onPress={()=>{navigation.navigate('Read')}}
                 >
@@ -410,7 +418,7 @@ Thanks!
                 </BulleteinMainContainer> 
 
 
-
+                </SubContainer>
             </ScrollContainer>
             <FooterTouch
                 onPress={()=>{
@@ -423,7 +431,7 @@ Thanks!
                 </FooterText>
             </Footer>
             </FooterTouch>
-          </SubContainer>
+          
           
       </Container>
        

@@ -5,65 +5,38 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import ImagePicker from 'react-native-image-picker';
 
 import IconButton from '~/Components/IconButton';
+import NewsBox from '~/Components/NewsBox';
 
 
 
 const Container = Styled.SafeAreaView`
-    flex : 1
+    flex : 1;
     background-color:#f4f4f4;
     justify-content : space-between;
     flex-direction: column;
+    align-items : center;
     
 `;
+
 
 const SubContainer = Styled.ScrollView`
     flex : 1;
-    
-`;
-
-
-const GalleryContainer = Styled.View`
-flex : 1;
-    padding : 25px;
-    align-items : flex-start;
-
-`;
-const GalleryBox = Styled.View`
-flex : 1;
-flex-direction : row;
-`;
-const GalleryTitleBox = Styled.View`
-    flex : 1;
-    border-bottom-width : 0px;
-    margin-bottom : 10px;
-    
     border : 0px;
+    
 `;
-const GalleryTitle=Styled.Text`
-font-size:20px;
-text-align:left;
-color: ${constants.PRIMARY};
-font-weight : bold;
-
+const MainContainer = Styled.View`
+    flex : 1;
+    align-items : center;
 `;
 
-const Gallerybox = Styled.View`
-flex:9;
-border:1px solid #ccc;
-margin:2px;
-margin-bottom : 10px;
-border-radius:10px;
-box-shadow:0 0 10px #ccc;
-background-color:#fff;
-padding:10px;
-width : 350px;
-height : 250px;
+const Footer = Styled.View`
+    width : auto;
+    height : auto;
+    border : 0px;
+    position : absolute;
+    top : 650;
 `;
-const Galleryproto = Styled.Image`
-width : 100%;
-height : 100px;
-resize-mode:center;
-`;
+
 type NavigationProp = StackNavigationProp<GalleryNaviParamList, 'Gallery'>;
 
 interface Props {
@@ -83,31 +56,29 @@ const Gallery = ({navigation} : Props) => {
                 console.log(response.uri)
             })
         }
+        
 
         return(
             <Container>
+                
+
+                
                 <SubContainer>
-                    <GalleryContainer>
-                        <GalleryBox>
-                        <GalleryTitleBox>
-                            <GalleryTitle>
-                                Gallery
-                            </GalleryTitle>
-                           
-                        </GalleryTitleBox>
-                        <IconButton iconName = 'upload'
+                <MainContainer>
+                    <NewsBox
+                    title={'Gallery'}
+                    />
+                    
+                </MainContainer> 
+                </SubContainer>
+                <Footer>
+                <IconButton iconName = 'upload'
                         onPress={()=>{addImage()}}
                         />
-                        </GalleryBox>
-                        
-                        
-                        
-                        <Gallerybox>
-                            <Galleryproto source={{uri: Avatar}}/>
-
-                        </Gallerybox>
-                    </GalleryContainer>
-                </SubContainer>
+                </Footer>
+                
+                
+                
             </Container>
         )
 
