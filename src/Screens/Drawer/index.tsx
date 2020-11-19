@@ -15,7 +15,6 @@ import IconButton from '~/Components/IconButton';
 import MyCircle from '~/Screens/MyCircle';
 import { Alert } from 'react-native';
 import { PrivateValueStore } from '@react-navigation/native';
-import { PageContext } from '~/Context/Page';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import constants from '~/Constants/constants';
 import { CircleContext } from '~/Context/Circle';
@@ -90,7 +89,7 @@ interface Props {
 
 const Drawer = ({props}:Props) => {
     const {logout,userInfo, circleInfo} = useContext<IUserContext>(UserContext);
-    const {changeIsCircle} = useContext<ICircleContext>(CircleContext);
+    const {changeToCircle} = useContext<ICircleContext>(CircleContext);
     return (
         <DrawerContentScrollView {...props}>
             <Button
@@ -103,7 +102,7 @@ const Drawer = ({props}:Props) => {
                 <Title>{userInfo?.email}</Title>
                 </Header>
             </Button>
-            <Button onPress={()=>{changeIsCircle(false); props.navigation.closeDrawer();}}>
+            <Button onPress={()=>{changeToCircle(false, 0); props.navigation.closeDrawer();}}>
             <ButtonContainer
                 >
                     <Icon source={require('~/Assets/Images/home.png')}/>
@@ -116,7 +115,7 @@ const Drawer = ({props}:Props) => {
                 return (
                     <Button 
                     //onPress={()=>{props.navigation.navigate('MyCircle',{screen : 'MyCircle'})}}
-                    onPress={()=>{changeIsCircle(true); props.navigation.closeDrawer();}}>
+                    onPress={()=>{changeToCircle(true, key); props.navigation.closeDrawer();}}>
                         <ButtonContainer>
                             <CircleIcon source={{uri: circle.picture ? circle.picture : constants.DEFAULT_CIRCLE_IMG}}/>
                             <Label>{circle.name}</Label>

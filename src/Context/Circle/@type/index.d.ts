@@ -10,10 +10,10 @@ interface IPostSimpleInfo {
 
 interface ICircleContext {
     isCircle: boolean;
-    circleInfo : ICircleInfo | undefined;
+    circleChosen : ICircleInfo | undefined;
     circleNotices: Array<IPostSimpleInfo>;
     circleGallery: Array<string>;
     circleFeeds: Array<IPostSimpleInfo>;
     circleBoards: Array<IBoardInfo>;
-    changeIsCircle: (arg0: boolean) => void;
+    changeToCircle: (arg0: boolean, arg1: number) => void;
 }

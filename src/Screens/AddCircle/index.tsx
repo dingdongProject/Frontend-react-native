@@ -9,10 +9,11 @@ import { onChange } from 'react-native-reanimated';
 import constants from '~/Constants/constants';
 
 import api from '~/Api/api'
-import {Text, TouchableOpacity} from 'react-native';
+import {Platform} from 'react-native';
 import IconButton from '~/Components/IconButton';
 import Button from '~/Components/Button';
 import Input from '~/Components/Input';
+import { useLinkProps } from '@react-navigation/native';
 
 type NavigationProp = StackNavigationProp<AddCircleNaviParamList, 'AddCircle'>;
 
@@ -55,11 +56,9 @@ const GoBack = Styled.Text`
 const AddCircle =  ({navigation } : Props) => {
   const [circleName,onChangecircleName] = useState('')
   const [circleExplaination,onChangeExplaination] = useState('')
-  const [circlePicture,onChangecirclePicture] =useState('')
-  const {addCircle} = useContext<IUserContext>(UserContext)
+  const [circlePicture,onChangecirclePicture] =useState({uri: '', name: '', type: ''})
+  const {addCircle, isLoading} = useContext<IUserContext>(UserContext)
   
-  
-  const [Avatar,setAvatar] = useState('')
 
     const addImage = () => {
         ImagePicker.showImagePicker({
@@ -67,8 +66,12 @@ const AddCircle =  ({navigation } : Props) => {
             chooseFromLibraryButtonTitle : '앨범에서 고르기',
             cancelButtonTitle : '취소'
         },response=>{
-            setAvatar(response.uri)
-            console.log(response.uri)
+          onChangecirclePicture({
+            uri: Platform.OS === "android" ? response.uri : response.uri.replace("file://", ""),
+            name: `${circleName}.png`,
+            type: 'image/png'
+          });
+
         })
     }
 
@@ -89,13 +92,20 @@ const AddCircle =  ({navigation } : Props) => {
           onPress={()=>{addImage()}}
           />
           <Description>Name</Description>
-          <Input style={{marginBottom:32, flex:1}} placeholder="동아리명"/>
+          <Input style={{marginBottom:32, flex:1}} onChangeText={(text)=> onChangecircleName(text)} placeholder="동아리명"/>
           <Description>Tags</Description>
-          <Input style={{marginBottom:32, flex:1}} placeholder="태그"/>
+          <Input style={{marginBottom:32, flex:1}}  placeholder="태그"/>
           <Description>Explanation</Description>
-          <Input style={{marginBottom:32, flex: 5 }} placeholder="동아리소개"/>
-          <Button label="동아리 생성" onPress={() => {
-            navigation.goBack()
+          <Input style={{marginBottom:32, flex: 5 }} onChangeText={(text)=> onChangeExplaination(text)} placeholder="동아리소개"/>
+          <Button label="동아리 생성" onPress={async () => {
+
+            var form = new FormData();
+            form.append('name', circleName)
+            form.append('explanation', circleExplaination)
+            form.append('picture', circlePicture)
+            form.append('Content-Type', 'image/png');
+            addCircle(form);
+            navigation.pop();
           }}/>
           </FormContainer>
       </Container> 

@@ -14,7 +14,7 @@ interface IUserContext {
     userInfo : IUserInfo | undefined;
     circleInfo : Array<ICircleInfo>;
     tokenInfo : string | null;
-    addCircle : (name : string, explaination : string, picture : string) => void;
+    addCircle : (circle: ICircleInfo) => void;
     login : (username : string, password : string) => void;
     logout: () => void;
     userset: () => void;

@@ -5,7 +5,7 @@ export default {
         return _promise(METHOD.POST, BASE_URL + `signup` , payload)
     },
     addCircle: function(payload) {
-        return _promise(METHOD.POST, BASE_URL + `addCircle` , payload)
+        return _promise(METHOD.POST_FILES, BASE_URL + `circles` , payload, true)
     },
     logIn: function(payload) {
         return _promise(METHOD.POST, BASE_URL + 'login' , payload)
@@ -18,6 +18,7 @@ export default {
     },
     circle: function(payload) {
         return _promise(METHOD.GET, BASE_URL + `circle/${payload}`)
-    }
+    },
+    
     
 }

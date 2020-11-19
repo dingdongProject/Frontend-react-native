@@ -10,7 +10,7 @@ const defaultContext : IUserContext = {
     userInfo : undefined,
     circleInfo: [],
     tokenInfo : null,
-    addCircle : (name : string, explanation : string, email : string) => {},
+    addCircle : (data : FormData) => {},
     login : (username: string, password: string) => {},
     logout: () =>{},
     userset : () => {},
@@ -114,18 +114,19 @@ const UserContextProvider = ({children}:Props) => {
         });
     }
 
-    const addCircle = (name : string, explaination : string , picture : string) : void=> {
-        api.addCircle({
-            name : name,
-            explaination: explaination, 
-            picture: picture,
-    }).then((response)=> {
-        return response.data
-    }).then((data)=>{
-        setCircleInfo(data)
-        console.warn(data)
-    })
-};
+    const addCircle = (form: FormData) : void=> {
+        api.addCircle(form).then( (response) => {
+            console.warn(response.data)
+            return response.data
+          }).then( (data) => {
+            if (data.success) {
+                let circle = data.circle
+                var newList = circleInfo;
+                newList.push(circle);
+                setCircleInfo(newList);
+            }
+        })
+    }
 
     const logout = ():void => {
         AsyncStorage.removeItem('token');

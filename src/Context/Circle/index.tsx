@@ -1,12 +1,13 @@
-import React , { createContext, useState, useEffect } from 'react';
+import React , { createContext, useState, useEffect, useContext } from 'react';
 import Alert from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import SplashScreen from 'react-native-splash-screen';
 import api from '~/Api/api'
+import {UserContext} from '~/Context/User';
 
 const defaultContext: ICircleContext = {
     isCircle: false,
-    circleInfo: undefined,
+    circleChosen: undefined,
     circleNotices: [],
     circleGallery: [],
     circleFeeds: [],
@@ -21,27 +22,27 @@ interface Props {
 }
 
 const CircleContextProvider = ({children}: Props) => {
-    const [circleInfo, setCircleInfo] = useState<ICircleInfo | undefined>(undefined);
+    const [circleChosen, setCircleChosen] = useState<ICircleInfo | undefined>(undefined);
     const [isCircle, setIsCircle] = useState<boolean>(false);
     const [circleNotices, setCircleNotices] = useState<Array<IPostSimpleInfo>>([]);
     const [circleGallery, setCircleGallery] = useState<Array<string>>([]);
     const [circleFeeds, setCircleFeeds] = useState<Array<IPostSimpleInfo>>([]);
     const [circleBoards, setCircleBoards] = useState<Array<IBoardInfo>>([]);
-    
-    const changeIsCircle = (newState: boolean) => {
-        setIsCircle(newState); 
-        console.warn(isCircle);
+    const {circleInfo} = useContext<IUserContext>(UserContext);
+    const changeToCircle = (newState: boolean, key: number = 0) => {
+        setIsCircle(newState);
+        setCircleChosen(circleInfo[key]);
     }
     return (
         <CircleContext.Provider
             value = {{
                 isCircle,
-                circleInfo,
+                circleChosen,
                 circleBoards,
                 circleFeeds,
                 circleGallery,
                 circleNotices,
-                changeIsCircle,
+                changeToCircle,
             }}>
                 {children}
         </CircleContext.Provider>
