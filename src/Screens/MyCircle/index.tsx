@@ -3,7 +3,7 @@ import Styled from 'styled-components/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import { FlatList } from 'react-native-gesture-handler';
-
+import {CircleContext} from '~/Context/Circle';
 
 import {UserContext} from '~/Context/User';
 import {Dimensions} from 'react-native';
@@ -139,6 +139,11 @@ interface Props {
 
 const MyCirlce =  ({navigation} : Props) => {
   const {userInfo,circleInfo} = useContext<IUserContext>(UserContext);
+  const {circleChosen, setMainPage, circleBoards} = useContext<ICircleContext>(CircleContext);
+
+  useEffect(() => {
+    setMainPage();
+  }, []);
 
     
 
@@ -156,32 +161,20 @@ const MyCirlce =  ({navigation} : Props) => {
                     Board
                     </BulleteinboardTitleText>
                   </BulleteinboardTitleContainer>
-                  <BulleteinboardBodyContainer>
-                    <BulletinboardItemContainer>
-                      <BulletinboardItemIcon source={require('~/Assets/Images/blur_circle.png')}></BulletinboardItemIcon>
-                    <BulleteinboardBodyText>
-                    애니동호회1
-                    </BulleteinboardBodyText>
-                    </BulletinboardItemContainer>
-                    <BulletinboardItemContainer>
-                    <BulletinboardItemIcon source={require('~/Assets/Images/blur_circle.png')}></BulletinboardItemIcon>
-                    <BulleteinboardBodyText>
-                    애니동호회2
-                    </BulleteinboardBodyText>
-                    </BulletinboardItemContainer>
-                    <BulletinboardItemContainer>
-                    <BulletinboardItemIcon source={require('~/Assets/Images/blur_circle.png')}></BulletinboardItemIcon>
-                    <BulleteinboardBodyText>
-                    애니동호회3
-                    </BulleteinboardBodyText>
-                    </BulletinboardItemContainer>
-                    <BulletinboardItemContainer>
-                    <BulletinboardItemIcon source={require('~/Assets/Images/blur_circle.png')}></BulletinboardItemIcon>
-                    <BulleteinboardBodyText>
-                    애니동호회4
-                    </BulleteinboardBodyText>
-                    </BulletinboardItemContainer>
-                    
+                  <BulleteinboardBodyContainer>  
+                  {
+                    circleBoards? circleBoards.map((board, key) => {
+                      return (
+                        <BulletinboardItemContainer>
+                          <BulletinboardItemIcon source={require('~/Assets/Images/blur_circle.png')}></BulletinboardItemIcon>
+                          <BulleteinboardBodyText>
+                            {board.name}
+                          </BulleteinboardBodyText>
+                        </BulletinboardItemContainer>
+                      )
+                    })
+                    : ''
+                  } 
                   </BulleteinboardBodyContainer>
                   </BulleteinboardSubConatiner>
                 </BulleteinboardContainer>

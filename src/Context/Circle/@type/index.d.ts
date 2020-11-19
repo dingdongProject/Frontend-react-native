@@ -1,11 +1,12 @@
 interface IBoardInfo {
     name: string;
     id: number;
-    writePerm: boolean;
+    memberWrite: boolean;
 }
 interface IPostSimpleInfo {
     title: string;
     content: string;
+    id: number;
 }
 
 interface ICircleContext {
@@ -16,4 +17,5 @@ interface ICircleContext {
     circleFeeds: Array<IPostSimpleInfo>;
     circleBoards: Array<IBoardInfo>;
     changeToCircle: (arg0: boolean, arg1: number) => void;
+    setMainPage:()=> void;
 }

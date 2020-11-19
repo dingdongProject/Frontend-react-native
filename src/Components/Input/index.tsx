@@ -23,6 +23,8 @@ interface Props {
   style?: Object;
   clearMode?: boolean;
   onChangeText?: (text: string) => void;
+  multi?: boolean;
+  max?: number;
 }
 
 const Input = ({
@@ -32,6 +34,8 @@ const Input = ({
   style,
   clearMode,
   onChangeText,
+  multi,
+  max
 }: Props) => {
   return (
     <Container style={style}>
@@ -46,6 +50,8 @@ const Input = ({
         placeholder={placeholder}
         clearButtonMode={clearMode ? 'while-editing' : 'never'}
         onChangeText={onChangeText}
+        multiline = {multi}
+        maxLength = {max? max : 1000}
       />
     </Container>
   );

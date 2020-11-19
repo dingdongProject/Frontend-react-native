@@ -10,8 +10,11 @@ export default {
     logIn: function(payload) {
         return _promise(METHOD.POST, BASE_URL + 'login' , payload)
     },
-    withDraw: function(payload) {
-        return _promise(METHOD.DELETE, BASE_URL + 'withdraw',payload)
+    getBoards: function(payload) {
+        return _promise(METHOD.GET, BASE_URL + `circles/${payload.name}/boards`, {},true)
+    },
+    getNotices: function(payload) {
+        return _promise(METHOD.GET, BASE_URL + `circles/${payload.name}/notices`, {}, true)
     },
     user : function() {
         return _promise(METHOD.GET,BASE_URL+`user`,{}, true)
@@ -19,6 +22,4 @@ export default {
     circle: function(payload) {
         return _promise(METHOD.GET, BASE_URL + `circle/${payload}`)
     },
-    
-    
 }

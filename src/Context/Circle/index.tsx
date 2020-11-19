@@ -12,7 +12,9 @@ const defaultContext: ICircleContext = {
     circleGallery: [],
     circleFeeds: [],
     circleBoards: [],
-    changeIsCircle: (newstate: boolean) => {}
+    changeToCircle: (newstate: boolean, key: number) => {},
+    setMainPage: () => {}
+
 }
 
 const CircleContext = createContext(defaultContext);
@@ -33,6 +35,29 @@ const CircleContextProvider = ({children}: Props) => {
         setIsCircle(newState);
         setCircleChosen(circleInfo[key]);
     }
+
+    const setMainPage = () => {
+        api.getBoards({name: circleChosen?.name})
+        .then( (response) => response.data)
+        .then((data) => {
+            if (data.success){
+                setCircleBoards(data.boards)
+            }
+            else {
+                console.warn(data.message)
+            }
+        })
+        api.getNotices({name: circleChosen?.name})
+        .then( (response) => response.data)
+        .then((data) => {
+            if (data.success){
+                setCircleNotices(data.posts)
+            }
+            else {
+                console.warn(data.message)
+            }
+        })
+    }
     return (
         <CircleContext.Provider
             value = {{
@@ -43,6 +68,7 @@ const CircleContextProvider = ({children}: Props) => {
                 circleGallery,
                 circleNotices,
                 changeToCircle,
+                setMainPage
             }}>
                 {children}
         </CircleContext.Provider>

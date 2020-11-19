@@ -14,7 +14,6 @@ const defaultContext : IUserContext = {
     login : (username: string, password: string) => {},
     logout: () =>{},
     userset : () => {},
-    withdraw : (username : string, password : string) => {},
 };
 
 
@@ -135,14 +134,6 @@ const UserContextProvider = ({children}:Props) => {
         setCircleInfo([]);
     };
 
-    const withdraw = (username : string, password : string):void => {
-        api.withDraw({
-            username : username,
-            password : password
-        })
-        AsyncStorage.removeItem('token');
-        setUSerInfo(undefined);
-    }
 
 
 
@@ -158,7 +149,6 @@ const UserContextProvider = ({children}:Props) => {
                 login,
                 logout,
                 userset,
-                withdraw,
             }}>
                 {children}
             </UserContext.Provider>

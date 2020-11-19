@@ -9,10 +9,11 @@ import { onChange } from 'react-native-reanimated';
 import constants from '~/Constants/constants';
 
 import api from '~/Api/api'
-import {Platform} from 'react-native';
+import {Platform, Image} from 'react-native';
 import IconButton from '~/Components/IconButton';
 import Button from '~/Components/Button';
 import Input from '~/Components/Input';
+import ImageButton from '~/Components/ImageButton';
 import { useLinkProps } from '@react-navigation/native';
 
 type NavigationProp = StackNavigationProp<AddCircleNaviParamList, 'AddCircle'>;
@@ -33,12 +34,6 @@ const FormContainer = Styled.View`
     justify-content : center;
     padding : 32px;
 `;  
-const Icon = Styled.Image`
-  width: 150px;
-  height: 150px;
-  border-radius: 100;
-  margin-bottom: 20px;
-`;
 const Description = Styled.Text`
   width: 100%;
   text-align : left;
@@ -66,8 +61,9 @@ const AddCircle =  ({navigation } : Props) => {
             chooseFromLibraryButtonTitle : '앨범에서 고르기',
             cancelButtonTitle : '취소'
         },response=>{
+          if (response.didCancel) return;
           onChangecirclePicture({
-            uri: Platform.OS === "android" ? response.uri : response.uri.replace("file://", ""),
+            uri: response.uri,
             name: `${circleName}.png`,
             type: 'image/png'
           });
@@ -87,22 +83,26 @@ const AddCircle =  ({navigation } : Props) => {
     return (
       <Container>
           <FormContainer> 
-          <IconButton 
-          iconName = 'upload'
+          <ImageButton 
           onPress={()=>{addImage()}}
+          source = {circlePicture.uri !== "" ? circlePicture.uri : undefined}
           />
           <Description>Name</Description>
-          <Input style={{marginBottom:32, flex:1}} onChangeText={(text)=> onChangecircleName(text)} placeholder="동아리명"/>
+          <Input style={{marginBottom:32, flex:1}} onChangeText={(text)=> onChangecircleName(text)} 
+          placeholder="Circle Name" max={30}/>
           <Description>Tags</Description>
-          <Input style={{marginBottom:32, flex:1}}  placeholder="태그"/>
-          <Description>Explanation</Description>
-          <Input style={{marginBottom:32, flex: 5 }} onChangeText={(text)=> onChangeExplaination(text)} placeholder="동아리소개"/>
+          <Input style={{marginBottom:32, flex:1}}  placeholder="tags"/>
+          <Description>Introduction</Description>
+          <Input style={{marginBottom:32, flex: 5 }} onChangeText={(text)=> onChangeExplaination(text)} 
+          placeholder="Introduction" multi={true} max={300}/>
           <Button label="동아리 생성" onPress={async () => {
 
             var form = new FormData();
+            let formCircleFile = circlePicture
+            formCircleFile.uri = Platform.OS === "android" ? formCircleFile.uri : formCircleFile.uri.replace("file://", ""),
             form.append('name', circleName)
             form.append('explanation', circleExplaination)
-            form.append('picture', circlePicture)
+            form.append('picture', formCircleFile)
             form.append('Content-Type', 'image/png');
             addCircle(form);
             navigation.pop();
