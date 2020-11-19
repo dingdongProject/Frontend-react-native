@@ -83,10 +83,12 @@ const MainNavigator = () => {
 
 const MainStackNavigator = ({navigation } : Props) =>{
     const {isCircle} = useContext<ICircleContext>(CircleContext);
+    const {circleInfo} = useContext<IUserContext>(UserContext)
+
     console.warn('isCircle: ', isCircle);
     return(
         <Stack.Navigator screenOptions={{headerShown : true}}>
-            <Stack.Screen name={isCircle ? "MyCircle1": "dingdong"} component={isCircle ? MyCirlce: DDHome } 
+            <Stack.Screen name={isCircle ? "MyCircle1" : "dingdong"} component={isCircle ? MyCirlce: DDHome } 
                 options={{  
                     headerStyle:{
                         backgroundColor : Constants.PRIMARY,

@@ -6,7 +6,6 @@ import {AppRegistry} from 'react-native';
 
 import Navigator from '~/Screens/Navigator';
 import {UserContextProvider} from '~/Context/User';
-import {PageContextProvider} from '~/Context/Page';
 import {CircleContextProvider} from '~/Context/Circle';
 import AsyncStorage from '@react-native-community/async-storage';
 import Onboarding from '~/Screens/Onboarding';

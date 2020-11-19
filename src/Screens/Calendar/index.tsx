@@ -124,12 +124,14 @@ const Calendar =  ({navigation } : Props) => {
               minDate={minDate}
               maxDate={maxDate}
               
+              
+              
               weekdays={['일','월','화','수','목','금','토']}
               months={['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']}
               textStyle={{
                 color : constants.TEXT1,
               }}
-              selectedDayColor="#7300e6"
+              selectedDayColor={constants.PRIMARY}
               // onDateChange={onDateChange}
               
               
