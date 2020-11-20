@@ -165,7 +165,9 @@ const MyCirlce =  ({navigation} : Props) => {
                   {
                     circleBoards? circleBoards.map((board, key) => {
                       return (
-                        <BulletinboardItemContainer>
+                        <BulletinboardItemContainer onPress={() => {
+                          navigation.navigate('BulleteinBoard', board);
+                        }}>
                           <BulletinboardItemIcon source={require('~/Assets/Images/blur_circle.png')}></BulletinboardItemIcon>
                           <BulleteinboardBodyText>
                             {board.name}

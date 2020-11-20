@@ -135,8 +135,24 @@ const MainStackNavigator = ({navigation } : Props) =>{
             }}
                 />
             <Stack.Screen name = "Gallery" component={Gallery}/>
-            <Stack.Screen name = "BulleteinBoard" component={BulleteinBoard}/>
-            <Stack.Screen name = "Write" component={Write}/>
+            <Stack.Screen name = "BulleteinBoard" component={BulleteinBoard} 
+            options={({ route }) => ({ title: route.params!.name,
+                headerStyle:{
+                    backgroundColor : Constants.PRIMARY,
+                },
+                headerTintColor: '#fff',
+                headerBackTitleVisible: false })
+                
+            }/>
+            <Stack.Screen name = "Write" component={Write}
+             options={{
+                headerStyle:{
+                    backgroundColor : Constants.PRIMARY,
+                },
+                headerTintColor: '#fff',
+                headerTitle: 'New Post',
+                headerBackTitleVisible: false
+            }}/>
             <Stack.Screen name = "Read" component={Read}/>
         </Stack.Navigator>
         

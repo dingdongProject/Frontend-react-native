@@ -50,6 +50,7 @@ const CircleContextProvider = ({children}: Props) => {
         api.getNotices({name: circleChosen?.name})
         .then( (response) => response.data)
         .then((data) => {
+            console.warn(data);
             if (data.success){
                 setCircleNotices(data.posts)
             }
@@ -58,6 +59,8 @@ const CircleContextProvider = ({children}: Props) => {
             }
         })
     }
+
+   
     return (
         <CircleContext.Provider
             value = {{

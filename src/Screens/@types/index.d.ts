@@ -62,5 +62,9 @@ type TotalNaviParamList = {
     Write : undefined;
 }
 
+type BoardNaviParamList = {
+    board: IBoardInfo;
+}
+
 
 

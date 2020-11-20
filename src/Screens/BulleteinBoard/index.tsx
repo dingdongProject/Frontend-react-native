@@ -7,14 +7,15 @@ import {UserContext} from '~/Context/User';
 import IconButton from '~/Components/IconButton';
 import MyPageEdit from '~/Screens/MyPageEdit';
 import constants from '~/Constants/constants';
-
-
-type NavigationProp = StackNavigationProp<BulleteinBoardNaviParamList, 'Read'>;
+import {RouteProp, NavigationProp} from '@react-navigation/native';
+import api from '~/Api/api'
+type BoardScreenNaviProp = NavigationProp<BulleteinBoardNaviParamList, 'Read'>;
+type BoardScreenRouteProp = RouteProp<BoardNaviParamList, "board">;
 
 
 interface Props {
-  navigation: NavigationProp;
-  
+    navigation: BoardScreenNaviProp;
+    route: BoardScreenRouteProp;
 }
 
 const Container = Styled.SafeAreaView`
@@ -40,22 +41,21 @@ const ReadBox = Styled.TouchableOpacity`
 const BulleteinMainContainer = Styled.View`
     flex : 1;
     flex-direction : row;
+    justify-content: space-between;
     border-bottom-width : 0.5px;
+    margin: 0 5px;
 `;
 const BulleteinContainer = Styled.View`
-    width : 300px;
     height : auto;
     border : 0px;
     
 `;
 
 const BulleteinTitleBox = Styled.View`
-    width : 300px;
     height : auto;
     border : 0px;
     padding : 0px;
     padding-top : 10px;
-    padding-left : 13px;
 `;
 const BulleteinTitleText = Styled.Text`
     color : ${constants.PRIMARY};
@@ -63,10 +63,8 @@ const BulleteinTitleText = Styled.Text`
     font-size : 20;
 `;
 const BulleteinBodyBox =Styled.View`
-    width : 300px;
     height : 40px;
     padding-top : 5px;
-    padding-left : 10px;
     border : 0px;
     
 `;
@@ -75,10 +73,8 @@ const BulleteinBodyText = Styled.Text`
     font-size : 12;
 `;
 const BulleteinCommentBox = Styled.View`
-    width : 300px;
     height : auto;
     padding-top : 5px;
-    padding-left : 10px;
     padding-bottom : 5px;
     border : 0px;
 `;
@@ -87,80 +83,98 @@ const BulleteinCommentText = Styled.Text`
     font-size : 10;
 `;
 const BulleteinImageBox = Styled.View`
-    width : 110px;
-    height : 110px;
+    width : 100px;
+    height : 100px;
     border : 0px;
+    margin: 5px 0;
 `;
 
 const BulleteinImage = Styled.Image`
+    width : 100px;
+    height : 100px;
     resize-mode:center;
+    border-radius: 15px;
 `;
 const FooterTouch = Styled.TouchableOpacity`
     align-items : center;
 `
 const Footer = Styled.View`
-    border : 2px;
     border-radius : 20;
-    border-color : ${constants.PRIMARY}
     background-color : ${constants.PRIMARY}
     width : 100px;
     height : 45px;
     bottom : 20;
     position : absolute;
     padding : 5px;
+    display: flex;
+    justify-content: center;
 `;
 const FooterText = Styled.Text`
     font-weight : bold;
     text-align : center;
-    font-size : 30;
-    color : ${constants.TEXT1}
+    font-size : 15px;   
+    color : white;
 `; 
+interface IPost {
+    id: number,
+    board: string,
+    title: string,
+    content: string
+}
 
 
-const BulleteinBoard =  ({navigation } : Props) => {
+const BulleteinBoard =  ({route, navigation } : Props) => {
   const [myuser, setMyuser] = useState<IUserInfo>();
+  const [postList, setPostList] = useState<Array<IPost>>([]);
   const {userInfo,tokenInfo} = useContext<IUserContext>(UserContext);
-      
-     
+
+  const getBoardPosts = (id: number) => {
+    api.getPosts({id: id})
+    .then(response => response.data)
+    .then((data) => {
+        console.warn(data)
+        if (data.success) {
+            setPostList(data.post);
+        }
+        
+    })
+}
+
+
+  useEffect(() => {
+    const board = route.params;
+    getBoardPosts(board.id);
+    
+  }, []);
       
 
     return (
       <Container>
           <ScrollContainer>
           <SubContainer>
-            
-                <ReadBox
-                onPress={()=>{navigation.navigate('Read')}}
+            {postList.map((item, key) => {
+                return  (
+                    <ReadBox
+                onPress={()=>{}}
                 >
                 <BulleteinMainContainer>
-                <BulleteinContainer>
-                    <BulleteinTitleBox>
-                        <BulleteinTitleText>
-                            안녕
-                        </BulleteinTitleText>
-                    </BulleteinTitleBox>
-                    <BulleteinBodyBox>
-                        <BulleteinBodyText>
-                        - Sept. 11th (this week) class: You can watch the recording which will be available soon.
-- Sept. 18th (next week) class: Online streaming class from 10:00 am~. Please join the live session and be on time.
-
-We will NOT use Zoom for Sept. 18th class.
-Please join our Blackboard Collaborate session (its menu is on the left). Zoom is just too slow for sharing screen.
-Let's use Blackboard Collaborate. From the next week, we will do online streaming class for a while. I decide that recording is not very relevant for Software Engineering class.
-
-I hope everything is clear. If you have any questions, please use our Kakao channel.
-Thanks!
-
--young
-                        </BulleteinBodyText>
-                    </BulleteinBodyBox>
-                    <BulleteinCommentBox>
-                        <BulleteinCommentText>
-                            따봉
-                        </BulleteinCommentText>
-
-                    </BulleteinCommentBox>
-                     </BulleteinContainer>
+                    <BulleteinContainer>
+                        <BulleteinTitleBox>
+                            <BulleteinTitleText>
+                                {item.title}
+                            </BulleteinTitleText>
+                        </BulleteinTitleBox>
+                        <BulleteinBodyBox>
+                            <BulleteinBodyText>
+                            {item.content}
+                            </BulleteinBodyText>
+                        </BulleteinBodyBox>
+                        <BulleteinCommentBox>
+                            <BulleteinCommentText>
+                                글쓴이
+                            </BulleteinCommentText>
+                        </BulleteinCommentBox>
+                    </BulleteinContainer>
                     <BulleteinImageBox>
                         <BulleteinImage
                         source={{uri : constants.DEFAULT_CIRCLE_IMG}}
@@ -168,254 +182,9 @@ Thanks!
                     </BulleteinImageBox>
                 </BulleteinMainContainer>
                 </ReadBox>
-
-
-
-                <BulleteinMainContainer>
-                <BulleteinContainer>
-                    <BulleteinTitleBox>
-                        <BulleteinTitleText>
-                            안녕
-                        </BulleteinTitleText>
-                    </BulleteinTitleBox>
-                    <BulleteinBodyBox>
-                        <BulleteinBodyText>
-                        - Sept. 11th (this week) class: You can watch the recording which will be available soon.
-- Sept. 18th (next week) class: Online streaming class from 10:00 am~. Please join the live session and be on time.
-
-We will NOT use Zoom for Sept. 18th class.
-Please join our Blackboard Collaborate session (its menu is on the left). Zoom is just too slow for sharing screen.
-Let's use Blackboard Collaborate. From the next week, we will do online streaming class for a while. I decide that recording is not very relevant for Software Engineering class.
-
-I hope everything is clear. If you have any questions, please use our Kakao channel.
-Thanks!
-
--young
-                        </BulleteinBodyText>
-                    </BulleteinBodyBox>
-                    <BulleteinCommentBox>
-                        <BulleteinCommentText>
-                            따봉
-                        </BulleteinCommentText>
-
-                    </BulleteinCommentBox>
-                     </BulleteinContainer>
-                    <BulleteinImageBox>
-                        <BulleteinImage
-                        source={{uri : constants.DEFAULT_CIRCLE_IMG}}
-                        />
-                    </BulleteinImageBox>
-                </BulleteinMainContainer>
-                <BulleteinMainContainer>
-                <BulleteinContainer>
-                    <BulleteinTitleBox>
-                        <BulleteinTitleText>
-                            안녕
-                        </BulleteinTitleText>
-                    </BulleteinTitleBox>
-                    <BulleteinBodyBox>
-                        <BulleteinBodyText>
-                        - Sept. 11th (this week) class: You can watch the recording which will be available soon.
-- Sept. 18th (next week) class: Online streaming class from 10:00 am~. Please join the live session and be on time.
-
-We will NOT use Zoom for Sept. 18th class.
-Please join our Blackboard Collaborate session (its menu is on the left). Zoom is just too slow for sharing screen.
-Let's use Blackboard Collaborate. From the next week, we will do online streaming class for a while. I decide that recording is not very relevant for Software Engineering class.
-
-I hope everything is clear. If you have any questions, please use our Kakao channel.
-Thanks!
-
--young
-                        </BulleteinBodyText>
-                    </BulleteinBodyBox>
-                    <BulleteinCommentBox>
-                        <BulleteinCommentText>
-                            따봉
-                        </BulleteinCommentText>
-
-                    </BulleteinCommentBox>
-                     </BulleteinContainer>
-                    <BulleteinImageBox>
-                        <BulleteinImage
-                        source={{uri : constants.DEFAULT_CIRCLE_IMG}}
-                        />
-                    </BulleteinImageBox>
-                </BulleteinMainContainer>
-                <BulleteinMainContainer>
-                <BulleteinContainer>
-                    <BulleteinTitleBox>
-                        <BulleteinTitleText>
-                            안녕
-                        </BulleteinTitleText>
-                    </BulleteinTitleBox>
-                    <BulleteinBodyBox>
-                        <BulleteinBodyText>
-                        - Sept. 11th (this week) class: You can watch the recording which will be available soon.
-- Sept. 18th (next week) class: Online streaming class from 10:00 am~. Please join the live session and be on time.
-
-We will NOT use Zoom for Sept. 18th class.
-Please join our Blackboard Collaborate session (its menu is on the left). Zoom is just too slow for sharing screen.
-Let's use Blackboard Collaborate. From the next week, we will do online streaming class for a while. I decide that recording is not very relevant for Software Engineering class.
-
-I hope everything is clear. If you have any questions, please use our Kakao channel.
-Thanks!
-
--young
-                        </BulleteinBodyText>
-                    </BulleteinBodyBox>
-                    <BulleteinCommentBox>
-                        <BulleteinCommentText>
-                            따봉
-                        </BulleteinCommentText>
-
-                    </BulleteinCommentBox>
-                     </BulleteinContainer>
-                    <BulleteinImageBox>
-                        <BulleteinImage
-                        source={{uri : constants.DEFAULT_CIRCLE_IMG}}
-                        />
-                    </BulleteinImageBox>
-                </BulleteinMainContainer>
-                <BulleteinMainContainer>
-                <BulleteinContainer>
-                    <BulleteinTitleBox>
-                        <BulleteinTitleText>
-                            안녕
-                        </BulleteinTitleText>
-                    </BulleteinTitleBox>
-                    <BulleteinBodyBox>
-                        <BulleteinBodyText>
-                        - Sept. 11th (this week) class: You can watch the recording which will be available soon.
-- Sept. 18th (next week) class: Online streaming class from 10:00 am~. Please join the live session and be on time.
-
-We will NOT use Zoom for Sept. 18th class.
-Please join our Blackboard Collaborate session (its menu is on the left). Zoom is just too slow for sharing screen.
-Let's use Blackboard Collaborate. From the next week, we will do online streaming class for a while. I decide that recording is not very relevant for Software Engineering class.
-
-I hope everything is clear. If you have any questions, please use our Kakao channel.
-Thanks!
-
--young
-                        </BulleteinBodyText>
-                    </BulleteinBodyBox>
-                    <BulleteinCommentBox>
-                        <BulleteinCommentText>
-                            따봉
-                        </BulleteinCommentText>
-
-                    </BulleteinCommentBox>
-                     </BulleteinContainer>
-                    <BulleteinImageBox>
-                        <BulleteinImage
-                        source={{uri : constants.DEFAULT_CIRCLE_IMG}}
-                        />
-                    </BulleteinImageBox>
-                </BulleteinMainContainer>
-                <BulleteinMainContainer>
-                <BulleteinContainer>
-                    <BulleteinTitleBox>
-                        <BulleteinTitleText>
-                            안녕
-                        </BulleteinTitleText>
-                    </BulleteinTitleBox>
-                    <BulleteinBodyBox>
-                        <BulleteinBodyText>
-                        - Sept. 11th (this week) class: You can watch the recording which will be available soon.
-- Sept. 18th (next week) class: Online streaming class from 10:00 am~. Please join the live session and be on time.
-
-We will NOT use Zoom for Sept. 18th class.
-Please join our Blackboard Collaborate session (its menu is on the left). Zoom is just too slow for sharing screen.
-Let's use Blackboard Collaborate. From the next week, we will do online streaming class for a while. I decide that recording is not very relevant for Software Engineering class.
-
-I hope everything is clear. If you have any questions, please use our Kakao channel.
-Thanks!
-
--young
-                        </BulleteinBodyText>
-                    </BulleteinBodyBox>
-                    <BulleteinCommentBox>
-                        <BulleteinCommentText>
-                            따봉
-                        </BulleteinCommentText>
-
-                    </BulleteinCommentBox>
-                     </BulleteinContainer>
-                    <BulleteinImageBox>
-                        <BulleteinImage
-                        source={{uri : constants.DEFAULT_CIRCLE_IMG}}
-                        />
-                    </BulleteinImageBox>
-                </BulleteinMainContainer>
-                <BulleteinMainContainer>
-                <BulleteinContainer>
-                    <BulleteinTitleBox>
-                        <BulleteinTitleText>
-                            안녕
-                        </BulleteinTitleText>
-                    </BulleteinTitleBox>
-                    <BulleteinBodyBox>
-                        <BulleteinBodyText>
-                        - Sept. 11th (this week) class: You can watch the recording which will be available soon.
-- Sept. 18th (next week) class: Online streaming class from 10:00 am~. Please join the live session and be on time.
-
-We will NOT use Zoom for Sept. 18th class.
-Please join our Blackboard Collaborate session (its menu is on the left). Zoom is just too slow for sharing screen.
-Let's use Blackboard Collaborate. From the next week, we will do online streaming class for a while. I decide that recording is not very relevant for Software Engineering class.
-
-I hope everything is clear. If you have any questions, please use our Kakao channel.
-Thanks!
-
--young
-                        </BulleteinBodyText>
-                    </BulleteinBodyBox>
-                    <BulleteinCommentBox>
-                        <BulleteinCommentText>
-                            따봉
-                        </BulleteinCommentText>
-
-                    </BulleteinCommentBox>
-                     </BulleteinContainer>
-                    <BulleteinImageBox>
-                        <BulleteinImage
-                        source={{uri : constants.DEFAULT_CIRCLE_IMG}}
-                        />
-                    </BulleteinImageBox>
-                </BulleteinMainContainer>
-                <BulleteinMainContainer>
-                <BulleteinContainer>
-                    <BulleteinTitleBox>
-                        <BulleteinTitleText>
-                            안녕
-                        </BulleteinTitleText>
-                    </BulleteinTitleBox>
-                    <BulleteinBodyBox>
-                        <BulleteinBodyText>
-                        - Sept. 11th (this week) class: You can watch the recording which will be available soon.
-- Sept. 18th (next week) class: Online streaming class from 10:00 am~. Please join the live session and be on time.
-
-We will NOT use Zoom for Sept. 18th class.
-Please join our Blackboard Collaborate session (its menu is on the left). Zoom is just too slow for sharing screen.
-Let's use Blackboard Collaborate. From the next week, we will do online streaming class for a while. I decide that recording is not very relevant for Software Engineering class.
-
-I hope everything is clear. If you have any questions, please use our Kakao channel.
-Thanks!
-
--young
-                        </BulleteinBodyText>
-                    </BulleteinBodyBox>
-                    <BulleteinCommentBox>
-                        <BulleteinCommentText>
-                            따봉
-                        </BulleteinCommentText>
-
-                    </BulleteinCommentBox>
-                     </BulleteinContainer>
-                    <BulleteinImageBox>
-                        <BulleteinImage
-                        source={{uri : constants.DEFAULT_CIRCLE_IMG}}
-                        />
-                    </BulleteinImageBox>
-                </BulleteinMainContainer> 
+                )
+            })
+        }
 
 
                 </SubContainer>

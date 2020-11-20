@@ -9,6 +9,7 @@ import ImagePicker from 'react-native-image-picker';
 
 
 import Input from '~/Components/Input';
+import Button from '~/Components/Button';
 import constants from '~/Constants/constants';
 
 
@@ -27,55 +28,50 @@ const Container = Styled.SafeAreaView`
 const SubContainer = Styled.View`
     flex :1;
     border : 0px;
+    align-items : center;
+    justify-content : center;
+    padding : 32px;
+    padding-top: 0px;
 `;
 
 const FuncBox = Styled.View`
-    margin-top : 20px;
-    border : 0px;
-    
-    
+    margin-left: 40%;
+    width: 60%;
 `;
 const FuncFlex = Styled.View`
-flex-direction : row;
+    flex-direction : row;
+    justify-content: flex-end;
 `;
-const FunctionBox = Styled.View`
-    width : 130px;
-    height : auto;
-    padding : 20px;
-    border : 0px;
+const FunctionBox = Styled.TouchableOpacity`
+    margin: 6px;
+    margin-top: 20px;
+    padding : 3px;
+    border : 1px solid ${constants.PRIMARY};
+    border-radius: 12px;  
+    flex:1;
+    justify-content: center;   
     
 `;
 const FuncText = Styled.Text`
     font-weight : bold;
-    text-align : right;
-    color : ${constants.TEXT1}
+    text-align: center;
+    font-size: 11px;    
+    color : ${constants.PRIMARY};
 `;
 
 const BodyContainer = Styled.View`
-    
     align-items : center;
+    margin-top: 10px;
+    width : 100%;
+    height: auto;
+    justify-content : center;   
 `
-
-const TitleInputBox = Styled.View`
-    margin-top : 20px;
-    width : 350px;
-    height : auto;
-    border : 0px;
-`;
-const BodyInputScroll = Styled.ScrollView`
-`;
-const BodyInputBox = Styled.View`
-    margin-top : 20px;
-    width : 350px;
-    height : 450px;
-    border : 0px;
-`;
 
 const FooterTouch = Styled.TouchableOpacity`
 
 `;
 const Footer = Styled.View`
-    
+
     border : 0px;
     margin-top : 20px;
     width : auto;
@@ -101,6 +97,16 @@ const Write =  ({navigation } : Props) => {
             console.log(response.uri)
         })
     }
+    const functions = [
+        {name: "Check Read", chosen: false},
+        {name: "Vote", chosen: false},
+        {name: "Ladder Game",chosen: false}
+    ]
+
+    const clicked = (key: number) => {
+
+    }
+
 
     
 
@@ -110,80 +116,35 @@ const Write =  ({navigation } : Props) => {
           <SubContainer>
               <FuncBox>
                   <FuncFlex>
-                <FunctionBox>
-                    <FuncText>
-                        확인했어요
-                    </FuncText>
-                </FunctionBox>
-                <FunctionBox>
-                <FuncText>
-                        투표
-                    </FuncText>
-                </FunctionBox>
-                <FunctionBox>
-                <FuncText>
-                        사다리
-                    </FuncText>
-                </FunctionBox>
-                </FuncFlex>
+              {functions.map((item,key) => {
+                  return (
+                    <FunctionBox
+                    >
+                        <FuncText>
+                            {item.name}
+                        </FuncText>
+                    </FunctionBox>
+                  )
+              })
+              }
+              </FuncFlex>
               </FuncBox>
               <BodyContainer>
-              <TitleInputBox>
-              <TextInput
-                    style={{
-                        borderWidth : 1,
-                        height : 50,
-                        width : 350,
-                        padding : 20,
-                        paddingTop : 15,
-                    }}
-                    multiline = {true}
-                    numberOfLines={4}
-                    placeholder={'제목'}
-                    placeholderTextColor={constants.TEXT2}
-
+                  
+              <Input
+                style={{marginBottom:32, height: 40 }}
+                    placeholder={'Title'}
+                        // onChangeText={text=>onChangeText(text)}
+                    />
+                <Input
+                    style={{marginBottom:32, height: 450 }}
+                    multi
+                    placeholder={'Content'}
                     // onChangeText={text=>onChangeText(text)}
                 />
-              </TitleInputBox>
-              <BodyInputScroll>
-              <BodyInputBox>
-                <TextInput
-                    style={{
-                        borderWidth : 1,
-                        height : 450,
-                        width : 350,
-                        paddingTop : 20,
-                        padding : 20,
-                    }}
-                    multiline = {true}
-                    numberOfLines={1}
-                    placeholder={'데뷔 후 지금까지 철저하게 지켜온 게 있나요? 음…. 아! 나를 아는 사람은 나를 좋아하게 만들자! 성향이 그래요. 어릴 때도 친구들과 두루두루 친했고요. 모르는 사람은 날 싫어할 수 있죠. 그런데 나를 아는 사람에게는 좋은 인상으로 남자는 생각을 계속 해왔어요. 누군가와 틀어지는 거 별로 안 좋아해요. 저는 사람 자체를 별로 싫어하지 않아요. 나를 욕하는 사람이 있으면 그 사람 이야기도 한번 들어보고 싶고요. 왜 싫어해? 흐흐.      '}
-                    placeholderTextColor={constants.TEXT2}
-
-                    // onChangeText={text=>onChangeText(text)}
-                />
-              </BodyInputBox>
-              </BodyInputScroll>
               </BodyContainer>
-              <FooterTouch
-              onPress={()=>{addImage()}}
-              >
-                  <Footer>
-                      <FooterText>
-                          카메라
-                      </FooterText>
-                  </Footer>
-              </FooterTouch>
-              <FooterTouch
-                onPress={()=>{navigation.goBack()}}
-              >
-                  <Footer>
-                      <FooterText>
-                          저장
-                      </FooterText>
-                  </Footer>
-              </FooterTouch>
-
+              <Button
+              label="post" />
           </SubContainer>
           
       </Container> 
