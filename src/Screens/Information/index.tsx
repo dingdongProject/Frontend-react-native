@@ -3,12 +3,18 @@ import Styled from 'styled-components/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import {UserContext} from '~/Context/User';
+import {CircleContext} from '~/Context/Circle';
 import IconButton from '~/Components/IconButton';
 import MyPageEdit from '~/Screens/MyPageEdit';
 import constants from '~/Constants/constants';
-import CircleInformation from '~/Screens/Information';
+
+type NavigationProp = StackNavigationProp<TotalNaviParamList>;
 
 
+interface Props {
+  navigation: NavigationProp;
+  
+}
 
 const Container = Styled.SafeAreaView`
   flex: 1;
@@ -101,18 +107,11 @@ const Icon = Styled.Image`
     margin-right : 8px;
 `;
 
-type NavigationProp = StackNavigationProp<TotalNaviParamList>;
 
-
-interface Props {
-  navigation: NavigationProp;
-  
-}
-
-
-const Mypage =  ({navigation } : Props) => {
+const Information =  ({navigation } : Props) => {
   const [myuser, setMyuser] = useState<IUserInfo>();
-  const {userInfo,tokenInfo} = useContext<IUserContext>(UserContext);
+  const {userInfo,circleInfo} = useContext<IUserContext>(UserContext);
+  const {isCircle,circleChosen} = useContext<ICircleContext>(CircleContext)
       
      
       
@@ -122,51 +121,26 @@ const Mypage =  ({navigation } : Props) => {
           <SubContainer>
           <MyContainer>
             <MyTouchContainer
-            onPress={()=>{navigation.navigate("MyPageEdit")}}
+            onPress={()=>{navigation.navigate("CirclePageEdit")}}
             >
-             <MyImage source={{uri: userInfo?.picture ? userInfo.picture : 'https://dingdong-bucket.s3.ap-northeast-2.amazonaws.com/1593075284.jpg'}}/> 
+              
+              {
+                <MyImage source={{uri : isCircle && circleChosen ?  circleChosen.picture : constants.DEFAULT_CIRCLE_IMG}}/>
+              }
+             
              <MyScript>
               <MyScriptText>
-                {userInfo?.username}
+                {circleChosen?.name}
               </MyScriptText>
              </MyScript>
              <MyScript>
              <MyScriptText>
-                {userInfo?.email}
+                {circleChosen?.explaination}
               </MyScriptText>
              </MyScript>
             </MyTouchContainer>
           </MyContainer>
-          <EtcContainer>
-            <MyTouchContainer>
-            <EtcSubContainer>
-              <EtcText>
-                설정
-              </EtcText>
-            </EtcSubContainer>
-            </MyTouchContainer>
-            <MyTouchContainer>
-            <EtcSubContainer>
-            <EtcText>
-                문의하기
-              </EtcText>
-            </EtcSubContainer>
-            </MyTouchContainer>
-            <MyTouchContainer>
-            <EtcSubContainer>
-            <EtcText2>
-                회원탈퇴
-              </EtcText2>
-            </EtcSubContainer>
-            </MyTouchContainer>
-          </EtcContainer>
-          </SubContainer>
-            
-              <ButtonContainer>
-                <IconButton iconName = 'menu'
-                onPress={()=>{navigation.navigate("MyPageEdit")}}
-                />
-              </ButtonContainer>
+           </SubContainer>
             
         
       </Container> 
@@ -174,4 +148,4 @@ const Mypage =  ({navigation } : Props) => {
     );
 };
 
-export default Mypage;
+export default Information;

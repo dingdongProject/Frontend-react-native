@@ -6,6 +6,7 @@ import {UserContext} from '~/Context/User';
 import {CircleContext} from '~/Context/Circle';
 import ImagePicker from 'react-native-image-picker';
 
+
 import { onChange } from 'react-native-reanimated';
 import constants from '~/Constants/constants';
 
@@ -59,12 +60,11 @@ margin: auto;
   border-color : ${constants.PRIMARY};
 `;
 
-
 const GoBack = Styled.Text`
     color : #5F89FA;
 `;
 
-const MyPageEdit =  ({navigation } : Props) => {
+const CirclePageEdit =  ({navigation } : Props) => {
   const {userInfo} = useContext<IUserContext>(UserContext)
   const [circleName,onChangecircleName] = useState('')
   const [circleExplaination,onChangeExplaination] = useState('')
@@ -98,14 +98,14 @@ const MyPageEdit =  ({navigation } : Props) => {
     return (
       <Container>
           <FormContainer> 
-            <MyImageTouch
-            onPress={()=>addImage()}
-            >
-          <MyImage 
+              <MyImageTouch
+              onPress={()=>{addImage()}}
+              >
+          <MyImage
+          source = {{uri : isCircle && circleChosen ?  circleChosen.picture : constants.DEFAULT_CIRCLE_IMG}}/>
           
-          source = {{uri : userInfo?.picture ? userInfo?.picture : constants.DEFAULT_USER_IMG}}
-          />
           </MyImageTouch>
+          
           <Description>Name</Description>
           <Input style={{marginBottom:32, flex:1}} placeholder="별명"/>
           <Description>Tags</Description>
@@ -121,4 +121,4 @@ const MyPageEdit =  ({navigation } : Props) => {
     );
 };
 
-export default MyPageEdit;
+export default CirclePageEdit;

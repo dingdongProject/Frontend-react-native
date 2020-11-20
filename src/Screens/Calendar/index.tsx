@@ -1,11 +1,14 @@
 import React, {useContext, useLayoutEffect, useEffect,useState} from 'react';
+import {FlatList} from 'react-native';
 import Styled from 'styled-components/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import {UserContext} from '~/Context/User';
+import {CircleContext} from '~/Context/Circle';
 import CalendarPicker from 'react-native-calendar-picker';
 import constants from '~/Constants/constants';
 import Modals from '~/Components/Modal';
+import Bubbles from '~/Components/Bubbles';
 
 type NavigationProp = StackNavigationProp<TotalNaviParamList>;
 
@@ -72,6 +75,14 @@ const Calendar =  ({navigation } : Props) => {
     // const [selectedStartDate,setSelectedStartDate] = useState<any>(null);
     // const startDate = selectedStartDate? selectedStartDate : null;
     const {circleInfo} = useContext<IUserContext>(UserContext)
+    const [data, setData] = useState<Array<ICircleInfo | undefined>>([]);
+    const {circleChosen,changeToCircle} =useContext<ICircleContext>(CircleContext);
+    
+    
+
+    useEffect(()=>{
+      setData(circleInfo)
+    },[])
       
     // const onDateChange = (date : any) => {
     //   setSelectedStartDate({
@@ -84,8 +95,6 @@ const Calendar =  ({navigation } : Props) => {
     return (
       <Container>
         <BubbleContainer>
-          <BubbleTouch>
-          <BubbleBox>
           {/* {
             circleInfo?
             circleInfo.map((circle, key) => {
@@ -97,25 +106,28 @@ const Calendar =  ({navigation } : Props) => {
             <Bubble source={{uri : constants.DEFAULT_CIRCLE_IMG}}/>
             
           } */}
-          <Bubble source={{uri : constants.DEFAULT_CIRCLE_IMG}}/>
-          </BubbleBox>
-          </BubbleTouch>
-          <BubbleTouch>
-          <BubbleBox>
           {/* {
-            circleInfo?
-            circleInfo.map((circle, key) => {
-                return (      
-
-                            <Bubble source={{uri: circle.picture ? circle.picture : constants.DEFAULT_CIRCLE_IMG}}/>
-                )
-            }) : 
-            <Bubble source={{uri : constants.DEFAULT_CIRCLE_IMG}}/>
-            
-          } */}
-          <Bubble source={{uri : constants.DEFAULT_CIRCLE_IMG}}/>
-          </BubbleBox>
-          </BubbleTouch>
+                circleInfo?
+                circleInfo.map((circle, key)=>{
+                  return (
+                    
+                    <Bubble source={{uri: circle.picture ? circle.picture : constants.DEFAULT_CIRCLE_IMG}}/>
+                  )
+                }) : console.log('No circleInfo')
+              } */}
+              <FlatList
+        horizontal={true}
+        pagingEnabled={true}
+        data={data}
+        keyExtractor={(item, index) => {
+          return `circle-${index}`;
+        }}
+        renderItem={({item, index}) => (
+          <Bubbles
+            image={(item as ICircleInfo).picture}
+          />
+        )}
+      />
 
         </BubbleContainer>
         <CalendarContainer>

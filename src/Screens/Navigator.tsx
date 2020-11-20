@@ -32,6 +32,8 @@ import Gallery from '~/Screens/Gallery';
 import BulleteinBoard from '~/Screens/BulleteinBoard';
 import Write from '~/Screens/Write';
 import Read from '~/Screens/Read';
+import Information from '~/Screens/Information';
+import CirclePageEdit from '~/Screens/CirclePageEdit';
 
 
 const Stack = createStackNavigator();
@@ -99,7 +101,7 @@ const MainStackNavigator = ({navigation } : Props) =>{
                     ),
                     headerRight: () => (
                         <IconButton
-                            onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
+                            onPress={()=> navigation.navigate('Information')}
                             iconName='search'/>
                     )
                 }}
@@ -117,7 +119,7 @@ const MainStackNavigator = ({navigation } : Props) =>{
                     // ),
                     headerRight: () => (
                         <IconButton
-                            onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
+                            onPress={()=> navigation.navigate('Information')}
                             iconName='search'/>
                     )
                 }}
@@ -154,6 +156,8 @@ const MainStackNavigator = ({navigation } : Props) =>{
                 headerBackTitleVisible: false
             }}/>
             <Stack.Screen name = "Read" component={Read}/>
+            <Stack.Screen name= "Information" component={Information}/>
+            <Stack.Screen name= "CirclePageEdit" component={CirclePageEdit}/>
         </Stack.Navigator>
         
 
