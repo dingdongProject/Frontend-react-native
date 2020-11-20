@@ -1,5 +1,5 @@
 import React, {useContext, useLayoutEffect, useEffect,useState} from 'react';
-import Styled from 'styled-components/native';
+import Styled, {ThemeProvider} from 'styled-components/native';
 import {TextInput} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
@@ -50,13 +50,13 @@ const FunctionBox = Styled.TouchableOpacity`
     border-radius: 12px;  
     flex:1;
     justify-content: center;   
-    
+    background: ${props => (props.selected ?  `${constants.PRIMARY}`: 'white')};
 `;
 const FuncText = Styled.Text`
     font-weight : bold;
     text-align: center;
     font-size: 11px;    
-    color : ${constants.PRIMARY};
+    color: ${props => (props.selected ? 'white': `${constants.PRIMARY}` )};
 `;
 
 const BodyContainer = Styled.View`
@@ -97,16 +97,18 @@ const Write =  ({navigation } : Props) => {
             console.log(response.uri)
         })
     }
-    const functions = [
+    const [functions, setFunctions] = useState([
         {name: "Check Read", chosen: false},
         {name: "Vote", chosen: false},
-        {name: "Ladder Game",chosen: false}
-    ]
+        {name: "Ladder Game", chosen: false}
+    ])
 
-    const clicked = (key: number) => {
-
+    const toggleChosen = (key: number) => {
+        let newFunc = [...functions];
+        newFunc[key].chosen = !newFunc[key].chosen
+        setFunctions(newFunc)
+        console.warn(functions)
     }
-
 
     
 
@@ -119,8 +121,10 @@ const Write =  ({navigation } : Props) => {
               {functions.map((item,key) => {
                   return (
                     <FunctionBox
+                    onPress={() => {toggleChosen(key)}}
+                    selected={item.chosen}
                     >
-                        <FuncText>
+                        <FuncText selected={item.chosen}>
                             {item.name}
                         </FuncText>
                     </FunctionBox>

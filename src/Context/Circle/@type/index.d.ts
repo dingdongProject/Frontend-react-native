@@ -8,6 +8,14 @@ interface IPostSimpleInfo {
     content: string;
     id: number;
 }
+interface IPostInfo {
+    title: string;
+    content: string;
+    created: string;
+    owner: string;
+    id: number;
+    board: number;
+}
 
 interface ICircleContext {
     isCircle: boolean;

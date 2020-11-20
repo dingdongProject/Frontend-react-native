@@ -65,6 +65,9 @@ type TotalNaviParamList = {
 type BoardNaviParamList = {
     board: IBoardInfo;
 }
+type ReadNaviParamList = {
+    post: IPostSimpleInfo;
+}
 
 
 

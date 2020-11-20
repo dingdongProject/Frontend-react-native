@@ -153,7 +153,16 @@ const MainStackNavigator = ({navigation } : Props) =>{
                 headerTitle: 'New Post',
                 headerBackTitleVisible: false
             }}/>
-            <Stack.Screen name = "Read" component={Read}/>
+            <Stack.Screen name = "Read" component={Read}
+            options= {{
+                headerStyle:{
+                    backgroundColor : Constants.PRIMARY,
+                },
+                headerTintColor: '#fff',
+                headerTitle: 'Post',
+                headerBackTitleVisible: false 
+            }
+            }/>
         </Stack.Navigator>
         
 

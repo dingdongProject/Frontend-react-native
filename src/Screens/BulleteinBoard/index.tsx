@@ -115,17 +115,11 @@ const FooterText = Styled.Text`
     font-size : 15px;   
     color : white;
 `; 
-interface IPost {
-    id: number,
-    board: string,
-    title: string,
-    content: string
-}
 
 
 const BulleteinBoard =  ({route, navigation } : Props) => {
   const [myuser, setMyuser] = useState<IUserInfo>();
-  const [postList, setPostList] = useState<Array<IPost>>([]);
+  const [postList, setPostList] = useState<Array<IPostInfo>>([]);
   const {userInfo,tokenInfo} = useContext<IUserContext>(UserContext);
 
   const getBoardPosts = (id: number) => {
@@ -155,7 +149,9 @@ const BulleteinBoard =  ({route, navigation } : Props) => {
             {postList.map((item, key) => {
                 return  (
                     <ReadBox
-                onPress={()=>{}}
+                onPress={()=>{
+                    navigation.navigate('Read', item)
+                }}
                 >
                 <BulleteinMainContainer>
                     <BulleteinContainer>
@@ -171,7 +167,7 @@ const BulleteinBoard =  ({route, navigation } : Props) => {
                         </BulleteinBodyBox>
                         <BulleteinCommentBox>
                             <BulleteinCommentText>
-                                글쓴이
+                                {item.owner}
                             </BulleteinCommentText>
                         </BulleteinCommentBox>
                     </BulleteinContainer>
