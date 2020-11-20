@@ -1,5 +1,5 @@
 import React, {useContext, useLayoutEffect, useEffect,useState} from 'react';
-import {FlatList} from 'react-native';
+import {FlatList,Modal,View,Text} from 'react-native';
 import Styled from 'styled-components/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
@@ -9,6 +9,7 @@ import CalendarPicker from 'react-native-calendar-picker';
 import constants from '~/Constants/constants';
 import Modals from '~/Components/Modal';
 import Bubbles from '~/Components/Bubbles';
+import Read from '../Read';
 
 type NavigationProp = StackNavigationProp<TotalNaviParamList>;
 
@@ -76,45 +77,30 @@ const Calendar =  ({navigation } : Props) => {
     // const startDate = selectedStartDate? selectedStartDate : null;
     const {circleInfo} = useContext<IUserContext>(UserContext)
     const [data, setData] = useState<Array<ICircleInfo | undefined>>([]);
+    const [selectedDate,setSelectedDate] = useState('');
     const {circleChosen,changeToCircle} =useContext<ICircleContext>(CircleContext);
-    
-    
+    const [flag,setFlag] = useState<boolean>(false);
+    const [modal,setModal] = useState<boolean>(false)
 
     useEffect(()=>{
       setData(circleInfo)
     },[])
       
-    // const onDateChange = (date : any) => {
-    //   setSelectedStartDate({
-        
-    //    selectedStartDate : date,
-    //   });
-    // } 
+    const onDateChange = (date : any) =>{
+      setFlag(true)
+      let datestring = date.toString();
+      setSelectedDate(datestring);
+    }
+    const handleModal = () => {
+      setModal(modal? false : true);
+    }
+
+    
 
 
     return (
       <Container>
         <BubbleContainer>
-          {/* {
-            circleInfo?
-            circleInfo.map((circle, key) => {
-                return (      
-
-                            <Bubble source={{uri: circle.picture ? circle.picture : constants.DEFAULT_CIRCLE_IMG}}/>
-                )
-            }) : 
-            <Bubble source={{uri : constants.DEFAULT_CIRCLE_IMG}}/>
-            
-          } */}
-          {/* {
-                circleInfo?
-                circleInfo.map((circle, key)=>{
-                  return (
-                    
-                    <Bubble source={{uri: circle.picture ? circle.picture : constants.DEFAULT_CIRCLE_IMG}}/>
-                  )
-                }) : console.log('No circleInfo')
-              } */}
               <FlatList
         horizontal={true}
         pagingEnabled={true}
@@ -144,13 +130,15 @@ const Calendar =  ({navigation } : Props) => {
                 color : constants.TEXT1,
               }}
               selectedDayColor={constants.PRIMARY}
-              // onDateChange={onDateChange}
+              onDateChange={onDateChange}
+              
               
               
               
               />
               
-              select : {}
+              
+              
               </CalendarText>
         </CalendarContainer>
           

@@ -51,7 +51,7 @@ const Description = Styled.Text`
 `;
 const MyImageTouch = Styled.TouchableOpacity``;
 const MyImage = Styled.Image`
-margin: auto;
+  margin: auto;
   margin-bottom: 10px;
   width: 100px;
   height: 100px;
