@@ -10,7 +10,7 @@ import constants from '~/Constants/constants';
 
 import api from '~/Api/api'
 import {Text, TouchableOpacity} from 'react-native';
-import IconButton from '~/Components/IconButton';
+import ImageButton from '~/Components/ImageButton';
 import Button from '~/Components/Button';
 import Input from '~/Components/Input';
 
@@ -32,12 +32,16 @@ const FormContainer = Styled.View`
     justify-content : center;
     padding : 32px;
 `;  
-const Icon = Styled.Image`
-  width: 150px;
-  height: 150px;
-  border-radius: 100;
-  margin-bottom: 20px;
+
+const ContentContainer = Styled.View`
+  flex : 1;
+  border : 0px;
+  width : 100%;
 `;
+const NameContainer = Styled.View`
+
+`;
+
 const Description = Styled.Text`
   width: 100%;
   text-align : left;
@@ -56,7 +60,7 @@ const MyPageEdit =  ({navigation } : Props) => {
   const [circleName,onChangecircleName] = useState('')
   const [circleExplaination,onChangeExplaination] = useState('')
   const [circlePicture,onChangecirclePicture] =useState('')
-  const {addCircle} = useContext<IUserContext>(UserContext)
+  const {userInfo} = useContext<IUserContext>(UserContext)
   
   
   const [Avatar,setAvatar] = useState('')
@@ -80,20 +84,20 @@ const MyPageEdit =  ({navigation } : Props) => {
 
     
 
-
+//userInfo nickname introduction 필요
     return (
       <Container>
           <FormContainer> 
-          <IconButton 
-          iconName = 'upload'
+          <ImageButton 
           onPress={()=>{addImage()}}
+          source = {userInfo?.picture ? userInfo.picture : undefined}
           />
+          <ContentContainer>
           <Description>Name</Description>
-          <Input style={{marginBottom:32, flex:1}} placeholder="별명"/>
-          <Description>Tags</Description>
-          <Input style={{marginBottom:32, flex:1}} placeholder="태그"/>
-          <Description>Explanation</Description>
-          <Input style={{marginBottom:32, flex: 5 }} placeholder="동아리소개"/>
+          <Input style={{marginBottom:32,}} placeholder="이름"/>
+          <Description>Introduction</Description>
+          <Input style={{marginBottom:32, flex : 0.6}} placeholder="소개"/>
+          </ContentContainer>
           <Button label="개인정보 수정" onPress={() => {
             navigation.goBack()
           }}/>
