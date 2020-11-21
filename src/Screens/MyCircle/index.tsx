@@ -48,24 +48,26 @@ align-items : flex-start;
 `;
 
 const BulleteinboardTitleContainer=Styled.View`
-flex : 1;
-align-items : flex-start;
-width : 100%;
+align-items : center;
+width : 95%;
 flex-direction: row;
 border : 0px;
 margin-bottom : 10px;
+justify-content: space-between;
 `;
 
 const AddBoardContainer = Styled.View`
   height : auto;
-  align-items : flex-start;
+  align-items : center;
   padding : 0;
   border : 0px;
   margin-top : 2px;
-  margin-left : 270px;
+  justify-content: center;
 `;
 const AddBoardTouch = Styled.TouchableOpacity``;
 const AddBoardButton = Styled.Image`
+width: 20px;
+height: 20px;
 `;
 
 const BulleteinboardTitleText = Styled.Text`
@@ -200,7 +202,7 @@ const MyCirlce =  ({navigation} : Props) => {
                           if(board!==undefined)
                           navigation.navigate('BulleteinBoard', board);
                         }}>
-                          <BulletinboardItemIcon source={require('~/Assets/Images/blur_circle.png')}></BulletinboardItemIcon>
+                          <BulletinboardItemIcon source={require('~/Assets/Images/board1.png')}></BulletinboardItemIcon>
                           <BulleteinboardBodyText>
                             {board.name}
                           </BulleteinboardBodyText>
