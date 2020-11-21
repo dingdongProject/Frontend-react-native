@@ -32,6 +32,10 @@ import Gallery from '~/Screens/Gallery';
 import BulleteinBoard from '~/Screens/BulleteinBoard';
 import Write from '~/Screens/Write';
 import Read from '~/Screens/Read';
+import Information from '~/Screens/Information';
+import CirclePageEdit from '~/Screens/CirclePageEdit';
+import TestPage from '~/Screens/TestPage';
+import AddBoard from './AddBoard';
 
 
 const Stack = createStackNavigator();
@@ -99,8 +103,8 @@ const MainStackNavigator = ({navigation } : Props) =>{
                     ),
                     headerRight: () => (
                         <IconButton
-                            onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
-                            iconName='search'/>
+                            onPress={()=> navigation.navigate('Information')}
+                            iconName='info'/>
                     )
                 }}
             />
@@ -117,24 +121,40 @@ const MainStackNavigator = ({navigation } : Props) =>{
                     // ),
                     headerRight: () => (
                         <IconButton
-                            onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
+                            onPress={()=> navigation.navigate('Information')}
                             iconName='search'/>
                     )
                 }}
             
             />
-            <Stack.Screen name = "MyPageEdit" component={MyPageEdit}/>
+            <Stack.Screen name = "MyPageEdit" component={MyPageEdit}
+             options= {{
+                headerStyle:{
+                    backgroundColor : Constants.PRIMARY,
+                },
+                headerTintColor: '#fff',
+                headerTitle: '개인정보수정',
+                headerBackTitleVisible: false 
+            }}/>
             <Stack.Screen name = "AddCircle" component={AddCircle}
                 options={{
                 headerStyle:{
                     backgroundColor : Constants.PRIMARY,
                 },
                 headerTintColor: '#fff',
-                headerTitle: 'Add New Circle',
+                headerTitle: '동아리 생성',
                 headerBackTitleVisible: false
             }}
                 />
-            <Stack.Screen name = "Gallery" component={Gallery}/>
+            <Stack.Screen name = "Gallery" component={Gallery}
+             options= {{
+                headerStyle:{
+                    backgroundColor : Constants.PRIMARY,
+                },
+                headerTintColor: '#fff',
+                headerTitle: '사진첩',
+                headerBackTitleVisible: false 
+            }}/>
             <Stack.Screen name = "BulleteinBoard" component={BulleteinBoard} 
             options={({ route }) => ({ title: route.params!.name,
                 headerStyle:{
@@ -150,7 +170,7 @@ const MainStackNavigator = ({navigation } : Props) =>{
                     backgroundColor : Constants.PRIMARY,
                 },
                 headerTintColor: '#fff',
-                headerTitle: 'New Post',
+                headerTitle: '글쓰기',
                 headerBackTitleVisible: false
             }}/>
             <Stack.Screen name = "Read" component={Read}
@@ -159,10 +179,37 @@ const MainStackNavigator = ({navigation } : Props) =>{
                     backgroundColor : Constants.PRIMARY,
                 },
                 headerTintColor: '#fff',
-                headerTitle: 'Post',
+                headerTitle: '글읽기',
                 headerBackTitleVisible: false 
-            }
-            }/>
+            }}/>
+            <Stack.Screen name= "Information" component={Information}
+             options= {{
+                headerStyle:{
+                    backgroundColor : Constants.PRIMARY,
+                },
+                headerTintColor: '#fff',
+                headerTitle: '정보',
+                headerBackTitleVisible: false 
+            }}/>
+            <Stack.Screen name= "CirclePageEdit" component={CirclePageEdit}
+             options= {{
+                headerStyle:{
+                    backgroundColor : Constants.PRIMARY,
+                },
+                headerTintColor: '#fff',
+                headerTitle: '동아리수정',
+                headerBackTitleVisible: false 
+            }}/>
+            <Stack.Screen name="AddBoard" component={AddBoard}
+             options= {{
+                headerStyle:{
+                    backgroundColor : Constants.PRIMARY,
+                },
+                headerTintColor: '#fff',
+                headerTitle: '게시판추가',
+                headerBackTitleVisible: false 
+            }}/>
+            
         </Stack.Navigator>
         
 
@@ -229,18 +276,9 @@ const MypageNavigator = ({navigation } : Props) => {
                     backgroundColor : Constants.PRIMARY,
                 },
                 headerTintColor: '#fff',
-                // headerLeft : () => (
-                //     <IconButton
-                //         onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
-                //         iconName='menu'/>
-                // ),
-                // headerRight: () => (
-                //     <IconButton
-                //         onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
-                //         iconName='search'/>
-                // )
             }}
             />
+           
         </Stack.Navigator>
     )
 }

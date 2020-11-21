@@ -54,12 +54,16 @@ type TotalNaviParamList = {
     Calendar: undefined;
     Circles : undefined;
     Mypage : undefined;
-    MyPadgeEdit : undefined;
+    MyPageEdit : undefined;
     MyCircle : undefined;
     Gallery : undefined;
     BulleteinBoard : undefined;
     Read : undefined;
     Write : undefined;
+    Information : undefined;
+    CirclePageEdit : undefined;
+    AddBoard : undefined;
+    TestPage : undefined;
 }
 
 type BoardNaviParamList = {

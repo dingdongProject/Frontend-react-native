@@ -9,6 +9,9 @@ import {UserContext} from '~/Context/User';
 import {Dimensions} from 'react-native';
 import NoticeBox from '~/Components/NoticeBox';
 import Constants from '~/Constants/constants';
+import IconIcon from '~/Components/IconButton'
+import IconButton from '~/Components/IconButton';
+import AddBoard from '../AddBoard';
 
 //notice 수평 플랫리스트
 //board 는 플랫리스트 넘버링 & map
@@ -47,8 +50,22 @@ align-items : flex-start;
 const BulleteinboardTitleContainer=Styled.View`
 flex : 1;
 align-items : flex-start;
-border-bottom-width : 0px;
+width : 100%;
+flex-direction: row;
+border : 0px;
 margin-bottom : 10px;
+`;
+
+const AddBoardContainer = Styled.View`
+  height : auto;
+  align-items : flex-start;
+  padding : 0;
+  border : 0px;
+  margin-top : 2px;
+  margin-left : 270px;
+`;
+const AddBoardTouch = Styled.TouchableOpacity``;
+const AddBoardButton = Styled.Image`
 `;
 
 const BulleteinboardTitleText = Styled.Text`
@@ -130,7 +147,7 @@ const Galleryproto = Styled.Image`
 resize-mode:center;
 `;
 
-type NavigationProp = StackNavigationProp<MyCircleNaviParamList>;
+type NavigationProp = StackNavigationProp<TotalNaviParamList>;
 
 interface Props {
   navigation: NavigationProp;
@@ -160,12 +177,27 @@ const MyCirlce =  ({navigation} : Props) => {
                     <BulleteinboardTitleText>
                     Board
                     </BulleteinboardTitleText>
+                    <AddBoardContainer>
+                      <AddBoardTouch
+                      onPress={()=>navigation.navigate("AddBoard")}
+                      >
+                        <AddBoardButton
+                        source={require('~/Assets/Images/add_circle.png')}
+                        />
+                      </AddBoardTouch>
+                    
+
+                    </AddBoardContainer>
+                    
+                    
                   </BulleteinboardTitleContainer>
+                  
                   <BulleteinboardBodyContainer>  
                   {
                     circleBoards? circleBoards.map((board, key) => {
                       return (
                         <BulletinboardItemContainer onPress={() => {
+                          if(board!==undefined)
                           navigation.navigate('BulleteinBoard', board);
                         }}>
                           <BulletinboardItemIcon source={require('~/Assets/Images/blur_circle.png')}></BulletinboardItemIcon>

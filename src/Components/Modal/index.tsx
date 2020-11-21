@@ -1,106 +1,82 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-import Modal from "react-native-modal";
+import {Modal} from "react-native";
 import { Text } from "react-native";
-import styled from "styled-components/native";
+import Styled from "styled-components/native";
 
-const StyledSafeAreaView = styled.SafeAreaView`
-  flex: 1;
-  justify-content: center;
+const Container = Styled.SafeAreaView`
+  flex : 1;
+  align-items : center;
+`;
+const SubContainer = Styled.View`
+  flex : 1;
   align-items: center;
+  border : 0px;
 `;
 
-const StyledModalContainer = styled.View`
-  flex-direction: column;
-  align-items: center;
-  /* 모달창 크기 조절 */
-  width: 320px;
-  height: 220px;
-  background-color: rgba(255, 255, 255, 1);
-  border-radius: 10px;
+const ModalContainer = Styled.View`
+  width: 200px;
+  height: 100px;
+  background-color: #000000;
+  border : 1px;
+  border-radius: 1px;
 `;
 
-const StyledModalButton = styled.TouchableOpacity`
-  flex: 1;
-  width: 320px;
-  justify-content: center;
-`;
 
-const StyledModalGradeWrapper = styled.View`
-  flex: 1;
-  width: 320px;
-  justify-content: center;
+const StyledModalOpenButton = Styled.TouchableOpacity`
+  
 `;
-
-const StyledModalGradeText = styled.Text`
-  align-self: center;
-  font-size: 15px;
+const ModalCloseBox = Styled.View`
+  flex : 1;
+  border : 1px;
 `;
+const ModalCloeseButtonText = Styled.Text`
+  color : white;
+  font-size : 30;
+`
 
-const StyledModalText = styled.Text`
-  align-self: center;
-  color: blue;
-  font-size: 15px;
-`;
-
-const HorizentalLine = styled.View`
-  background-color: black;
-  height: 1px;
-  align-self: stretch;
-`;
-
-const StyledModalOpenButton = styled.TouchableOpacity`
-  height: 50px;
-  width: 60%;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
-  border-width: 1px;
-  border-color: rgba(0, 0, 0, 1);
-`;
-
-const StyledModalOutputText = styled.Text`
+const StyledModalOutputText = Styled.Text`
   color: black;
   font-size: 30px;
 `;
 
 interface Props{
+  flag : boolean;
   date : string;
 }
 
-const Modals = () => { //선택한 날짜 프롭스 계승할 것
+const Modals = ({date,flag}:Props) => { //선택한 날짜 프롭스 계승할 것
   const [modalVisible, setModalVisible] = useState<boolean>(false);
-  const [modalOutput, setModalOutput] = useState<string>("Open Modal");
+  console.warn(modalVisible);
+  const HandleModal = () => {
+    setModalVisible(modalVisible ? false : true)
+  }
+
   return (
-    <StyledSafeAreaView>
+    
+      <Container>
+        <SubContainer>
       <Modal
-        isVisible={modalVisible}
-        useNativeDriver={true}
-        hideModalContentWhileAnimating={true}
-        style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-      >
-        <StyledModalContainer>
-          <StyledModalGradeWrapper>
-            <StyledModalGradeText>일단</StyledModalGradeText>
-          </StyledModalGradeWrapper>
-
-          <StyledModalButton
-            onPress={() => {
-              setModalVisible(false);
-            }}
-          >
-            <Text style={{ alignSelf: "center" }}>보류</Text>
-          </StyledModalButton>
-        </StyledModalContainer>
-      </Modal>
-
+      animationType="slide"
+        transparent={true}
+        visible={!modalVisible}
+      > 
+      <ModalContainer>
+      </ModalContainer>
       <StyledModalOpenButton
         onPress={() => {
-          setModalVisible(true);
+          HandleModal;
+          
         }}
       >
-      </StyledModalOpenButton>
-    </StyledSafeAreaView>
+        <ModalCloeseButtonText>
+          닫기
+        </ModalCloeseButtonText>
+        </StyledModalOpenButton>
+      </Modal>
+      </SubContainer>
+      </Container>
+    
   );
 };
 export default Modals;

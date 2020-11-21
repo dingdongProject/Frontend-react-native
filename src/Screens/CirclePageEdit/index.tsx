@@ -6,15 +6,16 @@ import {UserContext} from '~/Context/User';
 import {CircleContext} from '~/Context/Circle';
 import ImagePicker from 'react-native-image-picker';
 
+
 import { onChange } from 'react-native-reanimated';
 import constants from '~/Constants/constants';
 
 import api from '~/Api/api'
 import {Text, TouchableOpacity} from 'react-native';
-import ImageButton from '~/Components/ImageButton';
+import IconButton from '~/Components/IconButton';
 import Button from '~/Components/Button';
 import Input from '~/Components/Input';
-
+import ImageButton from '~/Components/ImageButton'
 
 type NavigationProp = StackNavigationProp<TotalNaviParamList>;
 
@@ -34,16 +35,12 @@ const FormContainer = Styled.View`
     justify-content : center;
     padding : 32px;
 `;  
-
-const ContentContainer = Styled.View`
-  flex : 1;
-  border : 0px;
-  width : 100%;
+const Icon = Styled.Image`
+  width: 150px;
+  height: 150px;
+  border-radius: 100;
+  margin-bottom: 20px;
 `;
-const NameContainer = Styled.View`
-
-`;
-
 const Description = Styled.Text`
   width: 100%;
   text-align : left;
@@ -54,7 +51,7 @@ const Description = Styled.Text`
 `;
 const MyImageTouch = Styled.TouchableOpacity``;
 const MyImage = Styled.Image`
-margin: auto;
+  margin: auto;
   margin-bottom: 10px;
   width: 100px;
   height: 100px;
@@ -63,12 +60,11 @@ margin: auto;
   border-color : ${constants.PRIMARY};
 `;
 
-
 const GoBack = Styled.Text`
     color : #5F89FA;
 `;
 
-const MyPageEdit =  ({navigation } : Props) => {
+const CirclePageEdit =  ({navigation } : Props) => {
   const {userInfo} = useContext<IUserContext>(UserContext)
   const [circleName,onChangecircleName] = useState('')
   const [circleExplaination,onChangeExplaination] = useState('')
@@ -98,20 +94,24 @@ const MyPageEdit =  ({navigation } : Props) => {
 
     
 
-//userInfo nickname introduction 필요
+
     return (
       <Container>
           <FormContainer> 
-          <ImageButton 
-          onPress={()=>{addImage()}}
-          source = {userInfo?.picture ? userInfo.picture : undefined}
-          />
-          <ContentContainer>
+              <MyImageTouch
+              onPress={()=>{addImage()}}
+              >
+          <MyImage
+          source = {{uri : isCircle && circleChosen ?  circleChosen.picture : constants.DEFAULT_CIRCLE_IMG}}/>
+          
+          </MyImageTouch>
+          
           <Description>Name</Description>
-          <Input style={{marginBottom:32,}} placeholder="이름"/>
-          <Description>Introduction</Description>
-          <Input style={{marginBottom:32, flex : 0.6}} placeholder="소개"/>
-          </ContentContainer>
+          <Input style={{marginBottom:32, flex:1}} placeholder="별명"/>
+          <Description>Tags</Description>
+          <Input style={{marginBottom:32, flex:1}} placeholder="태그"/>
+          <Description>Explanation</Description>
+          <Input style={{marginBottom:32, flex: 5 }} placeholder="동아리소개"/>
           <Button label="개인정보 수정" onPress={() => {
             navigation.goBack()
           }}/>
@@ -121,4 +121,4 @@ const MyPageEdit =  ({navigation } : Props) => {
     );
 };
 
-export default MyPageEdit;
+export default CirclePageEdit;

@@ -7,6 +7,7 @@ import IconButton from '~/Components/IconButton';
 import MyPageEdit from '~/Screens/MyPageEdit';
 import constants from '~/Constants/constants';
 import CircleInformation from '~/Screens/Information';
+import BottomSheet from '~/Components/BottomSheet';
 
 
 
@@ -119,55 +120,8 @@ const Mypage =  ({navigation } : Props) => {
 
     return (
       <Container>
-          <SubContainer>
-          <MyContainer>
-            <MyTouchContainer
-            onPress={()=>{navigation.navigate("MyPageEdit")}}
-            >
-             <MyImage source={{uri: userInfo?.picture ? userInfo.picture : 'https://dingdong-bucket.s3.ap-northeast-2.amazonaws.com/1593075284.jpg'}}/> 
-             <MyScript>
-              <MyScriptText>
-                {userInfo?.username}
-              </MyScriptText>
-             </MyScript>
-             <MyScript>
-             <MyScriptText>
-                {userInfo?.email}
-              </MyScriptText>
-             </MyScript>
-            </MyTouchContainer>
-          </MyContainer>
-          <EtcContainer>
-            <MyTouchContainer>
-            <EtcSubContainer>
-              <EtcText>
-                설정
-              </EtcText>
-            </EtcSubContainer>
-            </MyTouchContainer>
-            <MyTouchContainer>
-            <EtcSubContainer>
-            <EtcText>
-                문의하기
-              </EtcText>
-            </EtcSubContainer>
-            </MyTouchContainer>
-            <MyTouchContainer>
-            <EtcSubContainer>
-            <EtcText2>
-                회원탈퇴
-              </EtcText2>
-            </EtcSubContainer>
-            </MyTouchContainer>
-          </EtcContainer>
-          </SubContainer>
-            
-              <ButtonContainer>
-                <IconButton iconName = 'menu'
-                onPress={()=>{navigation.navigate("MyPageEdit")}}
-                />
-              </ButtonContainer>
-            
+          
+            <BottomSheet date={'1'}/>
         
       </Container> 
        
