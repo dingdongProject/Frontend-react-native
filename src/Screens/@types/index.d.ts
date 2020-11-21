@@ -62,6 +62,7 @@ type TotalNaviParamList = {
     Write : undefined;
     Information : undefined;
     CirclePageEdit : undefined;
+    TestPage : undefined;
 }
 
 type BoardNaviParamList = {

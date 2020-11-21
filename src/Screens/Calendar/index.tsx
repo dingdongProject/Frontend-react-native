@@ -10,6 +10,7 @@ import constants from '~/Constants/constants';
 import Modals from '~/Components/Modal';
 import Bubbles from '~/Components/Bubbles';
 import Read from '../Read';
+import BottomSheet from '~/Components/BottomSheet';
 
 type NavigationProp = StackNavigationProp<TotalNaviParamList>;
 
@@ -80,7 +81,8 @@ const Calendar =  ({navigation } : Props) => {
     const [selectedDate,setSelectedDate] = useState('');
     const {circleChosen,changeToCircle} =useContext<ICircleContext>(CircleContext);
     const [flag,setFlag] = useState<boolean>(false);
-    const [modal,setModal] = useState<boolean>(false)
+    const [modal,setModal] = useState<boolean>(false);
+    
 
     useEffect(()=>{
       setData(circleInfo)
@@ -91,15 +93,13 @@ const Calendar =  ({navigation } : Props) => {
       let datestring = date.toString();
       setSelectedDate(datestring);
     }
-    const handleModal = () => {
-      setModal(modal? false : true);
-    }
 
     
 
 
     return (
       <Container>
+        
         <BubbleContainer>
               <FlatList
         horizontal={true}
@@ -138,10 +138,14 @@ const Calendar =  ({navigation } : Props) => {
               />
               
               
+          
+          
+              
               
               </CalendarText>
         </CalendarContainer>
-          
+        <BottomSheet date = {selectedDate}/>
+        
               
             
       </Container> 

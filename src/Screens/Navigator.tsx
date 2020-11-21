@@ -34,6 +34,7 @@ import Write from '~/Screens/Write';
 import Read from '~/Screens/Read';
 import Information from '~/Screens/Information';
 import CirclePageEdit from '~/Screens/CirclePageEdit';
+import TestPage from '~/Screens/TestPage';
 
 
 const Stack = createStackNavigator();
@@ -158,6 +159,7 @@ const MainStackNavigator = ({navigation } : Props) =>{
             <Stack.Screen name = "Read" component={Read}/>
             <Stack.Screen name= "Information" component={Information}/>
             <Stack.Screen name= "CirclePageEdit" component={CirclePageEdit}/>
+            
         </Stack.Navigator>
         
 
@@ -224,18 +226,9 @@ const MypageNavigator = ({navigation } : Props) => {
                     backgroundColor : Constants.PRIMARY,
                 },
                 headerTintColor: '#fff',
-                // headerLeft : () => (
-                //     <IconButton
-                //         onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
-                //         iconName='menu'/>
-                // ),
-                // headerRight: () => (
-                //     <IconButton
-                //         onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
-                //         iconName='search'/>
-                // )
             }}
             />
+           
         </Stack.Navigator>
     )
 }
