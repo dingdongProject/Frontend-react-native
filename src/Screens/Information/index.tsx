@@ -8,6 +8,9 @@ import IconButton from '~/Components/IconButton';
 import MyPageEdit from '~/Screens/MyPageEdit';
 import constants from '~/Constants/constants';
 
+import api from '~/Api/api';
+import Loading from '~/Components/Loading';
+
 type NavigationProp = StackNavigationProp<TotalNaviParamList>;
 
 
@@ -18,9 +21,12 @@ interface Props {
 
 const Container = Styled.SafeAreaView`
   flex: 1;
-  background-color: #ffffff;
-  align-items: center;
+  background-color: #f4f4f4;
   justify-content: center;
+  align-items: center;
+`;
+const ScrollConatainer = Styled.ScrollView`
+  flex: 1;
 `;
 const DingdongImage = Styled.Image`
   width : 420;
@@ -29,18 +35,18 @@ const DingdongImage = Styled.Image`
 `;
 
 const SubContainer = Styled.View`
-  flex : 0.9;
-  width  : 400px;
-  height : 375px;
+  
+  flex : 1;
   border : 0px;
 `;
 const MyContainer = Styled.View`
+  margin-top : 20px;
   border : 0px;
   width : 400px;
-  height : 180px;
+  height : 140px;
   align-items : flex-start;
   flex-direction : row;
-  border-bottom-width : 1px;
+  border-bottom-width : 0px;
   border-bottom-color : ${constants.TEXT2}
 `;
 
@@ -49,7 +55,7 @@ flex : 1;
 `;
 const MyImage = Styled.Image`
   margin: auto;
-  margin-bottom: 10px;
+  margin-bottom: 0px;
   width: 100px;
   height: 100px;
   border-radius: 100;
@@ -59,71 +65,58 @@ const MyImage = Styled.Image`
 `;
 const MyScript = Styled.View`
   flex :1 ;
+  margin-top : 0px;
+  padding-bottom : 50px;
   border : 0px;
+  border-bottom-width : 1px;
+  border-bottom-color : ${constants.TEXT2}
 `;
 const MyScriptText =Styled.Text`
 font-size:20px;
+text-align:center;
+color:${constants.TEXT1};
+margin-bottom : 0px;
+`;
+
+const MyExp = Styled.View`
+flex :1 ;
+margin-top : 0px;
+padding-bottom : 50px;
+border : 0px;
+border-bottom-width : 1px;
+border-bottom-color : ${constants.TEXT2}
+`;
+const MyExpText =Styled.Text`
+font-size:20px;
+text-align:center;
+color:${constants.TEXT1};
+margin-bottom : 0px;
+`;
+const MembersContainer = Styled.View`
+  flex : 1;
+  width : 400px;
+  height : 40px;
+  padding : 10px;
+`;
+const MembersText =Styled.Text`
+font-size:15px;
 text-align:center;
 color:${constants.TEXT2};
 margin-bottom : 0px;
 `;
 
-const EtcContainer = Styled.View`
-  border : 0px;
-  width : 375px;
-  height : 250px;
-  margin-top : 25px;
-  margin-left : 0px;
-`;
-const EtcSubContainer = Styled.View`
-  border-bottom-width : 1px;
-  border-bottom-color : ${constants.TEXT2}
-  margin-top : 30px;
-  margin-bottom : 1px;
-  padding : 10px;
-  width : 400px;
-  height : 40px;
-  margin-left : 0px;
-`;
-const EtcText = Styled.Text`
-font-size:20px;
-text-align:left;
-color:${constants.TEXT1};
-margin-bottom : 0px;
-`;
-
-const EtcText2 = Styled.Text`
-font-size:20px;
-text-align:left;
-color:red;
-margin-bottom : 0px;
-`;
-
-const Button = Styled.TouchableHighlight`
-    padding : 8px 16px;
-`;
-
-const ButtonContainer = Styled.View`
-    flex-direction : row;
-    align-items : center;
-    `;
-
-const Icon = Styled.Image`
-    margin-right : 8px;
-`;
 
 
 const Information =  ({navigation } : Props) => {
-  const [myuser, setMyuser] = useState<IUserInfo>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const {userInfo,circleInfo} = useContext<IUserContext>(UserContext);
-  const {isCircle,circleChosen} = useContext<ICircleContext>(CircleContext)
-      
-     
-      
+  const {isCircle,circleChosen,circleMembers} = useContext<ICircleContext>(CircleContext)
 
+   
     return (
       isCircle && circleChosen ?
         <Container>
+          <ScrollConatainer>
           <SubContainer>
           <MyContainer>
             <MyTouchContainer
@@ -133,22 +126,35 @@ const Information =  ({navigation } : Props) => {
               {
                 <MyImage source={{uri : isCircle && circleChosen ?  circleChosen.picture : constants.DEFAULT_CIRCLE_IMG}}/>
               }
-             
+             </MyTouchContainer>
+             </MyContainer>
              <MyScript>
               <MyScriptText>
                 {circleChosen?.name}
+                {console.warn(circleChosen)}
               </MyScriptText>
              </MyScript>
-             <MyScript>
-             <MyScriptText>
-                {circleChosen?.explaination}
-              </MyScriptText>
-             </MyScript>
-            </MyTouchContainer>
-          </MyContainer>
-           </SubContainer>
+             <MyExp>
+             <MyExpText>
+                {circleChosen?.explanation}
+              </MyExpText>
+             </MyExp>
+             {
+               
+               circleMembers.map((name)=>{
+                 return(
+                  <MembersContainer>
+                    <MembersText>
+                    {name.name}
+                    </MembersText>
+                  </MembersContainer>
+                 )
+               }) 
+             }
             
-        
+          
+           </SubContainer>
+           </ScrollConatainer>
       </Container> 
 
        : 

@@ -54,25 +54,7 @@ const UserContextProvider = ({children}:Props) => {
         
 
     const login = (username: string, password : string) : void => {
-    //     fetch ('http://junslim11.pythonanywhere.com/signup')
-    //     .then((response) => 
-    //     {
-    //         console.warn(response.json)
-    //         return response.json()
-
-    //     }).then((response) => {
-    //         console.warn(response)
-    //     setUSerInfo({
-    //         username : username,
-    //         password : password
-            
-    //     });
-
-    // })
-    // .catch(error => {
-    //     setIsLoading(true);
-    //     showError('fail');
-    // })
+    
         api.logIn({
             username : username,
             password : password,

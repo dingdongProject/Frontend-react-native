@@ -25,4 +25,7 @@ export default {
     circle: function(payload) {
         return _promise(METHOD.GET, BASE_URL + `circle/${payload}`)
     },
+    getMembers : function(payload) {
+        return _promise(METHOD.GET, BASE_URL + `circles/${payload}/members`,{},true)
+    },
 }

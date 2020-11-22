@@ -5,7 +5,7 @@ interface IUserInfo {
 }
 interface ICircleInfo {
     name: string;
-    explaination: string;
+    explanation: string;
     picture: string;
 }
 

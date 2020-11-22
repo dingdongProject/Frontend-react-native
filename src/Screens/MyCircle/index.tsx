@@ -12,6 +12,8 @@ import Constants from '~/Constants/constants';
 import IconIcon from '~/Components/IconButton'
 import IconButton from '~/Components/IconButton';
 import AddBoard from '../AddBoard';
+import api from '~/Api/api';
+import Loading from '~/Components/Loading';
 
 //notice 수평 플랫리스트
 //board 는 플랫리스트 넘버링 & map

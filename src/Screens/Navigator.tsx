@@ -34,8 +34,7 @@ import Write from '~/Screens/Write';
 import Read from '~/Screens/Read';
 import Information from '~/Screens/Information';
 import CirclePageEdit from '~/Screens/CirclePageEdit';
-import TestPage from '~/Screens/TestPage';
-import AddBoard from './AddBoard';
+import AddBoard from '~/Screens/AddBoard';
 
 
 const Stack = createStackNavigator();
