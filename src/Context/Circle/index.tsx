@@ -43,10 +43,11 @@ const CircleContextProvider = ({children}: Props) => {
     }
 
 
-    const setMainPage = () => {
-        api.getBoards({name: circleChosen?.name})
+    const setMainPage = async() => {
+        await api.getBoards({name: circleChosen?.name})
         .then( (response) => response.data)
         .then((data) => {
+            console.warn(data)
             if (data.success){
                 setCircleBoards(data.boards)
             }
@@ -54,7 +55,7 @@ const CircleContextProvider = ({children}: Props) => {
                 console.warn(data.message)
             }
         })
-        api.getNotices({name: circleChosen?.name})
+        await api.getNotices({name: circleChosen?.name})
         .then( (response) => response.data)
         .then((data) => {
             console.warn(data);

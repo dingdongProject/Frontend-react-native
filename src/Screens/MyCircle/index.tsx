@@ -196,15 +196,15 @@ const MyCirlce =  ({navigation} : Props) => {
                   
                   <BulleteinboardBodyContainer>  
                   {
-                    circleBoards? circleBoards.map((board, key) => {
+                    circleBoards? circleBoards.map((boards, key) => {
                       return (
                         <BulletinboardItemContainer onPress={() => {
-                          if(board!==undefined)
-                          navigation.navigate('BulleteinBoard', board);
+                          if(boards!==undefined)
+                          navigation.navigate('BulleteinBoard', boards);
                         }}>
                           <BulletinboardItemIcon source={require('~/Assets/Images/blur_circle.png')}></BulletinboardItemIcon>
                           <BulleteinboardBodyText>
-                            {board.name}
+                            {boards.name}
                           </BulleteinboardBodyText>
                         </BulletinboardItemContainer>
                       )

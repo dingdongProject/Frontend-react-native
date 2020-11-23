@@ -28,19 +28,17 @@ const Container = Styled.SafeAreaView`
     flex : 1;
     background-color : #fff;
 `;
+const ScrollContainer = Styled.ScrollView`
+  flex :1;
+`;
 const FormContainer = Styled.View`
     width : 100%;
-    height: 90%;
+    height : auto;
     align-items : center;
     justify-content : center;
     padding : 32px;
 `;  
-const Icon = Styled.Image`
-  width: 150px;
-  height: 150px;
-  border-radius: 100;
-  margin-bottom: 20px;
-`;
+
 const Description = Styled.Text`
   width: 100%;
   text-align : left;
@@ -60,9 +58,39 @@ const MyImage = Styled.Image`
   border-color : ${constants.PRIMARY};
 `;
 
-const GoBack = Styled.Text`
-    color : #5F89FA;
+
+const MembersContainer = Styled.View`
+  flex : 1;
+  border :0px;
+  
+  flex-direction : row;
+  width : 50%;
+  height : auto;
+  padding : 0px;
+  padding-bottom : 10px;
+  border-bottom-width : 0.3px;
 `;
+const MembersSubContainer = Styled.View`
+  flex : 1;
+  border :0px;
+  width : 100%;
+  height : auto;
+  padding : 0px;
+  padding-left : 0px;
+`;
+const MemTouch = Styled.TouchableOpacity`
+  flex-direction : row;
+`;
+const MembersText =Styled.Text`
+font-size:15px;
+text-align:center;
+color:${constants.TEXT2};
+margin-bottom : 0px;
+`;
+const MembersAdmin = Styled.Image`
+
+`;
+
 
 const CirclePageEdit =  ({navigation } : Props) => {
   const {userInfo} = useContext<IUserContext>(UserContext)
@@ -70,7 +98,7 @@ const CirclePageEdit =  ({navigation } : Props) => {
   const [circleExplaination,onChangeExplaination] = useState('')
   const [circlePicture,onChangecirclePicture] =useState('')
   const {addCircle} = useContext<IUserContext>(UserContext)
-  const {isCircle,circleChosen} = useContext<ICircleContext>(CircleContext)
+  const {isCircle,circleChosen,circleMembers} = useContext<ICircleContext>(CircleContext)
   
   
   const [Avatar,setAvatar] = useState('')
@@ -97,6 +125,7 @@ const CirclePageEdit =  ({navigation } : Props) => {
 
     return (
       <Container>
+        <ScrollContainer>
           <FormContainer> 
               <MyImageTouch
               onPress={()=>{addImage()}}
@@ -107,15 +136,44 @@ const CirclePageEdit =  ({navigation } : Props) => {
           </MyImageTouch>
           
           <Description>Name</Description>
-          <Input style={{marginBottom:32, flex:1}} placeholder="별명"/>
+          <Input style={{marginBottom:32, flex:1}} placeholder="name"/>
           <Description>Tags</Description>
-          <Input style={{marginBottom:32, flex:1}} placeholder="태그"/>
+          <Input style={{marginBottom:32, flex:1}} placeholder="tags"/>
           <Description>Explanation</Description>
-          <Input style={{marginBottom:32, flex: 5 }} placeholder="동아리소개"/>
-          <Button label="개인정보 수정" onPress={() => {
+          <Input style={{marginBottom:32, flex: 5 }} placeholder="explanation"/>
+          
+            <MembersSubContainer>
+          {
+               
+               circleMembers.map((name,isAdmin)=>{
+                 return(
+                   
+                  <MembersContainer>
+                    <MemTouch>
+                    <MembersText>
+                    {name.name}
+                    </MembersText>
+                    {isAdmin?
+                    <MembersAdmin
+                        source={require('~/Assets/Images/star.png')}
+                    /> : console.log('')
+                  }
+                  </MemTouch>
+                  </MembersContainer>
+                  
+                  
+
+                 )
+               }) 
+             }
+             </MembersSubContainer>
+          
+             </FormContainer>
+          <Button label="Circle Information Edit" onPress={() => {
             navigation.goBack()
           }}/>
-          </FormContainer>
+          
+          </ScrollContainer>
       </Container> 
        
     );

@@ -92,17 +92,28 @@ text-align:center;
 color:${constants.TEXT1};
 margin-bottom : 0px;
 `;
+const MemberCenter = Styled.View`
+  flex :1;
+  align-items : center;
+  flex-direction : row;
+`;
 const MembersContainer = Styled.View`
   flex : 1;
-  width : 400px;
+  border :0px;
+  align-items : center;
+  width : 100%;
   height : 40px;
   padding : 10px;
+  
 `;
 const MembersText =Styled.Text`
 font-size:15px;
 text-align:center;
 color:${constants.TEXT2};
 margin-bottom : 0px;
+`;
+const MembersAdmin = Styled.Image`
+
 `;
 
 
@@ -136,27 +147,38 @@ const Information =  ({navigation } : Props) => {
                 {circleChosen?.explanation}
               </MyExpText>
              </MyExp>
+             
              {
                
-               circleMembers.map((name)=>{
+               circleMembers.map((name,isAdmin)=>{
                  return(
+                   
                   <MembersContainer>
+                    <MemberCenter>
                     <MembersText>
                     {name.name}
                     </MembersText>
+                    {isAdmin?
+                    <MembersAdmin
+                        source={require('~/Assets/Images/star.png')}
+                    /> : console.log('')
+                  }
+                  </MemberCenter>
                   </MembersContainer>
+                  
+
                  )
                }) 
              }
             
-          
+            
            </SubContainer>
            </ScrollConatainer>
       </Container> 
 
        : 
        <Container>
-       <DingdongImage source = {require('~/Assets/Images/dingdong_splash.png')}/>
+       <DingdongImage source = {require('~/Assets/Images/dingdong_splas.png')}/>
        </Container>
 
       

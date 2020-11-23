@@ -122,8 +122,8 @@ const BulleteinBoard =  ({route, navigation } : Props) => {
   const [postList, setPostList] = useState<Array<IPostInfo>>([]);
   const {userInfo,tokenInfo} = useContext<IUserContext>(UserContext);
 
-  const getBoardPosts = (id: number) => {
-    api.getPosts({id: id})
+  const getBoardPosts = async (id: number) => {
+    await api.getPosts({id: id})
     .then(response => response.data)
     .then((data) => {
         console.warn(data)

@@ -89,7 +89,7 @@ interface Props {
 
 const Drawer = ({props}:Props) => {
     const {logout,userInfo, circleInfo} = useContext<IUserContext>(UserContext);
-    const {changeToCircle,getCircleMembers} = useContext<ICircleContext>(CircleContext);
+    const {changeToCircle,getCircleMembers,setMainPage} = useContext<ICircleContext>(CircleContext);
     return (
         <DrawerContentScrollView {...props}>
             <Button
@@ -114,7 +114,7 @@ const Drawer = ({props}:Props) => {
             circleInfo.map((circle, key) => {
                 return (
                     <Button 
-                    onPress={()=>{changeToCircle(true, key); getCircleMembers(circle.name);props.navigation.closeDrawer();}}>
+                    onPress={()=>{changeToCircle(true, key); getCircleMembers(circle.name); setMainPage(); props.navigation.closeDrawer();}}>
                         <ButtonContainer>
                             <CircleIcon source={{uri: circle.picture ? circle.picture : constants.DEFAULT_CIRCLE_IMG}}/>
                             <Label>{circle.name}</Label>

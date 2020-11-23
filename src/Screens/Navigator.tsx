@@ -85,7 +85,7 @@ const MainNavigator = () => {
 
 
 const MainStackNavigator = ({navigation } : Props) =>{
-    const {isCircle, circleChosen} = useContext<ICircleContext>(CircleContext);
+    const {isCircle, circleChosen,circleMembers} = useContext<ICircleContext>(CircleContext);
     const {circleInfo} = useContext<IUserContext>(UserContext)
     return(
         <Stack.Navigator screenOptions={{headerShown : true}}>
@@ -181,6 +181,7 @@ const MainStackNavigator = ({navigation } : Props) =>{
                 headerTitle: 'Read',
                 headerBackTitleVisible: false 
             }}/>
+            
             <Stack.Screen name= "Information" component={Information}
              options= {{
                 headerStyle:{
@@ -191,7 +192,11 @@ const MainStackNavigator = ({navigation } : Props) =>{
                 headerBackTitleVisible: false ,
                 headerRight: () => (
                     <IconButton
-                        onPress={()=> navigation.navigate('CirclePageEdit')}
+                        onPress={()=> {circleMembers.map((isAdmin)=>{
+                            isAdmin? navigation.navigate('CirclePageEdit')
+                            :
+                            console.warn('access')
+                        })}}
                         iconName='dotMenu'/>
                 )
             }}/>
