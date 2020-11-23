@@ -119,19 +119,16 @@ const Information =  ({navigation } : Props) => {
           <ScrollConatainer>
           <SubContainer>
           <MyContainer>
-            <MyTouchContainer
-            onPress={()=>{navigation.navigate("CirclePageEdit")}}
-            >
+            
               
               {
                 <MyImage source={{uri : isCircle && circleChosen ?  circleChosen.picture : constants.DEFAULT_CIRCLE_IMG}}/>
               }
-             </MyTouchContainer>
+             
              </MyContainer>
              <MyScript>
               <MyScriptText>
                 {circleChosen?.name}
-                {console.warn(circleChosen)}
               </MyScriptText>
              </MyScript>
              <MyExp>

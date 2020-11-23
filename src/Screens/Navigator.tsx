@@ -169,7 +169,7 @@ const MainStackNavigator = ({navigation } : Props) =>{
                     backgroundColor : Constants.PRIMARY,
                 },
                 headerTintColor: '#fff',
-                headerTitle: '글쓰기',
+                headerTitle: 'Write',
                 headerBackTitleVisible: false
             }}/>
             <Stack.Screen name = "Read" component={Read}
@@ -178,7 +178,7 @@ const MainStackNavigator = ({navigation } : Props) =>{
                     backgroundColor : Constants.PRIMARY,
                 },
                 headerTintColor: '#fff',
-                headerTitle: '글읽기',
+                headerTitle: 'Read',
                 headerBackTitleVisible: false 
             }}/>
             <Stack.Screen name= "Information" component={Information}
@@ -187,8 +187,13 @@ const MainStackNavigator = ({navigation } : Props) =>{
                     backgroundColor : Constants.PRIMARY,
                 },
                 headerTintColor: '#fff',
-                headerTitle: '정보',
-                headerBackTitleVisible: false 
+                headerTitle: 'Information',
+                headerBackTitleVisible: false ,
+                headerRight: () => (
+                    <IconButton
+                        onPress={()=> navigation.navigate('CirclePageEdit')}
+                        iconName='dotMenu'/>
+                )
             }}/>
             <Stack.Screen name= "CirclePageEdit" component={CirclePageEdit}
              options= {{
@@ -196,7 +201,7 @@ const MainStackNavigator = ({navigation } : Props) =>{
                     backgroundColor : Constants.PRIMARY,
                 },
                 headerTintColor: '#fff',
-                headerTitle: '동아리수정',
+                headerTitle: 'Circle Edit',
                 headerBackTitleVisible: false 
             }}/>
             <Stack.Screen name="AddBoard" component={AddBoard}
@@ -205,7 +210,7 @@ const MainStackNavigator = ({navigation } : Props) =>{
                     backgroundColor : Constants.PRIMARY,
                 },
                 headerTintColor: '#fff',
-                headerTitle: '게시판추가',
+                headerTitle: 'Add Board',
                 headerBackTitleVisible: false 
             }}/>
             

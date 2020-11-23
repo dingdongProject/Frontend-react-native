@@ -18,8 +18,8 @@
 		2DCD954D1E0B4F2C00145EB5 /* dingdongTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* dingdongTests.m */; };
 		977D2BDBAB26DD6D8599E7A7 /* libPods-dingdong.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E01049A498DEF20DF17A99E /* libPods-dingdong.a */; };
 		D01E56D91B8F3C979D5C4559 /* libPods-dingdong-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B724B4C99668202D0FDAD46 /* libPods-dingdong-tvOS.a */; };
-		EFD7EB7C2562F2600072F3D8 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EFD7EB7B2562F2600072F3D8 /* SplashScreen.storyboard */; };
-		EFD7EB7D2562F2600072F3D8 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EFD7EB7B2562F2600072F3D8 /* SplashScreen.storyboard */; };
+		EF05F5CE256BD688001135C8 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF05F5CD256BD688001135C8 /* SplashScreen.storyboard */; };
+		EF05F5CF256BD688001135C8 /* SplashScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EF05F5CD256BD688001135C8 /* SplashScreen.storyboard */; };
 		F64180BCC17453B7CC273B5F /* libPods-dingdong-dingdongTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B9368FFA1A6E54CCB5A6DBCD /* libPods-dingdong-dingdongTests.a */; };
 /* End PBXBuildFile section */
 
@@ -67,7 +67,7 @@
 		D53CD52A712B8C9F9F579E1E /* Pods-dingdong.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dingdong.debug.xcconfig"; path = "Target Support Files/Pods-dingdong/Pods-dingdong.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		EFD7EB7B2562F2600072F3D8 /* SplashScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SplashScreen.storyboard; sourceTree = "<group>"; };
+		EF05F5CD256BD688001135C8 /* SplashScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SplashScreen.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,7 +132,7 @@
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				13B07FB71A68108700A75B9A /* main.m */,
-				EFD7EB7B2562F2600072F3D8 /* SplashScreen.storyboard */,
+				EF05F5CD256BD688001135C8 /* SplashScreen.storyboard */,
 			);
 			name = dingdong;
 			sourceTree = "<group>";
@@ -341,7 +341,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
-				EFD7EB7C2562F2600072F3D8 /* SplashScreen.storyboard in Resources */,
+				EF05F5CE256BD688001135C8 /* SplashScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,7 +350,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2D02E4BD1E0B4A84006451C7 /* Images.xcassets in Resources */,
-				EFD7EB7D2562F2600072F3D8 /* SplashScreen.storyboard in Resources */,
+				EF05F5CF256BD688001135C8 /* SplashScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
