@@ -15,6 +15,7 @@ interface IPostInfo {
     owner: string;
     id: number;
     board: number;
+    images: Array<{image: string}>;
 }
 interface IMembersInfo {
     name : string;
@@ -33,4 +34,5 @@ interface ICircleContext {
     changeToCircle: (arg0: boolean, arg1: number) => void;
     setMainPage:()=> void;
     getCircleMembers : (name : string ) => void;
+    addBoard:(name: string) => void;
 }

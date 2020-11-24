@@ -17,6 +17,7 @@ const defaultContext: ICircleContext = {
     changeToCircle: (newstate: boolean, key: number) => {},
     setMainPage: () => {},
     getCircleMembers : () => {},
+    addBoard: (name: string) => {},
     
 
 }
@@ -80,6 +81,17 @@ const CircleContextProvider = ({children}: Props) => {
 
         
     }
+    const addBoard = (name: string) => {
+        api.addBoard({circle: circleChosen?.name, board: name})
+        .then((response) => response.data)
+        .then((data)=> {
+            console.warn(data)
+            if (data.success) {
+                setCircleBoards([...circleBoards, data.board])
+                console.warn(data.board)
+            }
+        })
+    }
 
    
     return (
@@ -96,6 +108,7 @@ const CircleContextProvider = ({children}: Props) => {
                 changeToCircle,
                 setMainPage,
                 getCircleMembers,
+                addBoard
             }}>
                 {children}
         </CircleContext.Provider>

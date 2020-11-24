@@ -16,6 +16,9 @@ export default {
     getBoards: function(payload) {
         return _promise(METHOD.GET, BASE_URL + `circles/${payload.name}/boards`, {},true)
     },
+    addBoard: function(payload) {
+        return _promise(METHOD.POST, BASE_URL + `circles/${payload.circle}/boards`, {name: payload.board}, true)
+    },
     getNotices: function(payload) {
         return _promise(METHOD.GET, BASE_URL + `circles/${payload.name}/notices`, {}, true)
     },
@@ -28,4 +31,7 @@ export default {
     getMembers : function(payload) {
         return _promise(METHOD.GET, BASE_URL + `circles/${payload}/members`,{},true)
     },
+    postPost: function(payload) {
+        return _promise(METHOD.POST_FILES, BASE_URL + `board/${payload.id}/post`, payload.form, true)
+    }
 }

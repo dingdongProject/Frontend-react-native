@@ -159,7 +159,6 @@ interface Props {
 const MyCirlce =  ({navigation} : Props) => {
   const {userInfo,circleInfo} = useContext<IUserContext>(UserContext);
   const {circleChosen, setMainPage, circleBoards} = useContext<ICircleContext>(CircleContext);
-
   useEffect(() => {
     setMainPage();
   }, []);

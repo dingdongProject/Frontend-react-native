@@ -216,15 +216,31 @@ const SendImage = Styled.Image`
     height: 80%;
     margin: auto;
 `
+const BodyImageContainer = Styled.View`
+    margin: 10px auto;
+    width: 100%;
+    height: auto;
 
+`
+const BodyImage = Styled.Image`
+    width: 90%;
+    min-height: 200px;
+    max-height: auto;
+    border-radius: 10px;
+    margin: 5px auto;
+    resize-mode:center;
+`
 
 
 
 const Read =  ({route, navigation } : Props) => {
     const {userInfo} = useContext<IUserContext>(UserContext)
     const post = route.params;
-    
-
+    useEffect(() => {
+         console.warn(post)
+    })
+    var date = post.created.split('T')[0]
+    var time = post.created.split('T')[1].slice(0, 8)
 
     return (
         <Container>
@@ -239,15 +255,17 @@ const Read =  ({route, navigation } : Props) => {
                         <WriterInfoBox>
                             <WriterInfoNameBox>
                                 <WriterInfoName>
-                                    {userInfo?.username}
+                                    {post.owner}
                                 </WriterInfoName>
 
                             </WriterInfoNameBox>
                             <WriterInfoTimeBox>
                                 <WriterInfoTime>
-                                    방금
+                                    {date}
                                 </WriterInfoTime>
-
+                                <WriterInfoTime>
+                                {time}
+                                </WriterInfoTime>
                             </WriterInfoTimeBox>
 
                         </WriterInfoBox>
@@ -264,11 +282,18 @@ const Read =  ({route, navigation } : Props) => {
                                 <BodyBody>
                                 {post.content}
                                 </BodyBody>
-
                             </BodyBodyBox>
-
                         </BodyBox>
-
+                        { post.images.length !== 0 &&
+                        <BodyImageContainer>
+                            {post.images.map((item, key) => {
+                                return (
+                                    <BodyImage source ={{uri: item.image}}/>
+                                )
+                            })
+                        }
+                        </BodyImageContainer>
+                        }
                     </BodyContainer>
                     <CommentContainer>
                         <Comment>

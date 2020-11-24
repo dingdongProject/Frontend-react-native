@@ -15,6 +15,7 @@ import Button from '~/Components/Button';
 import Input from '~/Components/Input';
 import ImageButton from '~/Components/ImageButton';
 import { useLinkProps } from '@react-navigation/native';
+import { CircleContext } from '~/Context/Circle';
 
 type NavigationProp = StackNavigationProp<AddCircleNaviParamList, 'AddCircle'>;
 
@@ -42,25 +43,20 @@ const Description = Styled.Text`
   margin-left: 20px;
   margin-bottom: 5px;
 `;
-
+const CircleImage = Styled.Image`
+  width: 200px;
+  height: 200px;
+  margin-bottom: 30px;
+  border-radius: 200px;
+`;
 
 const GoBack = Styled.Text`
     color : #5F89FA;
 `;
 
 const AddBoard =  ({navigation } : Props) => {
-  const [circleName,onChangecircleName] = useState('')
-  const [circleExplaination,onChangeExplaination] = useState('')
-  const [circlePicture,onChangecirclePicture] =useState({uri: '', name: '', type: ''})
-  const {addCircle, isLoading} = useContext<IUserContext>(UserContext)
-  
-
-
-  const checkInputs= () => {
-    
-    return true;
-}
-  
+  const {addBoard, circleChosen} = useContext<ICircleContext>(CircleContext)
+  const [name,onChangeName] = useState('')
 
     
 
@@ -68,22 +64,14 @@ const AddBoard =  ({navigation } : Props) => {
     return (
       <Container>
           <FormContainer> 
-          
+          <CircleImage source={{uri: circleChosen?.picture}}/>
           <Description>Name</Description>
-          <Input style={{marginBottom:32, flex:0.1}} onChangeText={(text)=> onChangecircleName(text)} 
+          <Input style={{marginBottom:32, flex:0.2}} onChangeText={(text)=> onChangeName(text)} 
           placeholder="Board Name" max={20}/>
           
           
-          <Button label="게시판 생성" onPress={async () => {
-
-            // var form = new FormData();
-            // let formCircleFile = circlePicture
-            // formCircleFile.uri = Platform.OS === "android" ? formCircleFile.uri : formCircleFile.uri.replace("file://", ""),
-            // form.append('name', circleName)
-            // form.append('explanation', circleExplaination)
-            // form.append('picture', formCircleFile)
-            // form.append('Content-Type', 'image/png');
-            // addCircle(form);
+          <Button label="게시판 생성" onPress={() => {
+            addBoard(name);
             navigation.pop();
           }}/>
           </FormContainer>
