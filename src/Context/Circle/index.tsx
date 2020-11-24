@@ -6,14 +6,19 @@ import api from '~/Api/api'
 import {UserContext} from '~/Context/User';
 
 const defaultContext: ICircleContext = {
+    isLoading : false,
     isCircle: false,
     circleChosen: undefined,
     circleNotices: [],
     circleGallery: [],
     circleFeeds: [],
     circleBoards: [],
+    circleMembers : [],
     changeToCircle: (newstate: boolean, key: number) => {},
-    setMainPage: () => {}
+    setMainPage: () => {},
+    getCircleMembers : () => {},
+    addBoard: (name: string) => {},
+    
 
 }
 
@@ -24,22 +29,26 @@ interface Props {
 }
 
 const CircleContextProvider = ({children}: Props) => {
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const [circleChosen, setCircleChosen] = useState<ICircleInfo | undefined>(undefined);
     const [isCircle, setIsCircle] = useState<boolean>(false);
     const [circleNotices, setCircleNotices] = useState<Array<IPostSimpleInfo>>([]);
     const [circleGallery, setCircleGallery] = useState<Array<string>>([]);
     const [circleFeeds, setCircleFeeds] = useState<Array<IPostSimpleInfo>>([]);
     const [circleBoards, setCircleBoards] = useState<Array<IBoardInfo>>([]);
+    const [circleMembers, setCircleMembers] = useState<Array<IMembersInfo>>([]);
     const {circleInfo} = useContext<IUserContext>(UserContext);
     const changeToCircle = (newState: boolean, key: number = 0) => {
         setIsCircle(newState);
         setCircleChosen(circleInfo[key]);
     }
 
-    const setMainPage = () => {
-        api.getBoards({name: circleChosen?.name})
+
+    const setMainPage = async() => {
+        await api.getBoards({name: circleChosen?.name})
         .then( (response) => response.data)
         .then((data) => {
+            console.warn(data)
             if (data.success){
                 setCircleBoards(data.boards)
             }
@@ -47,7 +56,7 @@ const CircleContextProvider = ({children}: Props) => {
                 console.warn(data.message)
             }
         })
-        api.getNotices({name: circleChosen?.name})
+        await api.getNotices({name: circleChosen?.name})
         .then( (response) => response.data)
         .then((data) => {
             console.warn(data);
@@ -60,18 +69,46 @@ const CircleContextProvider = ({children}: Props) => {
         })
     }
 
+    const getCircleMembers = async (name : string) => {
+        await api.getMembers(name).then((response)=>{
+            if(response.data){
+                setCircleMembers(response.data.members);
+            }
+            
+        }).catch(()=>{
+            console.warn('no one!')
+        })
+
+        
+    }
+    const addBoard = (name: string) => {
+        api.addBoard({circle: circleChosen?.name, board: name})
+        .then((response) => response.data)
+        .then((data)=> {
+            console.warn(data)
+            if (data.success) {
+                setCircleBoards([...circleBoards, data.board])
+                console.warn(data.board)
+            }
+        })
+    }
+
    
     return (
         <CircleContext.Provider
             value = {{
+                isLoading,
                 isCircle,
                 circleChosen,
                 circleBoards,
                 circleFeeds,
                 circleGallery,
                 circleNotices,
+                circleMembers,
                 changeToCircle,
-                setMainPage
+                setMainPage,
+                getCircleMembers,
+                addBoard
             }}>
                 {children}
         </CircleContext.Provider>

@@ -6,7 +6,7 @@ import {UserContext} from '~/Context/User';
 import IconButton from '~/Components/IconButton';
 import MyPageEdit from '~/Screens/MyPageEdit';
 import constants from '~/Constants/constants';
-import CircleInformation from '~/Screens/Information';
+
 
 
 

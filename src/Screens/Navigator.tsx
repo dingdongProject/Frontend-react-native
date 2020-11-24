@@ -34,8 +34,7 @@ import Write from '~/Screens/Write';
 import Read from '~/Screens/Read';
 import Information from '~/Screens/Information';
 import CirclePageEdit from '~/Screens/CirclePageEdit';
-import TestPage from '~/Screens/TestPage';
-import AddBoard from './AddBoard';
+import AddBoard from '~/Screens/AddBoard';
 
 
 const Stack = createStackNavigator();
@@ -86,7 +85,7 @@ const MainNavigator = () => {
 
 
 const MainStackNavigator = ({navigation } : Props) =>{
-    const {isCircle, circleChosen} = useContext<ICircleContext>(CircleContext);
+    const {isCircle, circleChosen,circleMembers} = useContext<ICircleContext>(CircleContext);
     const {circleInfo} = useContext<IUserContext>(UserContext)
     return(
         <Stack.Navigator screenOptions={{headerShown : true}}>
@@ -170,7 +169,7 @@ const MainStackNavigator = ({navigation } : Props) =>{
                     backgroundColor : Constants.PRIMARY,
                 },
                 headerTintColor: '#fff',
-                headerTitle: '글쓰기',
+                headerTitle: 'Write',
                 headerBackTitleVisible: false
             }}/>
             <Stack.Screen name = "Read" component={Read}
@@ -179,17 +178,27 @@ const MainStackNavigator = ({navigation } : Props) =>{
                     backgroundColor : Constants.PRIMARY,
                 },
                 headerTintColor: '#fff',
-                headerTitle: '글읽기',
+                headerTitle: 'Read',
                 headerBackTitleVisible: false 
             }}/>
+            
             <Stack.Screen name= "Information" component={Information}
              options= {{
                 headerStyle:{
                     backgroundColor : Constants.PRIMARY,
                 },
                 headerTintColor: '#fff',
-                headerTitle: '정보',
-                headerBackTitleVisible: false 
+                headerTitle: 'Information',
+                headerBackTitleVisible: false ,
+                headerRight: () => (
+                    <IconButton
+                        onPress={()=> {circleMembers.map((isAdmin)=>{
+                            isAdmin? navigation.navigate('CirclePageEdit')
+                            :
+                            console.warn('access')
+                        })}}
+                        iconName='dotMenu'/>
+                )
             }}/>
             <Stack.Screen name= "CirclePageEdit" component={CirclePageEdit}
              options= {{
@@ -197,7 +206,7 @@ const MainStackNavigator = ({navigation } : Props) =>{
                     backgroundColor : Constants.PRIMARY,
                 },
                 headerTintColor: '#fff',
-                headerTitle: '동아리수정',
+                headerTitle: 'Circle Edit',
                 headerBackTitleVisible: false 
             }}/>
             <Stack.Screen name="AddBoard" component={AddBoard}
@@ -206,7 +215,7 @@ const MainStackNavigator = ({navigation } : Props) =>{
                     backgroundColor : Constants.PRIMARY,
                 },
                 headerTintColor: '#fff',
-                headerTitle: '게시판추가',
+                headerTitle: 'Add Board',
                 headerBackTitleVisible: false 
             }}/>
             

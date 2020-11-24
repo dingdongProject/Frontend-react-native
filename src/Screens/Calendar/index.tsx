@@ -1,5 +1,5 @@
 import React, {useContext, useLayoutEffect, useEffect,useState} from 'react';
-import {FlatList,Modal,View,Text} from 'react-native';
+import {FlatList,Modal,View,Text,Button} from 'react-native';
 import Styled from 'styled-components/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
@@ -7,7 +7,7 @@ import {UserContext} from '~/Context/User';
 import {CircleContext} from '~/Context/Circle';
 import CalendarPicker from 'react-native-calendar-picker';
 import constants from '~/Constants/constants';
-import Modals from '~/Components/Modal';
+import { ModalContext, ModalContextType, useModal } from 'react-native-use-modal-hooks';
 import Bubbles from '~/Components/Bubbles';
 import Read from '../Read';
 import BottomSheet from '~/Components/BottomSheet';
@@ -67,6 +67,41 @@ const CalendarText = Styled.Text`
 
 `;
 
+const MContainer = Styled.View`
+  flex : 1;
+  justify-content : center;
+  align-items : center;
+  margin-top : 0;
+`;
+const ModalContainer = Styled.View`
+  margin : 0px;
+  background-color : white;
+  border-radius : 20;
+  padding : 35px;
+  align-items : center;
+  shadow-color : #000;
+
+`;
+
+const ButtonContainer = Styled.TouchableOpacity`
+  background-color : ${constants.PRIMARY};
+  border-radius : 20;
+  padding : 10px;
+
+`;
+
+const MainText =Styled.Text`
+  color : white;
+  font-weight : bold;
+  text-align : center;
+`;
+const ModalText = Styled.Text`
+  margin-bottom : 15;
+  text-align : center;
+`;
+
+
+
 
 
 
@@ -74,25 +109,45 @@ const CalendarText = Styled.Text`
 const Calendar =  ({navigation } : Props) => {
     const minDate =  new Date(2017,11,8);
     const maxDate = new Date(2022,11,8);
-    // const [selectedStartDate,setSelectedStartDate] = useState<any>(null);
-    // const startDate = selectedStartDate? selectedStartDate : null;
     const {circleInfo} = useContext<IUserContext>(UserContext)
     const [data, setData] = useState<Array<ICircleInfo | undefined>>([]);
-    const [selectedDate,setSelectedDate] = useState('');
+    const [selectedDate,setSelectedDate] = useState<string>('');
     const {circleChosen,changeToCircle} =useContext<ICircleContext>(CircleContext);
-    const [flag,setFlag] = useState<boolean>(false);
-    const [modal,setModal] = useState<boolean>(false);
+    
+    // const {showModal,hideModal} =useContext<ModalContextType>(ModalContext)
     
 
     useEffect(()=>{
       setData(circleInfo)
     },[])
       
-    const onDateChange = (date : any) =>{
-      setFlag(true)
+    const  onDateChange = async (date : any) =>{
       let datestring = date.toString();
-      setSelectedDate(datestring);
+      setSelectedDate(datestring)
+      showModal()
     }
+
+    const [showModal, hideModal] = useModal(() => (
+      <Modal
+        animationType="slide"
+        transparent={true}
+      >
+        <MContainer>
+          <ModalContainer>
+            <ModalText>
+                동아리 스케쥴
+            </ModalText>
+            <ButtonContainer
+              onPress={hideModal}
+            >
+              <MainText>
+              cancel
+              </MainText>
+            </ButtonContainer>
+          </ModalContainer>
+        </MContainer>
+      </Modal>
+    ))
 
     
 
@@ -136,15 +191,8 @@ const Calendar =  ({navigation } : Props) => {
               
               
               />
-              
-              
-          
-          
-              
-              
               </CalendarText>
         </CalendarContainer>
-        <BottomSheet date = {selectedDate}/>
         
               
             
@@ -154,3 +202,6 @@ const Calendar =  ({navigation } : Props) => {
 };
 
 export default Calendar;
+
+
+

@@ -1,5 +1,6 @@
 import React from 'react';
 import {StatusBar} from 'react-native';
+import {ModalProvider} from 'react-native-use-modal-hooks';
 import {ActivityIndicator} from 'react-native';
 
 import {AppRegistry} from 'react-native';
@@ -22,8 +23,10 @@ const App = ({}:Props) => {
       
       <UserContextProvider>
         <CircleContextProvider>
+          <ModalProvider>
         <StatusBar barStyle="default"/>
         <Navigator/>
+        </ModalProvider>
         </CircleContextProvider>
       </UserContextProvider>
     

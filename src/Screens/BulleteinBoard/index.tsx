@@ -7,16 +7,8 @@ import {UserContext} from '~/Context/User';
 import IconButton from '~/Components/IconButton';
 import MyPageEdit from '~/Screens/MyPageEdit';
 import constants from '~/Constants/constants';
-import {RouteProp, NavigationProp} from '@react-navigation/native';
+import {RouteProp, NavigationProp, useFocusEffect} from '@react-navigation/native';
 import api from '~/Api/api'
-type BoardScreenNaviProp = NavigationProp<BulleteinBoardNaviParamList, 'Read'>;
-type BoardScreenRouteProp = RouteProp<BoardNaviParamList, "board">;
-
-
-interface Props {
-    navigation: BoardScreenNaviProp;
-    route: BoardScreenRouteProp;
-}
 
 const Container = Styled.SafeAreaView`
   flex: 1;
@@ -48,7 +40,7 @@ const BulleteinMainContainer = Styled.View`
 const BulleteinContainer = Styled.View`
     height : auto;
     border : 0px;
-    
+    max-width: 70%;
 `;
 
 const BulleteinTitleBox = Styled.View`
@@ -66,11 +58,11 @@ const BulleteinBodyBox =Styled.View`
     height : 40px;
     padding-top : 5px;
     border : 0px;
-    
 `;
 const BulleteinBodyText = Styled.Text`
     color : ${constants.TEXT1};
     font-size : 12;
+    
 `;
 const BulleteinCommentBox = Styled.View`
     height : auto;
@@ -117,7 +109,7 @@ const FooterText = Styled.Text`
 `; 
 
 
-const BulleteinBoard =  ({route, navigation } : Props) => {
+const BulleteinBoard =  ({route, navigation } : any) => {
   const [myuser, setMyuser] = useState<IUserInfo>();
   const [postList, setPostList] = useState<Array<IPostInfo>>([]);
   const {userInfo,tokenInfo} = useContext<IUserContext>(UserContext);
@@ -136,17 +128,29 @@ const BulleteinBoard =  ({route, navigation } : Props) => {
 
 
   useEffect(() => {
-    const board = route.params;
-    getBoardPosts(board.id);
+    console.warn(route.params)
     
-  }, []);
-      
+    if (route.params.post) {
+        setPostList([route.params.post, ...postList]);
+    }
+    else {
+        getBoardPosts(route.params.id);
+    }
+    
 
+
+  }, [route.params]);
     return (
       <Container>
           <ScrollContainer>
           <SubContainer>
-            {postList.map((item, key) => {
+            {postList !== [] && postList.map((item, key) => {
+                if (item === undefined) return
+                var date, time;
+                if (item.created){
+                    date = item.created.split('T')[0]
+                    time = item.created.split('T')[1].slice(0, 8)
+                }
                 return  (
                     <ReadBox
                 onPress={()=>{
@@ -167,15 +171,17 @@ const BulleteinBoard =  ({route, navigation } : Props) => {
                         </BulleteinBodyBox>
                         <BulleteinCommentBox>
                             <BulleteinCommentText>
-                                {item.owner}
+                                {item.owner} · {item.created ? date : ''} {time? time : ''}
                             </BulleteinCommentText>
                         </BulleteinCommentBox>
                     </BulleteinContainer>
+                    { item.images.length !== 0 &&
                     <BulleteinImageBox>
                         <BulleteinImage
-                        source={{uri : constants.DEFAULT_CIRCLE_IMG}}
+                        source={{uri : item.images[0].image}}
                         />
                     </BulleteinImageBox>
+                    }
                 </BulleteinMainContainer>
                 </ReadBox>
                 )
@@ -187,7 +193,7 @@ const BulleteinBoard =  ({route, navigation } : Props) => {
             </ScrollContainer>
             <FooterTouch
                 onPress={()=>{
-                    navigation.navigate('Write');
+                    navigation.navigate('Write', {id: route.params.id});
                 }}
                 >
             <Footer>

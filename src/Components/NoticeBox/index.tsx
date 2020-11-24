@@ -98,24 +98,25 @@ interface Props {
 const NoticeBox = ({item,title}:Props) => {
     const {circleInfo} = useContext<IUserContext>(UserContext);
     const {isCircle, circleNotices} = useContext<ICircleContext>(CircleContext);
-    const data = [
-        {
-            title : '테크노경영학',
-            content : 'b1'
-        },
-        {
-            title : 'sadads',
-            content : 'b2'
-        },
-        {
-            title : '테크노경영학',
-            content : 'b3'
-        },
-        {
-            title : '테크노경영학',
-            content : 'b4'
-        }
-    ]
+    // const data = [
+    //     {
+    //         title : '테크노경영학',
+    //         content : 'b1'
+    //     },
+    //     {
+    //         title : 'sadads',
+    //         content : 'b2'
+    //     },
+    //     {
+    //         title : '테크노경영학',
+    //         content : 'b3'
+    //     },
+    //     {
+    //         title : '테크노경영학',
+    //         content : 'b4'
+    //     }
+    // ]
+    const data = circleNotices;
 
     const Item = ({notice}:any) => (
        

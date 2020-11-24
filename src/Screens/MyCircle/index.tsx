@@ -12,6 +12,8 @@ import Constants from '~/Constants/constants';
 import IconIcon from '~/Components/IconButton'
 import IconButton from '~/Components/IconButton';
 import AddBoard from '../AddBoard';
+import api from '~/Api/api';
+import Loading from '~/Components/Loading';
 
 //notice 수평 플랫리스트
 //board 는 플랫리스트 넘버링 & map
@@ -159,7 +161,6 @@ interface Props {
 const MyCirlce =  ({navigation} : Props) => {
   const {userInfo,circleInfo} = useContext<IUserContext>(UserContext);
   const {circleChosen, setMainPage, circleBoards} = useContext<ICircleContext>(CircleContext);
-
   useEffect(() => {
     setMainPage();
   }, []);
@@ -196,15 +197,15 @@ const MyCirlce =  ({navigation} : Props) => {
                   
                   <BulleteinboardBodyContainer>  
                   {
-                    circleBoards? circleBoards.map((board, key) => {
+                    circleBoards? circleBoards.map((boards, key) => {
                       return (
                         <BulletinboardItemContainer onPress={() => {
-                          if(board!==undefined)
-                          navigation.navigate('BulleteinBoard', board);
+                          if(boards!==undefined)
+                          navigation.navigate('BulleteinBoard', boards);
                         }}>
                           <BulletinboardItemIcon source={require('~/Assets/Images/board1.png')}></BulletinboardItemIcon>
                           <BulleteinboardBodyText>
-                            {board.name}
+                            {boards.name}
                           </BulleteinboardBodyText>
                         </BulletinboardItemContainer>
                       )
