@@ -36,5 +36,8 @@ export default {
     },
     postComment: function(payload) {
         return _promise(METHOD.POST, BASE_URL + `post/${payload.id}/comment`, {content: payload.content}, true)
+    },
+    getSchedule : function(payload) {
+        return _promise(METHOD.GET, BASE_URL + `circles/${payload.name}/schedules`,{},true)
     }
 }

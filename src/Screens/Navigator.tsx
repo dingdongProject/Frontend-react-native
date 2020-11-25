@@ -18,7 +18,7 @@ import Signup from '~/Screens/Signup';
 import DDHome from './Home';
 import onboard from './Onboarding';
 import CustomDrawer from './Drawer';
-import Calendar from './Calendar';
+import Calendars from './Calendar';
 import Circles from './Circles';
 import Mypage from './Mypage';
 import IconButton from '~/Components/IconButton';
@@ -229,7 +229,7 @@ const MainStackNavigator = ({navigation } : Props) =>{
 const CalendarNavigator = ({navigation } : Props) => {
     return(
         <Stack.Navigator>
-            <Stack.Screen name = "Calendar" component={Calendar}  //edit
+            <Stack.Screen name = "Calendar" component={Calendars}  //edit
             options={{
                 headerStyle:{
                     backgroundColor : Constants.PRIMARY,

@@ -153,10 +153,12 @@ const CirclePageEdit =  ({navigation } : Props) => {
                     <MembersText>
                     {name.name}
                     </MembersText>
-                    {isAdmin?
+                    {name.isAdmin?
                     <MembersAdmin
                         source={require('~/Assets/Images/star.png')}
-                    /> : console.log('')
+                    />
+                    
+                    : console.warn(isAdmin)
                   }
                   </MemTouch>
                   </MembersContainer>

@@ -114,14 +114,14 @@ const Drawer = ({props}:Props) => {
             circleInfo.map((circle, key) => {
                 return (
                     <Button 
-                    onPress={()=>{changeToCircle(true, key); getCircleMembers(circle.name); setMainPage(); props.navigation.closeDrawer();}}>
+                    onPress={()=>{changeToCircle(true, key); getCircleMembers(circle.name); props.navigation.closeDrawer();}}>
                         <ButtonContainer>
                             <CircleIcon source={{uri: circle.picture ? circle.picture : constants.DEFAULT_CIRCLE_IMG}}/>
                             <Label>{circle.name}</Label>
                         </ButtonContainer>
                     </Button>
                 )
-            }) : console.log('a')
+            }) : console.log('')
             }
             <Button
                 onPress={()=>{props.navigation.navigate('AddCircle',{screen : 'AddCircle'})}}

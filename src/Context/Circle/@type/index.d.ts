@@ -23,6 +23,13 @@ interface IMembersInfo {
     isAdmin : boolean;
 }
 
+interface ISchedules {
+    title : string;
+    content : string;
+    datetime : string;
+    created: string;
+}
+
 interface ICircleContext {
     isLoading : boolean;
     isCircle: boolean;
@@ -32,6 +39,8 @@ interface ICircleContext {
     circleFeeds: Array<IPostSimpleInfo>;
     circleBoards: Array<IBoardInfo>;
     circleMembers : Array<IMembersInfo>;
+    circleSchedule : Array<ISchedules>;
+    circleDate : Array<String>;
     changeToCircle: (arg0: boolean, arg1: number) => void;
     setMainPage:()=> void;
     getCircleMembers : (name : string ) => void;

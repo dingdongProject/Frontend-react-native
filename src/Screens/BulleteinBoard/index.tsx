@@ -114,8 +114,8 @@ const BulleteinBoard =  ({route, navigation } : any) => {
   const [postList, setPostList] = useState<Array<IPostInfo>>([]);
   const {userInfo,tokenInfo} = useContext<IUserContext>(UserContext);
 
-  const getBoardPosts = (id: number) => {
-    api.getPosts({id: id})
+  const getBoardPosts = async (id: number) => {
+    await api.getPosts({id: id})
     .then(response => response.data)
     .then((data) => {
         console.warn(data)
@@ -129,6 +129,7 @@ const BulleteinBoard =  ({route, navigation } : any) => {
 
   useEffect(() => {
     console.warn(route.params)
+    console.warn(postList)
     
     if (route.params.post) {
         setPostList([route.params.post, ...postList]);
@@ -140,6 +141,8 @@ const BulleteinBoard =  ({route, navigation } : any) => {
 
 
   }, [route.params]);
+
+
     return (
       <Container>
           <ScrollContainer>

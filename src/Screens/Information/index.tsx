@@ -123,7 +123,7 @@ const Information =  ({navigation } : Props) => {
   const {userInfo,circleInfo} = useContext<IUserContext>(UserContext);
   const {isCircle,circleChosen,circleMembers} = useContext<ICircleContext>(CircleContext)
 
-   
+   console.warn(circleMembers);
     return (
       isCircle && circleChosen ?
         <Container>
@@ -158,10 +158,10 @@ const Information =  ({navigation } : Props) => {
                     <MembersText>
                     {name.name}
                     </MembersText>
-                    {isAdmin?
+                    {name.isAdmin?
                     <MembersAdmin
                         source={require('~/Assets/Images/star.png')}
-                    /> : console.log('')
+                    /> : console.warn(isAdmin)
                   }
                   </MemberCenter>
                   </MembersContainer>

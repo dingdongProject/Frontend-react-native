@@ -14,6 +14,8 @@ const defaultContext: ICircleContext = {
     circleFeeds: [],
     circleBoards: [],
     circleMembers : [],
+    circleSchedule : [],
+    circleDate : [],
     changeToCircle: (newstate: boolean, key: number) => {},
     setMainPage: () => {},
     getCircleMembers : () => {},
@@ -37,10 +39,14 @@ const CircleContextProvider = ({children}: Props) => {
     const [circleFeeds, setCircleFeeds] = useState<Array<IPostSimpleInfo>>([]);
     const [circleBoards, setCircleBoards] = useState<Array<IBoardInfo>>([]);
     const [circleMembers, setCircleMembers] = useState<Array<IMembersInfo>>([]);
+    const [circleSchedule,setCircleSchedule] = useState<Array<ISchedules>>([]);
+    const [circleDate, setCircleDate] = useState<Array<String>>([]);
     const {circleInfo} = useContext<IUserContext>(UserContext);
-    const changeToCircle = (newState: boolean, key: number = 0) => {
+    const changeToCircle = async (newState: boolean, key: number = 0) => {
         setIsCircle(newState);
         setCircleChosen(circleInfo[key]);
+        
+    
     }
 
 
@@ -67,6 +73,24 @@ const CircleContextProvider = ({children}: Props) => {
                 console.warn(data.message)
             }
         })
+        await api.getSchedule({name : circleChosen?.name})
+        .then((response)=> response.data)
+        .then((data)=>{
+        setCircleSchedule(data.schedules)
+        console.warn(circleSchedule);
+        }).then(()=>{
+            circleSchedule.map((datetime)=>{
+                var date
+                if (datetime.datetime){
+                    date = datetime.datetime.split('T')[0];
+
+                    setCircleDate([date,...circleDate]);
+                    console.warn("circledate",circleDate);
+                }
+            })
+
+        })
+        
     }
 
     const getCircleMembers = async (name : string) => {
@@ -105,6 +129,8 @@ const CircleContextProvider = ({children}: Props) => {
                 circleGallery,
                 circleNotices,
                 circleMembers,
+                circleSchedule,
+                circleDate,
                 changeToCircle,
                 setMainPage,
                 getCircleMembers,

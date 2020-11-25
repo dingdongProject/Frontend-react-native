@@ -58,7 +58,9 @@ interface Props {
 
 const Bubbles = ({image, onPress}: Props) => {
   return (
-    <Container>
+    <Container
+    onPress={onPress}
+    >
       <CatalogImage
         source={{uri: image}}
       />

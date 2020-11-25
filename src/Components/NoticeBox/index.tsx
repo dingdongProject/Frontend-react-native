@@ -89,13 +89,9 @@ color:${Constants.TEXT2};
 margin-bottom : 0px;
 `;
 
-interface Props {
-    item : string;
-    title : string;
-}
 
 
-const NoticeBox = ({item,title}:Props) => {
+const NoticeBox = () => {
     const {circleInfo} = useContext<IUserContext>(UserContext);
     const {isCircle, circleNotices} = useContext<ICircleContext>(CircleContext);
     // const data = [

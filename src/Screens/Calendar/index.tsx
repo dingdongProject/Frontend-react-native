@@ -5,12 +5,15 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import {UserContext} from '~/Context/User';
 import {CircleContext} from '~/Context/Circle';
-import CalendarPicker from 'react-native-calendar-picker';
+// import CalendarPicker from 'react-native-calendar-picker';
 import constants from '~/Constants/constants';
 import { ModalContext, ModalContextType, useModal } from 'react-native-use-modal-hooks';
 import Bubbles from '~/Components/Bubbles';
 import Read from '../Read';
 import BottomSheet from '~/Components/BottomSheet';
+import {Calendar,CalendarList, Agenda} from 'react-native-calendars';
+
+import api from '~/Api/api';
 
 type NavigationProp = StackNavigationProp<TotalNaviParamList>;
 
@@ -106,37 +109,94 @@ const ModalText = Styled.Text`
 
 
 
-const Calendar =  ({navigation } : Props) => {
+const Calendars =  ({navigation } : Props) => {
     const minDate =  new Date(2017,11,8);
     const maxDate = new Date(2022,11,8);
-    const {circleInfo} = useContext<IUserContext>(UserContext)
-    const [data, setData] = useState<Array<ICircleInfo | undefined>>([]);
-    const [selectedDate,setSelectedDate] = useState<string>('');
-    const {circleChosen,changeToCircle} =useContext<ICircleContext>(CircleContext);
     
+    const [data, setData] = useState<Array<ICircleInfo | undefined>>([]);
+    const [selected,setSelected] = useState(['']);
+    
+
+    const {changeToCircle,circleSchedule,circleDate} =useContext<ICircleContext>(CircleContext);
+    const {circleInfo} = useContext<IUserContext>(UserContext)
+    const [circleSche,setCircleSche] = useState<Array<String>>([]);
     // const {showModal,hideModal} =useContext<ModalContextType>(ModalContext)
     
 
     useEffect(()=>{
       setData(circleInfo)
+      // getall();
+      
+      
     },[])
       
-    const  onDateChange = async (date : any) =>{
-      let datestring = date.toString();
-      setSelectedDate(datestring)
-      showModal()
+        
+  //  const getall = async ()=> {
+  //    circleInfo.map(async (name)=>{
+  //     await api.getSchedule({name : name.name})
+  //     .then((response)=>response.data)
+  //     .then((data)=>{
+  //       setCircleSche(data.schedules)
+  //     })
+  //     console.warn(circleSche);
+  //     // .then(()=>{
+  //     //   circleSche.map((datetime)=>{
+  //     //     var date
+  //     //     // if (datetime.datetime){
+  //     //     //   date = datetime.datetime.split('T')[0]
+  //     //     }
+  //     //   })
+  //     // })
+  //    })
+    
+  //  }
+
+
+    const CheckMark = () => {
+      var strdate = circleDate.toString();
+      setSelected([strdate,...selected]);
+      console.warn(selected);
+      
     }
 
+    const onDayPress = (day : any) => {
+      var str1 = selected[0];
+      var str2 = day.dateString;
+      console.warn('s',selected)
+      console.warn('t',selected[0])
+      
+      if(str1 === str2)
+      { 
+        return (
+        true
+        )
+      }
+    }
+
+
     const [showModal, hideModal] = useModal(() => (
+      
       <Modal
         animationType="slide"
         transparent={true}
       >
         <MContainer>
           <ModalContainer>
-            <ModalText>
-                동아리 스케쥴
-            </ModalText>
+            {
+             circleSchedule.map((item, key)=>{
+                 
+                return(
+                  <ModalText>
+                {item.title}
+                {item.content}
+                  </ModalText>
+                   
+                )
+               
+              })
+            }
+            
+            
             <ButtonContainer
               onPress={hideModal}
             >
@@ -166,19 +226,19 @@ const Calendar =  ({navigation } : Props) => {
         renderItem={({item, index}) => (
           <Bubbles
             image={(item as ICircleInfo).picture}
+            onPress={()=>{changeToCircle(true, index); CheckMark(); }}
           />
         )}
       />
+      </BubbleContainer>
 
-        </BubbleContainer>
+
+        
         <CalendarContainer>
-          <CalendarText>
+          {/* <CalendarText>
           <CalendarPicker
               minDate={minDate}
               maxDate={maxDate}
-              
-              
-              
               weekdays={['일','월','화','수','목','금','토']}
               months={['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']}
               textStyle={{
@@ -186,12 +246,34 @@ const Calendar =  ({navigation } : Props) => {
               }}
               selectedDayColor={constants.PRIMARY}
               onDateChange={onDateChange}
-              
-              
-              
-              
               />
-              </CalendarText>
+              </CalendarText> */}
+            {/* {
+              myShedule !== undefined && myShedule.map((datetime)=>{
+                if(datetime === undefined) return
+                var date, time;
+                if (datetime.created){
+                    date = datetime.created.split('T')[0]
+                    time = datetime.created.split('T')[1].slice(0, 8)
+                }
+                return(
+                  console.warn(date)
+                )
+
+              })
+            } */}
+            <Calendar
+                  onDayPress={(day) => {onDayPress(day)? showModal() : hideModal()}}
+
+                  markedDates={{
+                      
+                      [selected[0]] : {
+                        marked : true
+                      }
+                  }}
+                  />
+              
+
         </CalendarContainer>
         
               
@@ -201,7 +283,7 @@ const Calendar =  ({navigation } : Props) => {
     );
 };
 
-export default Calendar;
+export default Calendars;
 
 
 

@@ -160,9 +160,11 @@ interface Props {
 
 const MyCirlce =  ({navigation} : Props) => {
   const {userInfo,circleInfo} = useContext<IUserContext>(UserContext);
-  const {circleChosen, setMainPage, circleBoards} = useContext<ICircleContext>(CircleContext);
+  const {circleChosen, setMainPage, circleBoards,circleNotices} = useContext<ICircleContext>(CircleContext);
+  
+  
   useEffect(() => {
-    setMainPage();
+    setMainPage()
   }, []);
 
     
@@ -170,10 +172,7 @@ const MyCirlce =  ({navigation} : Props) => {
     return(
         <Container>
             <SubContainer>
-                <NoticeBox
-                item={'a'}
-                title={'b'}
-                />
+                <NoticeBox/>
                 <BulleteinboardContainer>
                   <BulleteinboardSubConatiner>
                   <BulleteinboardTitleContainer>
@@ -200,7 +199,6 @@ const MyCirlce =  ({navigation} : Props) => {
                     circleBoards? circleBoards.map((boards, key) => {
                       return (
                         <BulletinboardItemContainer onPress={() => {
-                          if(boards!==undefined)
                           navigation.navigate('BulleteinBoard', boards);
                         }}>
                           <BulletinboardItemIcon source={require('~/Assets/Images/board1.png')}></BulletinboardItemIcon>
