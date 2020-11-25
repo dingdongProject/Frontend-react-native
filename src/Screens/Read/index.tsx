@@ -1,4 +1,4 @@
-import React, {useContext, useLayoutEffect, useEffect} from 'react';
+import React, {useContext, useLayoutEffect, useEffect, useState, useRef} from 'react';
 import Styled from 'styled-components/native';
 import {TextInput} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -8,6 +8,7 @@ import { onChange } from 'react-native-reanimated';
 import Input from '~/Components/Input';
 import constants from '~/Constants/constants';
 import {RouteProp} from '@react-navigation/native';
+import api from '~/Api/api';
 
 
 type NavigationProp = StackNavigationProp<MyCircleNaviParamList>;
@@ -126,10 +127,12 @@ const CommentContainer = Styled.View`
     justifyContent : flex-start;
     border: 0px solid #aaa
     border-top-width : 1px;
+    width: 100%;
 `;
 const Comment = Styled.View`
     border: 0px solid #dedede
     border-bottom-width: 1px;
+    width: 100%;
 `;
 const CommentUserContainer = Styled.View`
     height : auto;
@@ -173,7 +176,7 @@ const CommentName = Styled.Text`
 `;
 const CommentBox = Styled.View`
     margin-top : 0px;
-    width : auto;
+    width : 100%;
     height : auto;
     padding : 10px;
     padding-top : 0px;
@@ -235,16 +238,36 @@ const BodyImage = Styled.Image`
 
 const Read =  ({route, navigation } : Props) => {
     const {userInfo} = useContext<IUserContext>(UserContext)
-    const post = route.params;
-    useEffect(() => {
-         console.warn(post)
-    })
+    const [comment, setComment] = useState('')
+    const [post, setPost] = useState<IPostInfo>(route.params);
     var date = post.created.split('T')[0]
     var time = post.created.split('T')[1].slice(0, 8)
+    const scrollViewRef = useRef();
+    const sendComment = async () => {
+        api.postComment({
+            id: post.id,
+            content: comment
+        }).then(response => response.data)
+        .then(data => {
+            if (data.success){
+                var newComments = post.comments;
+                newComments = [...post.comments, data.comment]
+                post.comments = newComments
+                setPost(post)
+                setComment('')
+                setTimeout(() => {
+                    scrollViewRef.current.scrollToEnd({animated: true})
+                }, 100)
+                
+            }
+                
+            }
+        )
+    }
 
     return (
         <Container>
-            <ScrollContainer>
+            <ScrollContainer ref={scrollViewRef}>
                 <SubContainer>
                     <WriterContainer>
                         <WriterImageBox>
@@ -296,123 +319,37 @@ const Read =  ({route, navigation } : Props) => {
                         }
                     </BodyContainer>
                     <CommentContainer>
-                        <Comment>
-                    <CommentUserContainer>
-                        <CommentImageBox>
-                            <CommentImage
-                            source={{uri : userInfo?.picture}}
-                            />
-                        </CommentImageBox>
-                        <CommentInfoBox>
-                            <CommentNameBox>
-                                <CommentName>
-                                    {userInfo?.username}
-                                </CommentName>
-
-                            </CommentNameBox>
-                        </CommentInfoBox>
-                    </CommentUserContainer>
-                        <CommentBox>
-                            <CommentText>
-                            아이돌의 연습생 과정 중에 혹시 인터뷰하는 방법을 훈련하는 과정도 있나요? 아니요. 예전엔 인터뷰를 하면 질문을 먼저 보고 그 밑에다 답을 다 적었어요. 까먹을까 봐. 그런데 지금은, 평소에 생각을 해서 그런지 그런 과정 없이 제 생각이 잘 나오는 것 같아요. 활동 초기에는 아, 이건 논란이 될 수 있으니까 전형적인 말만 하자, 했었는데 지금은 저도 인터뷰하면서 아, 내가 평소에 이렇게 생각했었지, 할 때도 있어요. 순간순간의 기록 같아서 이런 인터뷰를 되게 좋아해요. 옛날엔 저도 많이 감췄죠, 나는 이 모습이 예쁠 것 같은데. 웃는 모습은 별로고. 아직도 조금 있어요, 내가 아직 다 공개하지 못한 모습들이 있긴 한데 애쓰고 가리지 않으려고요. 자연스럽게 보여주는 법을 배우고 있어요.
-                            </CommentText>
-                        </CommentBox>
-                        </Comment>
-                        <Comment>
-                    <CommentUserContainer>
-                        <CommentImageBox>
-                            <CommentImage
-                            source={{uri : userInfo?.picture}}
-                            />
-                        </CommentImageBox>
-                        <CommentInfoBox>
-                            <CommentNameBox>
-                                <CommentName>
-                                    {userInfo?.username}
-                                </CommentName>
-
-                            </CommentNameBox>
-                        </CommentInfoBox>
-                    </CommentUserContainer>
-                        <CommentBox>
-                            <CommentText>
-                            아이돌의 연습생 과정 중에 혹시 인터뷰하는 방법을 훈련하는 과정도 있나요? 아니요. 예전엔 인터뷰를 하면 질문을 먼저 보고 그 밑에다 답을 다 적었어요. 까먹을까 봐. 그런데 지금은, 평소에 생각을 해서 그런지 그런 과정 없이 제 생각이 잘 나오는 것 같아요. 활동 초기에는 아, 이건 논란이 될 수 있으니까 전형적인 말만 하자, 했었는데 지금은 저도 인터뷰하면서 아, 내가 평소에 이렇게 생각했었지, 할 때도 있어요. 순간순간의 기록 같아서 이런 인터뷰를 되게 좋아해요. 옛날엔 저도 많이 감췄죠, 나는 이 모습이 예쁠 것 같은데. 웃는 모습은 별로고. 아직도 조금 있어요, 내가 아직 다 공개하지 못한 모습들이 있긴 한데 애쓰고 가리지 않으려고요. 자연스럽게 보여주는 법을 배우고 있어요.
-                            </CommentText>
-                        </CommentBox>
-                        </Comment>
-                        <Comment>
-                    <CommentUserContainer>
-                        <CommentImageBox>
-                            <CommentImage
-                            source={{uri : userInfo?.picture}}
-                            />
-                        </CommentImageBox>
-                        <CommentInfoBox>
-                            <CommentNameBox>
-                                <CommentName>
-                                    {userInfo?.username}
-                                </CommentName>
-
-                            </CommentNameBox>
-                        </CommentInfoBox>
-                    </CommentUserContainer>
-                        <CommentBox>
-                            <CommentText>
-                            아이돌의 연습생 과정 중에 혹시 인터뷰하는 방법을 훈련하는 과정도 있나요? 아니요. 예전엔 인터뷰를 하면 질문을 먼저 보고 그 밑에다 답을 다 적었어요. 까먹을까 봐. 그런데 지금은, 평소에 생각을 해서 그런지 그런 과정 없이 제 생각이 잘 나오는 것 같아요. 활동 초기에는 아, 이건 논란이 될 수 있으니까 전형적인 말만 하자, 했었는데 지금은 저도 인터뷰하면서 아, 내가 평소에 이렇게 생각했었지, 할 때도 있어요. 순간순간의 기록 같아서 이런 인터뷰를 되게 좋아해요. 옛날엔 저도 많이 감췄죠, 나는 이 모습이 예쁠 것 같은데. 웃는 모습은 별로고. 아직도 조금 있어요, 내가 아직 다 공개하지 못한 모습들이 있긴 한데 애쓰고 가리지 않으려고요. 자연스럽게 보여주는 법을 배우고 있어요.
-                            </CommentText>
-                        </CommentBox>
-                        </Comment>
-                        <Comment>
-                    <CommentUserContainer>
-                        <CommentImageBox>
-                            <CommentImage
-                            source={{uri : userInfo?.picture}}
-                            />
-                        </CommentImageBox>
-                        <CommentInfoBox>
-                            <CommentNameBox>
-                                <CommentName>
-                                    {userInfo?.username}
-                                </CommentName>
-
-                            </CommentNameBox>
-                        </CommentInfoBox>
-                    </CommentUserContainer>
-                        <CommentBox>
-                            <CommentText>
-                            아이돌의 연습생 과정 중에 혹시 인터뷰하는 방법을 훈련하는 과정도 있나요? 아니요. 예전엔 인터뷰를 하면 질문을 먼저 보고 그 밑에다 답을 다 적었어요. 까먹을까 봐. 그런데 지금은, 평소에 생각을 해서 그런지 그런 과정 없이 제 생각이 잘 나오는 것 같아요. 활동 초기에는 아, 이건 논란이 될 수 있으니까 전형적인 말만 하자, 했었는데 지금은 저도 인터뷰하면서 아, 내가 평소에 이렇게 생각했었지, 할 때도 있어요. 순간순간의 기록 같아서 이런 인터뷰를 되게 좋아해요. 옛날엔 저도 많이 감췄죠, 나는 이 모습이 예쁠 것 같은데. 웃는 모습은 별로고. 아직도 조금 있어요, 내가 아직 다 공개하지 못한 모습들이 있긴 한데 애쓰고 가리지 않으려고요. 자연스럽게 보여주는 법을 배우고 있어요.
-                            </CommentText>
-                        </CommentBox>
-                        </Comment>
-                        <Comment>
-                    <CommentUserContainer>
-                        <CommentImageBox>
-                            <CommentImage
-                            source={{uri : userInfo?.picture}}
-                            />
-                        </CommentImageBox>
-                        <CommentInfoBox>
-                            <CommentNameBox>
-                                <CommentName>
-                                    {userInfo?.username}
-                                </CommentName>
-
-                            </CommentNameBox>
-                        </CommentInfoBox>
-                    </CommentUserContainer>
-                        <CommentBox>
-                            <CommentText>
-                            아이돌의 연습생 과정 중에 혹시 인터뷰하는 방법을 훈련하는 과정도 있나요? 아니요. 예전엔 인터뷰를 하면 질문을 먼저 보고 그 밑에다 답을 다 적었어요. 까먹을까 봐. 그런데 지금은, 평소에 생각을 해서 그런지 그런 과정 없이 제 생각이 잘 나오는 것 같아요. 활동 초기에는 아, 이건 논란이 될 수 있으니까 전형적인 말만 하자, 했었는데 지금은 저도 인터뷰하면서 아, 내가 평소에 이렇게 생각했었지, 할 때도 있어요. 순간순간의 기록 같아서 이런 인터뷰를 되게 좋아해요. 옛날엔 저도 많이 감췄죠, 나는 이 모습이 예쁠 것 같은데. 웃는 모습은 별로고. 아직도 조금 있어요, 내가 아직 다 공개하지 못한 모습들이 있긴 한데 애쓰고 가리지 않으려고요. 자연스럽게 보여주는 법을 배우고 있어요.
-                            </CommentText>
-                        </CommentBox>
-                        </Comment>
-                        
+                        {post.comments && post.comments.map((item,key) => {
+                            return (
+                                <Comment>
+                                    <CommentUserContainer>
+                                        <CommentImageBox>
+                                            <CommentImage
+                                            source={{uri : item.owner.picture}}
+                                            />
+                                        </CommentImageBox>
+                                        <CommentInfoBox>
+                                            <CommentNameBox>
+                                                <CommentName>
+                                                    {item.owner.username}
+                                                </CommentName>
+                                            </CommentNameBox>
+                                        </CommentInfoBox>
+                                    </CommentUserContainer>
+                                    <CommentBox>
+                                        <CommentText>
+                                        {item.content}
+                                        </CommentText>
+                                    </CommentBox>
+                                    </Comment>
+                            )
+                        })}
                     </CommentContainer>
                 </SubContainer>
             </ScrollContainer>
             <Footer>
-                <CommentInput/>
-                <SendImageContainer>
+                <CommentInput onChangeText = {(text) => setComment(text)} value={comment}/>
+                <SendImageContainer onPress={() => sendComment()}>
                 <SendImage source={require('~/Assets/Images/send.png')}/>
                 </SendImageContainer>
             </Footer>

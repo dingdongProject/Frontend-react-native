@@ -16,6 +16,7 @@ interface IPostInfo {
     id: number;
     board: number;
     images: Array<{image: string}>;
+    comments: Array<{content: string, owner: {username: string, picture:string}, created_at: string}>;
 }
 interface IMembersInfo {
     name : string;

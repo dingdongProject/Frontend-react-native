@@ -33,5 +33,8 @@ export default {
     },
     postPost: function(payload) {
         return _promise(METHOD.POST_FILES, BASE_URL + `board/${payload.id}/post`, payload.form, true)
+    },
+    postComment: function(payload) {
+        return _promise(METHOD.POST, BASE_URL + `post/${payload.id}/comment`, {content: payload.content}, true)
     }
 }
