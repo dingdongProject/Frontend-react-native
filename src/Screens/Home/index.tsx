@@ -81,7 +81,7 @@ const NoticeTitleImage = Styled.Image`
     margin-right : 10px;
     width: 30px;
     height: 30px;
-    border-radius: 100;
+    border-radius: 30px;
     border: 0.5px;
     border-color : ${constants.PRIMARY};
     resize-mode:center
