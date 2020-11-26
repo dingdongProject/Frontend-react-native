@@ -126,7 +126,6 @@ const Calendars =  ({navigation } : Props) => {
     
 
     useEffect(()=>{
-        
         DatelistProvider();
     },[])
       
