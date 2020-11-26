@@ -110,16 +110,18 @@ const ModalText = Styled.Text`
 
 
 const Calendars =  ({navigation } : Props) => {
-    const minDate =  new Date(2017,11,8);
-    const maxDate = new Date(2022,11,8);
     
     const [marked,setMarked] = useState<any>('');
+    const [circleMarked,setCircleMarked] = useState<any>('');
     const [datelist,setDatelist] = useState<Array<String>>([]);
+    const [circleDatelist,setCircleDatelist] = useState<Array<String>>([]);
+
+
     const [scheduleSelected,setScheduleSelected]  = useState<circleSchedules>();
     let  myschdule : Array<String> =  [];
     
 
-    const {changeToCircle,circleSchedule,ISchedule} =useContext<ICircleContext>(CircleContext);
+    const {changeToCircle,isCircle,circleChosen,ISchedule} =useContext<ICircleContext>(CircleContext);
     const {circleInfo} = useContext<IUserContext>(UserContext)
     
 
@@ -150,6 +152,11 @@ const Calendars =  ({navigation } : Props) => {
         setMarked(obj);
     }
 
+    const CirclemarkedDateProvider = () => {
+      var obj= circleDatelist.reduce((c,v)=>Object.assign(c,{[v.toString()]: {marked : true}}),{});
+      setCircleMarked(obj);
+  }
+
 
 
     const selectSchedule = (day : any) => {
@@ -166,11 +173,46 @@ const Calendars =  ({navigation } : Props) => {
           }
         });
         setTimeout(()=>{showModal()},1000);
-        
-        
-       
-      
     }
+
+
+    const circleDatalistProvider = () => {
+      ISchedule.forEach((item)=>{
+        if(circleChosen?.name === item.circle){
+          var schedulelist = item.scheduleList
+          var split;
+        
+        for(let i=0; i<item.scheduleList.length; i++){
+          split = schedulelist[i].datetime.split('T')[0]
+          myschdule.push(split)
+        }
+      }})
+      setCircleDatelist(myschdule);
+
+      CirclemarkedDateProvider();
+        }
+
+        const selectCircleSchedule = (day : any) => {
+          var daystring = JSON.stringify(day.dateString);
+          var new_daystring = daystring.replace(/\"/g,'');
+          
+          ISchedule.map((item)=>{
+            if(circleChosen?.name === item.circle){
+            var todayschedule = item.scheduleList
+            for(let i=0; i<todayschedule.length; i++){
+              var todayDate = todayschedule[i].datetime.split('T')[0];
+               if(todayDate === new_daystring){
+                  setScheduleSelected(todayschedule[i])
+                  console.warn(todayschedule[i])
+               }
+              }
+            }
+            });
+            setTimeout(()=>{showModal()},1000);
+        }   
+      
+        
+    
     
     
     const [showModal , hideModal] = useModal(() => (
@@ -220,42 +262,23 @@ const Calendars =  ({navigation } : Props) => {
         renderItem={({item, index}) => (
           <Bubbles
             image={(item as ICircleInfo).picture}
-            onPress={()=>{changeToCircle(true, index);  }}
+            onPress={()=>{changeToCircle(true, index);  circleDatalistProvider();}}
           />
         )}
       />
       </BubbleContainer>
-
-
-        
+      {
+        isCircle && circleChosen ?
         <CalendarContainer>
-          {/* <CalendarText>
-          <CalendarPicker
-              minDate={minDate}
-              maxDate={maxDate}
-              weekdays={['일','월','화','수','목','금','토']}
-              months={['1월','2월','3월','4월','5월','6월','7월','8월','9월','10월','11월','12월']}
-              textStyle={{
-                color : constants.TEXT1,
-              }}
-              selectedDayColor={constants.PRIMARY}
-              onDateChange={onDateChange}
-              />
-              </CalendarText> */}
-            {/* {
-              myShedule !== undefined && myShedule.map((datetime)=>{
-                if(datetime === undefined) return
-                var date, time;
-                if (datetime.created){
-                    date = datetime.created.split('T')[0]
-                    time = datetime.created.split('T')[1].slice(0, 8)
-                }
-                return(
-                  console.warn(date)
-                )
+            <Calendar
+                  onDayPress={(day) => {selectCircleSchedule(day);}}
+                  markedDates={circleMarked}
+                  />
+              
 
-              })
-            } */}
+        </CalendarContainer>
+        :
+        <CalendarContainer>
             <Calendar
                   onDayPress={(day) => {selectSchedule(day);}}
                   markedDates={marked}
@@ -263,8 +286,8 @@ const Calendars =  ({navigation } : Props) => {
               
 
         </CalendarContainer>
-        
-              
+
+      }      
             
       </Container> 
        
