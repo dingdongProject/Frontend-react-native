@@ -52,7 +52,7 @@ const Bubble = Styled.Image`
 margin-right : 8px;
 width: 100px;
 height: 100px;   
-border-radius: 100;
+border-radius: 100px;
 border: 2px;
 border-color : ${constants.PRIMARY};
 resize-mode:center
@@ -126,43 +126,41 @@ const Calendars =  ({navigation } : Props) => {
     
 
     useEffect(()=>{
-        
         DatelistProvider();
     },[])
       
     
-    const DatelistProvider = () => {
-        ISchedule.forEach((item)=>{
-          var schedulelist = item.scheduleList
-          var split;
-          
-          for(let i=0; i<item.scheduleList.length; i++){
-            split = schedulelist[i].datetime.split('T')[0]
-            myschdule.push(split)
+    const DatelistProvider = (name = '') => {
+      console.warn(name);
+      ISchedule.forEach((item)=>{
+        var schedulelist = item.scheduleList
+        var split;
+        if (name !== '') {
+          if (item.circle === name) {
+            for (let i=0; i< item.scheduleList.length; i++){
+              split = schedulelist[i].datetime.split('T')[0]
+              myschdule.push(split)
+            }
+            setDatelist(myschdule);
+            var obj= myschdule.reduce((c,v)=>Object.assign(c,{[v.toString()]: {marked : true}}),{});
+            setMarked(obj);
           }
-        })
-        setDatelist(myschdule);
-
-        markedDateProvider();
-        
+          return;
+        }
+        for(let i=0; i<item.scheduleList.length; i++){
+          split = schedulelist[i].datetime.split('T')[0]
+          myschdule.push(split)
+        }
+      })
+      setDatelist(myschdule);
+      var obj= myschdule.reduce((c,v)=>Object.assign(c,{[v.toString()]: {marked : true}}),{});
+      setMarked(obj);
     }
-  
-    const markedDateProvider = () => {
-        var obj= datelist.reduce((c,v)=>Object.assign(c,{[v.toString()]: {marked : true}}),{});
-        setMarked(obj);
-    }
-
-    const CirclemarkedDateProvider = () => {
-      var obj= circleDatelist.reduce((c,v)=>Object.assign(c,{[v.toString()]: {marked : true}}),{});
-      setCircleMarked(obj);
-  }
-
-
 
     const selectSchedule = (day : any) => {
       var daystring = JSON.stringify(day.dateString);
       var new_daystring = daystring.replace(/\"/g,'');
-      ISchedule.map((item)=>{
+      ISchedule.forEach((item)=>{
         var todayschedule = item.scheduleList
         for(let i=0; i<todayschedule.length; i++){
           var todayDate = todayschedule[i].datetime.split('T')[0];
@@ -172,51 +170,12 @@ const Calendars =  ({navigation } : Props) => {
            }
           }
         });
-        setTimeout(()=>{showModal()},1000);
+        showModal();
     }
-
-
-    const circleDatalistProvider = () => {
-      ISchedule.forEach((item)=>{
-        if(circleChosen?.name === item.circle){
-          var schedulelist = item.scheduleList
-          var split;
-        
-        for(let i=0; i<item.scheduleList.length; i++){
-          split = schedulelist[i].datetime.split('T')[0]
-          myschdule.push(split)
-        }
-      }})
-      setCircleDatelist(myschdule);
-
-      CirclemarkedDateProvider();
-        }
-
-        const selectCircleSchedule = (day : any) => {
-          var daystring = JSON.stringify(day.dateString);
-          var new_daystring = daystring.replace(/\"/g,'');
-          
-          ISchedule.map((item)=>{
-            if(circleChosen?.name === item.circle){
-            var todayschedule = item.scheduleList
-            for(let i=0; i<todayschedule.length; i++){
-              var todayDate = todayschedule[i].datetime.split('T')[0];
-               if(todayDate === new_daystring){
-                  setScheduleSelected(todayschedule[i])
-                  console.warn(todayschedule[i])
-               }
-              }
-            }
-            });
-            setTimeout(()=>{showModal()},1000);
-        }   
-      
-        
     
-    
-    
-    const [showModal , hideModal] = useModal(() => (
-      
+    const [showModal , hideModal] = useModal(() => {
+
+      return (
       <Modal
         animationType="slide"
         transparent={true}
@@ -243,7 +202,8 @@ const Calendars =  ({navigation } : Props) => {
           </ModalContainer>
         </MContainer>
       </Modal>
-    ))
+    )
+    }, [scheduleSelected])
 
     
 
@@ -262,7 +222,7 @@ const Calendars =  ({navigation } : Props) => {
         renderItem={({item, index}) => (
           <Bubbles
             image={(item as ICircleInfo).picture}
-            onPress={()=>{changeToCircle(true, index);  circleDatalistProvider();}}
+            onPress={()=>{DatelistProvider(item.name);}}
           />
         )}
       />
@@ -271,7 +231,7 @@ const Calendars =  ({navigation } : Props) => {
         isCircle && circleChosen ?
         <CalendarContainer>
             <Calendar
-                  onDayPress={(day) => {selectCircleSchedule(day);}}
+                  onDayPress={(day) => {selectSchedule(day);}}
                   markedDates={circleMarked}
                   />
               
