@@ -113,97 +113,91 @@ const Calendars =  ({navigation } : Props) => {
     const minDate =  new Date(2017,11,8);
     const maxDate = new Date(2022,11,8);
     
-    const [data, setData] = useState<Array<ICircleInfo | undefined>>([]);
-    const [selected,setSelected] = useState(['']);
+    const [marked,setMarked] = useState<any>('');
+    const [datelist,setDatelist] = useState<Array<String>>([]);
+    const [scheduleSelected,setScheduleSelected]  = useState<circleSchedules>();
+    let  myschdule : Array<String> =  [];
     
 
-    const {changeToCircle,circleSchedule,circleDate} =useContext<ICircleContext>(CircleContext);
+    const {changeToCircle,circleSchedule,ISchedule} =useContext<ICircleContext>(CircleContext);
     const {circleInfo} = useContext<IUserContext>(UserContext)
-    const [circleSche,setCircleSche] = useState<Array<String>>([]);
-    // const {showModal,hideModal} =useContext<ModalContextType>(ModalContext)
     
 
     useEffect(()=>{
-      setData(circleInfo)
-      // getall();
-      
-      
+        
+        DatelistProvider();
     },[])
       
-        
-  //  const getall = async ()=> {
-  //    circleInfo.map(async (name)=>{
-  //     await api.getSchedule({name : name.name})
-  //     .then((response)=>response.data)
-  //     .then((data)=>{
-  //       setCircleSche(data.schedules)
-  //     })
-  //     console.warn(circleSche);
-  //     // .then(()=>{
-  //     //   circleSche.map((datetime)=>{
-  //     //     var date
-  //     //     // if (datetime.datetime){
-  //     //     //   date = datetime.datetime.split('T')[0]
-  //     //     }
-  //     //   })
-  //     // })
-  //    })
     
-  //  }
+    const DatelistProvider = () => {
+        ISchedule.forEach((item)=>{
+          var schedulelist = item.scheduleList
+          var split;
+          
+          for(let i=0; i<item.scheduleList.length; i++){
+            split = schedulelist[i].datetime.split('T')[0]
+            myschdule.push(split)
+          }
+        })
+        setDatelist(myschdule);
 
-
-    const CheckMark = () => {
-      var strdate = circleDate.toString();
-      setSelected([strdate,...selected]);
-      console.warn(selected);
-      
+        markedDateProvider();
+        
     }
-
-    const onDayPress = (day : any) => {
-      var str1 = selected[0];
-      var str2 = day.dateString;
-      console.warn('s',selected)
-      console.warn('t',selected[0])
-      
-      if(str1 === str2)
-      { 
-        return (
-        true
-        )
-      }
+  
+    const markedDateProvider = () => {
+        var obj= datelist.reduce((c,v)=>Object.assign(c,{[v.toString()]: {marked : true}}),{});
+        setMarked(obj);
     }
 
 
-    const [showModal, hideModal] = useModal(() => (
+
+    const selectSchedule = (day : any) => {
+      var daystring = JSON.stringify(day.dateString);
+      var new_daystring = daystring.replace(/\"/g,'');
+      ISchedule.map((item)=>{
+        var todayschedule = item.scheduleList
+        for(let i=0; i<todayschedule.length; i++){
+          var todayDate = todayschedule[i].datetime.split('T')[0];
+           if(todayDate === new_daystring){
+              setScheduleSelected(todayschedule[i])
+              console.warn(todayschedule[i])
+           }
+          }
+        });
+        setTimeout(()=>{showModal()},1000);
+        
+        
+       
+      
+    }
+    
+    
+    const [showModal , hideModal] = useModal(() => (
       
       <Modal
         animationType="slide"
         transparent={true}
       >
         <MContainer>
-          <ModalContainer>
-            {
-             circleSchedule.map((item, key)=>{
-                 
-                return(
-                  <ModalText>
-                {item.title}
-                {item.content}
-                  </ModalText>
-                   
-                )
-               
-              })
-            }
-            
-            
-            <ButtonContainer
+          <ModalContainer> 
+              <ModalText>
+                {scheduleSelected?.title}
+              </ModalText>
+              <ModalText>
+                {scheduleSelected?.content}
+              </ModalText>
+              <ModalText>
+                {scheduleSelected?.datetime}
+              </ModalText>
+    
+              <ButtonContainer
               onPress={hideModal}
-            >
-              <MainText>
-              cancel
-              </MainText>
-            </ButtonContainer>
+              >
+                <MainText>
+                cancel
+                </MainText>
+              </ButtonContainer>
           </ModalContainer>
         </MContainer>
       </Modal>
@@ -219,14 +213,14 @@ const Calendars =  ({navigation } : Props) => {
               <FlatList
         horizontal={true}
         pagingEnabled={true}
-        data={data}
+        data={circleInfo}
         keyExtractor={(item, index) => {
           return `circle-${index}`;
         }}
         renderItem={({item, index}) => (
           <Bubbles
             image={(item as ICircleInfo).picture}
-            onPress={()=>{changeToCircle(true, index); CheckMark(); }}
+            onPress={()=>{changeToCircle(true, index);  }}
           />
         )}
       />
@@ -263,14 +257,8 @@ const Calendars =  ({navigation } : Props) => {
               })
             } */}
             <Calendar
-                  onDayPress={(day) => {onDayPress(day)? showModal() : hideModal()}}
-
-                  markedDates={{
-                      
-                      [selected[0]] : {
-                        marked : true
-                      }
-                  }}
+                  onDayPress={(day) => {selectSchedule(day);}}
+                  markedDates={marked}
                   />
               
 

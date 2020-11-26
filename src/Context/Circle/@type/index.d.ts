@@ -23,15 +23,19 @@ interface IMembersInfo {
     isAdmin : boolean;
 }
 
-interface ISchedules {
+interface circleSchedules {
     title : string;
     content : string;
     datetime : string;
-    created: string;
+}
+
+interface ISchedules {
+    circle : string;
+    scheduleList : Array<{title : string, content : string , datetime : string}>;  
 }
 
 interface ICircleContext {
-    isLoading : boolean;
+    isCircleLoading : boolean;
     isCircle: boolean;
     circleChosen : ICircleInfo | undefined;
     circleNotices: Array<IPostSimpleInfo>;
@@ -39,10 +43,11 @@ interface ICircleContext {
     circleFeeds: Array<IPostSimpleInfo>;
     circleBoards: Array<IBoardInfo>;
     circleMembers : Array<IMembersInfo>;
-    circleSchedule : Array<ISchedules>;
-    circleDate : Array<String>;
+    circleSchedule : Array<circleSchedules>;
+    ISchedule : Array<ISchedules>;
     changeToCircle: (arg0: boolean, arg1: number) => void;
     setMainPage:()=> void;
     getCircleMembers : (name : string ) => void;
     addBoard:(name: string) => void;
+    getSchedule : () => void;
 }

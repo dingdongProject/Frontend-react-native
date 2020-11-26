@@ -382,10 +382,14 @@ const MainTab = () => {
 
 export default () => {
     const {isLoading,userInfo,tokenInfo} = useContext<IUserContext>(UserContext);
+    const {isCircleLoading} = useContext<ICircleContext>(CircleContext);
     
     
         
     if(isLoading === false){
+        return <Loading/>
+    }
+    if(isCircleLoading === false){
         return <Loading/>
     }
     console.log('여긴가?',tokenInfo);

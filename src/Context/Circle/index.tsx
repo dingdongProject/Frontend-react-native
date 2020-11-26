@@ -6,7 +6,7 @@ import api from '~/Api/api'
 import {UserContext} from '~/Context/User';
 
 const defaultContext: ICircleContext = {
-    isLoading : false,
+    isCircleLoading : false,
     isCircle: false,
     circleChosen: undefined,
     circleNotices: [],
@@ -15,11 +15,12 @@ const defaultContext: ICircleContext = {
     circleBoards: [],
     circleMembers : [],
     circleSchedule : [],
-    circleDate : [],
+    ISchedule : [],
     changeToCircle: (newstate: boolean, key: number) => {},
     setMainPage: () => {},
     getCircleMembers : () => {},
     addBoard: (name: string) => {},
+    getSchedule : () => {},
     
 
 }
@@ -30,8 +31,10 @@ interface Props {
      children: JSX.Element | Array<JSX.Element>;
 }
 
+
+
 const CircleContextProvider = ({children}: Props) => {
-    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [isCircleLoading, setIsCircleLoading] = useState<boolean>(false);
     const [circleChosen, setCircleChosen] = useState<ICircleInfo | undefined>(undefined);
     const [isCircle, setIsCircle] = useState<boolean>(false);
     const [circleNotices, setCircleNotices] = useState<Array<IPostSimpleInfo>>([]);
@@ -39,8 +42,8 @@ const CircleContextProvider = ({children}: Props) => {
     const [circleFeeds, setCircleFeeds] = useState<Array<IPostSimpleInfo>>([]);
     const [circleBoards, setCircleBoards] = useState<Array<IBoardInfo>>([]);
     const [circleMembers, setCircleMembers] = useState<Array<IMembersInfo>>([]);
-    const [circleSchedule,setCircleSchedule] = useState<Array<ISchedules>>([]);
-    const [circleDate, setCircleDate] = useState<Array<String>>([]);
+    const [ISchedule,setISchedule] = useState<Array<ISchedules>>([]);
+    const [circleSchedule, setCircleSchedule] = useState<Array<circleSchedules>>([]);
     const {circleInfo} = useContext<IUserContext>(UserContext);
     const changeToCircle = async (newState: boolean, key: number = 0) => {
         setIsCircle(newState);
@@ -48,6 +51,13 @@ const CircleContextProvider = ({children}: Props) => {
         
     
     }
+
+    useEffect(()=>{
+        getSchedule().then(()=>{
+            setIsCircleLoading(true);
+        })
+            
+    },[])
 
 
     const setMainPage = async() => {
@@ -73,23 +83,30 @@ const CircleContextProvider = ({children}: Props) => {
                 console.warn(data.message)
             }
         })
-        await api.getSchedule({name : circleChosen?.name})
+        
+        
+    }
+    
+    const getSchedule = async () => {
+        await api.getSchedule()
         .then((response)=> response.data)
         .then((data)=>{
-        setCircleSchedule(data.schedules)
-        console.warn(circleSchedule);
-        }).then(()=>{
-            circleSchedule.map((datetime)=>{
-                var date
-                if (datetime.datetime){
-                    date = datetime.datetime.split('T')[0];
-
-                    setCircleDate([date,...circleDate]);
-                    console.warn("circledate",circleDate);
-                }
-            })
-
+        setISchedule(data.schedules)
+        return data.schedules;
         })
+        // .then((data)=>{
+        //      data.map((name: { scheduleList: string | any[]; })=>{
+        //         for(let i=0; i<name.scheduleList.length; i++)
+        //         {
+        //             let sch = name.scheduleList[i]
+        //             setCircleSchedule([sch, ...circleSchedule])
+                    
+        //         }
+                 
+               
+        //     })        
+        // })
+
         
     }
 
@@ -121,7 +138,7 @@ const CircleContextProvider = ({children}: Props) => {
     return (
         <CircleContext.Provider
             value = {{
-                isLoading,
+                isCircleLoading,
                 isCircle,
                 circleChosen,
                 circleBoards,
@@ -129,12 +146,13 @@ const CircleContextProvider = ({children}: Props) => {
                 circleGallery,
                 circleNotices,
                 circleMembers,
+                ISchedule,
                 circleSchedule,
-                circleDate,
                 changeToCircle,
                 setMainPage,
                 getCircleMembers,
-                addBoard
+                addBoard,
+                getSchedule,
             }}>
                 {children}
         </CircleContext.Provider>
