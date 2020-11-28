@@ -73,6 +73,9 @@ type BoardNaviParamList = {
 type ReadNaviParamList = {
     post: IPostInfo;
 }
+type CircleInfoNaviParamList = {
+    circle: ICircleInfo
+}
 
 
 

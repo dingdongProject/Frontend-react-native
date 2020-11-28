@@ -40,8 +40,8 @@ const ButtonContainer = Styled.View`
 
 const Icon = Styled.Image`
     margin-right : 8px;
-    width: 25px;
-    height: 25px;
+    width: 24px;
+    height: 24px;
 `;
 const CircleIcon = Styled.Image`
     margin-right : 8px;
@@ -129,7 +129,13 @@ const Drawer = ({props}:Props) => {
             >
                 <ButtonContainer>
                     <Icon source={require('~/Assets/Images/add_circle.png')}/>
-                    <Label>새로만들기</Label>
+                    <Label>Create New Circle</Label>
+                </ButtonContainer>
+            </Button>
+            <Button onPress={()=>{props.navigation.navigate('JoinCircle',{screen : 'JoinCircle'})}}> 
+                <ButtonContainer>
+                    <Icon source={require('~/Assets/Images/add_circle.png')}/>
+                    <Label>Join a Circle</Label>
                 </ButtonContainer>
             </Button>
             <Footer>

@@ -25,6 +25,7 @@ import IconButton from '~/Components/IconButton';
 import MyCirlce from './MyCircle';
 import MyPageEdit from './MyPageEdit';
 import AddCircle from './AddCircle';
+import JoinCircle from './JoinCircle';
 import Constants from '~/Constants/constants'
 import SplashScreen from 'react-native-splash-screen';
 import constants from '~/Constants/constants';
@@ -35,6 +36,8 @@ import Read from '~/Screens/Read';
 import Information from '~/Screens/Information';
 import CirclePageEdit from '~/Screens/CirclePageEdit';
 import AddBoard from '~/Screens/AddBoard';
+import CircleSearchInfo from '~/Screens/CircleSearchInfo';
+
 
 
 const Stack = createStackNavigator();
@@ -141,10 +144,18 @@ const MainStackNavigator = ({navigation } : Props) =>{
                     backgroundColor : Constants.PRIMARY,
                 },
                 headerTintColor: '#fff',
-                headerTitle: '동아리 생성',
+                headerTitle: 'Create New Circle',
                 headerBackTitleVisible: false
-            }}
-                />
+            }}/>
+            <Stack.Screen name = "JoinCircle" component={JoinCircle}
+                options={{
+                headerStyle:{
+                    backgroundColor : Constants.PRIMARY,
+                },
+                headerTintColor: '#fff',
+                headerTitle: 'Join a Circle',
+                headerBackTitleVisible: false
+            }}/>
             <Stack.Screen name = "Gallery" component={Gallery}
              options= {{
                 headerStyle:{
@@ -260,18 +271,17 @@ const CirclesNavigator = ({navigation } : Props) => {
                     backgroundColor : Constants.PRIMARY,
                 },
                 headerTintColor: '#fff',
-                // headerLeft : () => (
-                //     <IconButton
-                //         onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
-                //         iconName='menu'/>
-                // ),
-                // headerRight: () => (
-                //     <IconButton
-                //         onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
-                //         iconName='search'/>
-                // )
             }}
             />
+             <Stack.Screen name= "CircleSearchInfo" component={CircleSearchInfo}
+             options= {{
+                headerStyle:{
+                    backgroundColor : Constants.PRIMARY,
+                },
+                headerTintColor: '#fff',
+                headerTitle: 'Information',
+                headerBackTitleVisible: false ,
+            }}/>
         </Stack.Navigator>
     )
 }
@@ -389,9 +399,9 @@ export default () => {
     if(isLoading === false){
         return <Loading/>
     }
-    if(isCircleLoading === false){
-        return <Loading/>
-    }
+    // if(isCircleLoading === false){
+    //     return <Loading/>
+    // }
     console.log('여긴가?',tokenInfo);
     
     return (

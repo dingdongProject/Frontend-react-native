@@ -1,10 +1,13 @@
-import React, {useContext, useLayoutEffect, useEffect} from 'react';
+import React, {useState,useContext, useLayoutEffect, useEffect} from 'react';
 import Styled from 'styled-components/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import {UserContext} from '~/Context/User';
 import constants from '~/Constants/constants';
 import IconButton from '~/Components/IconButton';
+import { Image } from 'react-native';
+import api from '~/Api/api';
+import { useAsyncStorage } from '@react-native-community/async-storage';
 
 type NavigationProp = StackNavigationProp<CirclesNaviParamList, 'Circles'>;
 
@@ -25,15 +28,17 @@ const SearchConatainer = Styled.View`
   border : 0px;
   width : 350px;
   height : 50px;
-  background-color : ${constants.PRIMARY}
+  border:1px solid ${constants.PRIMARY}
   border-radius : 10;
   flex-direction : row;
+  background-color: white;
   
 `;
-const SearchImageBox = Styled.View`
+const SearchImageBox = Styled.TouchableOpacity`
   width : auto;
   height : 50px;
   border : 0px;
+  justify-content: center
 `;
 
 const SearchBox = Styled.TextInput`
@@ -51,17 +56,18 @@ width : 350px;
 
 const TagText = Styled.Text`
   color : ${constants.PRIMARY}
-
+  margin-right: 10px;
 `;
 
-const CirclesContainer = Styled.View`
-border : 0px;
-width : 350px;
+const CirclesContainer = Styled.ScrollView`
+  border : 0px;
+  width : 350px;
   height : 500px;
-  border-top-width : 0.5px;
+
 `;
-const CirclesBox = Styled.View`
-  border-bottom-width : 0.5px;
+const CirclesBox = Styled.TouchableOpacity`
+  border: 0 solid ${constants.TEXT2};
+  border-bottom-width: 0.5px;
   margin-top : 10px;
   width : 350px;
   height : 50px;
@@ -77,37 +83,37 @@ const CircleImageBox = Styled.View`
 
 const CircleImage = Styled.Image`
   
-  margin-bottom: 0px;
+  margin-bottom: 10px;
   width: 50px;
   height: 50px;
   border-radius: 10;
   border: 0.5px;
   border-color : ${constants.PRIMARY};
+  
 
 `;
 
 const CircleInfoBox = Styled.View`
-border : 0px;
 width : 300px;
-height : 50px;
 flex-direction : column;
+justify-content: center;
+align-items: center;
+margin-left: 5px;
 `;
 const CircleNameBox = Styled.View`
   border : 0px;
   width : 300px;
-  height : 30px;
   padding : 4px;
 `;
 const CircleName = Styled.Text`
   font-weight : bold;
   font-size : 20;
-  color : ${constants.TEXT1}
+  color : ${constants.PRIMARY}
 `;
 
 const CircleTagBox = Styled.View`
 border : 0px;
 width : 300px;
-height : 20px;
 padding : 3px;
 margin-left : 3px;
 `;
@@ -115,7 +121,7 @@ margin-left : 3px;
 const CircleTag = Styled.Text`
 
 font-size : 10;
-color : ${constants.PRIMARY}
+color : ${constants.TEXT2}
 `;
 
 const PageNumContainer = Styled.View`
@@ -124,12 +130,41 @@ width : 350px;
   height : 50px;
 `;
 
-
+const ScrollContainer = Styled.ScrollView`
+    flex :1;
+`;
 
 
 const Circles =  ({navigation } : Props) => {
   const {circleInfo} = useContext<IUserContext>(UserContext);
+  const [searchInput, setSearchInput] = useState('');
+  const [circles, setCircles] = useState([])
 
+  useEffect( () => {
+    api.getCircleSearch({search: 'all'})
+    .then((response) => response.data)
+    .then((data) => {
+      if (data.success) {
+        setCircles(data.circles);
+      }
+      else {
+        console.warn(data.message);
+      }
+    })
+  }, [])
+
+  const search= () => {
+    api.getCircleSearch({search: searchInput})
+    .then((response) => response.data)
+    .then((data) => {
+      if (data.success) {
+        setCircles(data.circles);
+      }
+      else {
+        console.warn(data.message);
+      }
+    })
+  }
 
 
     return (
@@ -141,18 +176,24 @@ const Circles =  ({navigation } : Props) => {
             style={{
               borderWidth : 0,
               height : 50,
-              width : 300,
+              width : 310,
               padding : 20,
               paddingTop : 15,
           }}
           multiline = {true}
           numberOfLines={4}
-          placeholder={'검색'}
+          placeholder={'Search'}
           placeholderTextColor={constants.TEXT1}
+          onChangeText={(text) => setSearchInput(text)}
+
           />
-          <SearchImageBox>
-            <IconButton
-            iconName='search'
+          <SearchImageBox
+            onPress={() => {search()}}>
+            <Image source={require('~/Assets/Images/search_black.png')}
+              style={{
+                width: 20,
+                height: 20,
+              }}
             />
           </SearchImageBox>
 
@@ -160,94 +201,50 @@ const Circles =  ({navigation } : Props) => {
 
         <TagContainer>
           <TagText>
-            #안녕
+            #Sports
           </TagText>
           <TagText>
-            #안졍
+            #IT
           </TagText>
 
         </TagContainer>
         <CirclesContainer>
-          <CirclesBox>
-            <CircleImageBox>
-              <CircleImage
-              source={{uri:constants.DEFAULT_USER_IMG}}
-              />
+          {
+            circles.length !== 0 && circles.map((item,key) => {
+              return (
+                <CirclesBox 
+                onPress={() => {
+                  navigation.navigate('CircleSearchInfo', item)
+                }}>
+                  <CircleImageBox>
+                    <CircleImage
+                    source={{uri:item.picture}}
+                    />
 
-            </CircleImageBox>
-            <CircleInfoBox>
-              <CircleNameBox>
-                <CircleName>
-                  안녕안졍
-                </CircleName>
+                  </CircleImageBox>
+                  <CircleInfoBox>
+                    <CircleNameBox>
+                      <CircleName>
+                        {item.name}
+                      </CircleName>
 
-              </CircleNameBox>
-              <CircleTagBox>
-                <CircleTag>
-                  #볼빨기 #사촌간
-                </CircleTag>
+                    </CircleNameBox>
+                    <CircleTagBox>
+                      <CircleTag>
+                        {item.tags}
+                      </CircleTag>
 
-              </CircleTagBox>
+                    </CircleTagBox>
 
-            </CircleInfoBox>
-            
+                  </CircleInfoBox>
+                  
 
-          </CirclesBox>
-          <CirclesBox>
-            <CircleImageBox>
-              <CircleImage
-              source={{uri:constants.DEFAULT_USER_IMG}}
-              />
-
-            </CircleImageBox>
-            <CircleInfoBox>
-              <CircleNameBox>
-                <CircleName>
-                  안녕안졍
-                </CircleName>
-
-              </CircleNameBox>
-              <CircleTagBox>
-                <CircleTag>
-                  #볼빨기 #사촌간
-                </CircleTag>
-
-              </CircleTagBox>
-
-            </CircleInfoBox>
-            
-
-          </CirclesBox>
-          <CirclesBox>
-            <CircleImageBox>
-              <CircleImage
-              source={{uri:constants.DEFAULT_USER_IMG}}
-              />
-
-            </CircleImageBox>
-            <CircleInfoBox>
-              <CircleNameBox>
-                <CircleName>
-                  안녕안졍
-                </CircleName>
-
-              </CircleNameBox>
-              <CircleTagBox>
-                <CircleTag>
-                  #볼빨기 #사촌간
-                </CircleTag>
-
-              </CircleTagBox>
-
-            </CircleInfoBox>
-            
-
-          </CirclesBox>
-
+                </CirclesBox>
+              )
+            })
+          }
+          
         </CirclesContainer>
-        <PageNumContainer>
-
-        </PageNumContainer>
         </SubConatiner>
           
       </Container> 

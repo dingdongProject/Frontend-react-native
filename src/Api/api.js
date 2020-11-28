@@ -39,5 +39,14 @@ export default {
     },
     getSchedule : function() {
         return _promise(METHOD.GET, BASE_URL +`schedules`,{},true)
+    },
+    getCircleInfo: function(payload) {
+        return _promise(METHOD.GET, BASE_URL + `circleInfo/${payload.code}`, {}, true)
+    },
+    postRequest: function(payload) {
+        return _promise(METHOD.POST, BASE_URL + `request`, payload, true)
+    },
+    getCircleSearch: function(payload) {
+        return _promise(METHOD.GET, BASE_URL + `circlesearch/${payload.search}`, {}, true)
     }
 }
