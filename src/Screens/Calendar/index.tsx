@@ -1,5 +1,5 @@
 import React, {useContext, useLayoutEffect, useEffect,useState} from 'react';
-import {FlatList,Modal,View,Text,Button} from 'react-native';
+import {FlatList,Modal,View,Text, Alert} from 'react-native';
 import Styled from 'styled-components/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
@@ -12,8 +12,11 @@ import Bubbles from '~/Components/Bubbles';
 import Read from '../Read';
 import BottomSheet from '~/Components/BottomSheet';
 import {Calendar,CalendarList, Agenda} from 'react-native-calendars';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 import api from '~/Api/api';
+import Input from '~/Components/Input';
+import Button from '~/Components/Button';
 
 type NavigationProp = StackNavigationProp<TotalNaviParamList>;
 
@@ -33,8 +36,9 @@ const Container = Styled.SafeAreaView`
 
 const BubbleContainer = Styled.View`
   width : 400px;
-  height : 200px;
+  height : auto;
   padding : 25px;
+  padding-top : 10px;
   border : 0px;
   flex-direction : row;
 `;
@@ -62,7 +66,7 @@ const BubbleTouch = Styled.TouchableOpacity`
 
 const CalendarContainer = Styled.View`
   width : 400px;
-  height : 500px;
+  height : auto;
   border : 0px;
   padding : 25px;
 `;
@@ -79,7 +83,7 @@ const MContainer = Styled.View`
 const ModalContainer = Styled.View`
   margin : 0px;
   background-color : white;
-  border-radius : 20;
+  border-radius : 20px;
   padding : 35px;
   align-items : center;
   shadow-color : #000;
@@ -99,7 +103,7 @@ const MainText =Styled.Text`
   text-align : center;
 `;
 const ModalText = Styled.Text`
-  margin-bottom : 15;
+  margin-bottom : 15px;
   text-align : center;
 `;
 
@@ -112,9 +116,12 @@ const ModalText = Styled.Text`
 const Calendars =  ({navigation } : Props) => {
     
     const [marked,setMarked] = useState<any>('');
-    const [circleMarked,setCircleMarked] = useState<any>('');
     const [datelist,setDatelist] = useState<Array<String>>([]);
-    const [circleDatelist,setCircleDatelist] = useState<Array<String>>([]);
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+    const [title,setTitle] = useState<String>('');
+    const [content,setContent] = useState<String>('');
+    const [circlename,setCirclename] = useState<String>('');
+    
 
 
     const [scheduleSelected,setScheduleSelected]  = useState<circleSchedules>();
@@ -132,6 +139,7 @@ const Calendars =  ({navigation } : Props) => {
     
     const DatelistProvider = (name = '') => {
       console.warn(name);
+      setCirclename(name);
       ISchedule.forEach((item)=>{
         var schedulelist = item.scheduleList
         var split;
@@ -189,7 +197,11 @@ const Calendars =  ({navigation } : Props) => {
                 {scheduleSelected?.content}
               </ModalText>
               <ModalText>
-                {scheduleSelected?.datetime}
+                {scheduleSelected?.datetime.split('T')[0]}
+                
+              </ModalText>
+              <ModalText>
+              {scheduleSelected?.datetime.split('T')[1]}
               </ModalText>
     
               <ButtonContainer
@@ -205,6 +217,57 @@ const Calendars =  ({navigation } : Props) => {
     )
     }, [scheduleSelected])
 
+
+
+
+
+
+      const showDatePicker = () => {
+          setDatePickerVisibility(true);
+        
+      };
+    
+      const hideDatePicker = () => {
+        setDatePickerVisibility(false);
+      };
+    
+      const handleConfirm = async (date : any) => {
+        let new_date = JSON.stringify(date);
+        let day = new_date.split('T')[0];
+        var new_day = day.replace(/\"/g,'');
+        let prev_time = new_date.split('T')[1];
+        let time = prev_time.split('.')[0];
+        let daytime = new_day + " " +time;
+        if(circlename !== '')
+        {
+          await api.postSchedule({
+            circle : circlename,
+            title : title,
+            content : content,
+            datetime : daytime
+          }).then((response)=>{
+            console.warn(response.data)
+            return response.data
+          }).then((data)=>{
+            if (data.success) {
+              console.warn('Post successful')
+          }
+          else {
+              console.warn('Post failed')
+          }
+          })
+          hideDatePicker();
+        }
+        else {
+          setTimeout(()=>{
+            Alert.alert('please choose circle!');
+            
+          },1000)
+          
+          hideDatePicker();
+        }
+        
+      }
     
 
 
@@ -227,27 +290,41 @@ const Calendars =  ({navigation } : Props) => {
         )}
       />
       </BubbleContainer>
-      {
-        isCircle && circleChosen ?
-        <CalendarContainer>
-            <Calendar
-                  onDayPress={(day) => {selectSchedule(day);}}
-                  markedDates={circleMarked}
-                  />
-              
-
-        </CalendarContainer>
-        :
+      
         <CalendarContainer>
             <Calendar
                   onDayPress={(day) => {selectSchedule(day);}}
                   markedDates={marked}
+                  style={{
+                    backgroundColor : '#f4f4f4'
+                    
+                  }}
+                  theme={{
+                    backgroundColor : '#f4f4f4',
+                    calendarBackground : '#f4f4f4'
+                  }}
                   />
               
 
         </CalendarContainer>
 
-      }      
+       
+
+      
+      
+      <Input style={{marginBottom:16}} placeholder="title" onChangeText={text => setTitle(text)} clearMode/>
+        <Input style={{marginBottom:16}} placeholder="content" onChangeText={text => setContent(text)} clearMode/>  
+        <ButtonContainer>
+        <Button label="Add Schedule"  onPress={showDatePicker} />
+        </ButtonContainer>   
+            <DateTimePickerModal
+              isVisible={isDatePickerVisible}
+              mode="datetime"
+              locale="en"
+              onConfirm={handleConfirm}
+              onCancel={hideDatePicker}
+              headerTextIOS="Pick a date and time"
+            />
             
       </Container> 
        
@@ -255,6 +332,5 @@ const Calendars =  ({navigation } : Props) => {
 };
 
 export default Calendars;
-
 
 

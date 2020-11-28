@@ -39,5 +39,8 @@ export default {
     },
     getSchedule : function() {
         return _promise(METHOD.GET, BASE_URL +`schedules`,{},true)
+    },
+    postSchedule : function(payload) {
+        return _promise(METHOD.POST, BASE_URL + `schedules`,payload,true)
     }
 }

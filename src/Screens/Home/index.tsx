@@ -159,10 +159,7 @@ const DDHome = ({item,title}:Props) => {
     return(
                 <Container>
                 <SubContainer>
-                <NoticeBox
-                  item={'a'}
-                  title={'b'}
-                />
+                <NoticeBox/>
                 <NewsBox
                 title={'News'}
                 />

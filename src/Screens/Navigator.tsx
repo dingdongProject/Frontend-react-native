@@ -35,6 +35,8 @@ import Read from '~/Screens/Read';
 import Information from '~/Screens/Information';
 import CirclePageEdit from '~/Screens/CirclePageEdit';
 import AddBoard from '~/Screens/AddBoard';
+import DatetimePicker from '~/Components/DatetimePicker';
+
 
 
 const Stack = createStackNavigator();
@@ -193,7 +195,7 @@ const MainStackNavigator = ({navigation } : Props) =>{
                 headerRight: () => (
                     <IconButton
                         onPress={()=> {circleMembers.map((isAdmin)=>{
-                            isAdmin? navigation.navigate('CirclePageEdit')
+                            isAdmin.isAdmin? navigation.navigate('CirclePageEdit')
                             :
                             console.warn('access')
                         })}}
@@ -229,7 +231,7 @@ const MainStackNavigator = ({navigation } : Props) =>{
 const CalendarNavigator = ({navigation } : Props) => {
     return(
         <Stack.Navigator>
-            <Stack.Screen name = "Calendar" component={Calendars}  //edit
+            <Stack.Screen name = "Calendar" component={Calendars}  
             options={{
                 headerStyle:{
                     backgroundColor : Constants.PRIMARY,
@@ -240,11 +242,7 @@ const CalendarNavigator = ({navigation } : Props) => {
                         onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
                         iconName='menu'/>
                 ),
-                headerRight: () => (
-                    <IconButton
-                        onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
-                        iconName='search'/>
-                )
+                
             }}
             />
         </Stack.Navigator>
@@ -387,9 +385,6 @@ export default () => {
     
         
     if(isLoading === false){
-        return <Loading/>
-    }
-    if(isCircleLoading === false){
         return <Loading/>
     }
     console.log('여긴가?',tokenInfo);

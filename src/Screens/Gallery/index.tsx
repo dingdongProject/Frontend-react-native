@@ -9,6 +9,7 @@ import NewsBox from '~/Components/NewsBox';
 
 
 
+
 const Container = Styled.SafeAreaView`
     flex : 1;
     background-color:#f4f4f4;
@@ -71,6 +72,7 @@ const Gallery = ({navigation} : Props) => {
                     
                 </MainContainer> 
                 </SubContainer>
+                
                 <Footer>
                 <IconButton iconName = 'upload'
                         onPress={()=>{addImage()}}
