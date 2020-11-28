@@ -35,7 +35,7 @@ import Read from '~/Screens/Read';
 import Information from '~/Screens/Information';
 import CirclePageEdit from '~/Screens/CirclePageEdit';
 import AddBoard from '~/Screens/AddBoard';
-import DatetimePicker from '~/Components/DatetimePicker';
+import AddSchedule from '~/Screens/AddSchedule';
 
 
 
@@ -237,13 +237,25 @@ const CalendarNavigator = ({navigation } : Props) => {
                     backgroundColor : Constants.PRIMARY,
                 },
                 headerTintColor: '#fff',
-                headerLeft : () => (
+                headerRight : () => (
                     <IconButton
-                        onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
-                        iconName='menu'/>
+                        onPress={()=> navigation.navigate('AddSchedule')}
+                        iconName='add'/>
                 ),
                 
             }}
+            />
+            <Stack.Screen name = "AddSchedule" component={AddSchedule}
+
+                options={{
+                    headerStyle:{
+                        backgroundColor : Constants.PRIMARY,
+                    },
+                    headerTitle: 'Add Schedule',
+                    headerTintColor: '#fff',
+                    
+                    
+                }}
             />
         </Stack.Navigator>
     )

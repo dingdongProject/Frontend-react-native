@@ -7,6 +7,7 @@ type LoginNaviParamList = {
 
 type CalendarNaviParamList = {
     Calendar: undefined;
+    AddSchedule : undefined;
 };
 
 type CirclesNaviParamList = {
@@ -64,6 +65,7 @@ type TotalNaviParamList = {
     CirclePageEdit : undefined;
     AddBoard : undefined;
     TestPage : undefined;
+    AddSchedule : undefined;
 }
 
 type BoardNaviParamList = {

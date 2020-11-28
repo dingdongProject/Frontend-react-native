@@ -10,9 +10,8 @@ import constants from '~/Constants/constants';
 import { ModalContext, ModalContextType, useModal } from 'react-native-use-modal-hooks';
 import Bubbles from '~/Components/Bubbles';
 import Read from '../Read';
-import BottomSheet from '~/Components/BottomSheet';
 import {Calendar,CalendarList, Agenda} from 'react-native-calendars';
-import DateTimePickerModal from "react-native-modal-datetime-picker";
+
 
 import api from '~/Api/api';
 import Input from '~/Components/Input';
@@ -87,6 +86,8 @@ const ModalContainer = Styled.View`
   padding : 35px;
   align-items : center;
   shadow-color : #000;
+  border-width : 1px;
+  border-color : ${constants.PRIMARY}
 
 `;
 
@@ -117,10 +118,7 @@ const Calendars =  ({navigation } : Props) => {
     
     const [marked,setMarked] = useState<any>('');
     const [datelist,setDatelist] = useState<Array<String>>([]);
-    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-    const [title,setTitle] = useState<String>('');
-    const [content,setContent] = useState<String>('');
-    const [circlename,setCirclename] = useState<String>('');
+    
     
 
 
@@ -139,7 +137,6 @@ const Calendars =  ({navigation } : Props) => {
     
     const DatelistProvider = (name = '') => {
       console.warn(name);
-      setCirclename(name);
       ISchedule.forEach((item)=>{
         var schedulelist = item.scheduleList
         var split;
@@ -175,10 +172,11 @@ const Calendars =  ({navigation } : Props) => {
            if(todayDate === new_daystring){
               setScheduleSelected(todayschedule[i])
               console.warn(todayschedule[i])
+              showModal();
            }
           }
         });
-        showModal();
+        
     }
     
     const [showModal , hideModal] = useModal(() => {
@@ -222,52 +220,7 @@ const Calendars =  ({navigation } : Props) => {
 
 
 
-      const showDatePicker = () => {
-          setDatePickerVisibility(true);
-        
-      };
-    
-      const hideDatePicker = () => {
-        setDatePickerVisibility(false);
-      };
-    
-      const handleConfirm = async (date : any) => {
-        let new_date = JSON.stringify(date);
-        let day = new_date.split('T')[0];
-        var new_day = day.replace(/\"/g,'');
-        let prev_time = new_date.split('T')[1];
-        let time = prev_time.split('.')[0];
-        let daytime = new_day + " " +time;
-        if(circlename !== '')
-        {
-          await api.postSchedule({
-            circle : circlename,
-            title : title,
-            content : content,
-            datetime : daytime
-          }).then((response)=>{
-            console.warn(response.data)
-            return response.data
-          }).then((data)=>{
-            if (data.success) {
-              console.warn('Post successful')
-          }
-          else {
-              console.warn('Post failed')
-          }
-          })
-          hideDatePicker();
-        }
-        else {
-          setTimeout(()=>{
-            Alert.alert('please choose circle!');
-            
-          },1000)
-          
-          hideDatePicker();
-        }
-        
-      }
+      
     
 
 
@@ -306,25 +259,8 @@ const Calendars =  ({navigation } : Props) => {
                   />
               
 
-        </CalendarContainer>
-
-       
-
-      
-      
-      <Input style={{marginBottom:16}} placeholder="title" onChangeText={text => setTitle(text)} clearMode/>
-        <Input style={{marginBottom:16}} placeholder="content" onChangeText={text => setContent(text)} clearMode/>  
-        <ButtonContainer>
-        <Button label="Add Schedule"  onPress={showDatePicker} />
-        </ButtonContainer>   
-            <DateTimePickerModal
-              isVisible={isDatePickerVisible}
-              mode="datetime"
-              locale="en"
-              onConfirm={handleConfirm}
-              onCancel={hideDatePicker}
-              headerTextIOS="Pick a date and time"
-            />
+        </CalendarContainer>  
+            
             
       </Container> 
        

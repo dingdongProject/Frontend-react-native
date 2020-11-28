@@ -29,8 +29,8 @@ const ScrollConatainer = Styled.ScrollView`
   flex: 1;
 `;
 const DingdongImage = Styled.Image`
-  width : 420;
-  height : 800;
+  width : 420px;
+  height : 800px;
   
 `;
 
@@ -58,7 +58,7 @@ const MyImage = Styled.Image`
   margin-bottom: 0px;
   width: 100px;
   height: 100px;
-  border-radius: 100;
+  border-radius: 100px;
   border: 1px;
   border-color : ${constants.PRIMARY};
 
@@ -123,7 +123,7 @@ const Information =  ({navigation } : Props) => {
   const {userInfo,circleInfo} = useContext<IUserContext>(UserContext);
   const {isCircle,circleChosen,circleMembers} = useContext<ICircleContext>(CircleContext)
 
-   console.warn(circleMembers);
+   
     return (
       isCircle && circleChosen ?
         <Container>

@@ -4,7 +4,7 @@ import Styled from 'styled-components/native';
 const StyleButton = Styled.TouchableOpacity`
   width: 100%;
   height: 40px;
-  border-radius: 4px;
+  border-radius: 10px;
   justify-content: center;
   align-items: center;
   background-color: #5F89FA;
