@@ -74,17 +74,16 @@ const CalendarText = Styled.Text`
 `;
 
 const MContainer = Styled.View`
-  flex : 1;
   justify-content : center;
   align-items : center;
-  margin-top : 0;
+  flex: 1;
 `;
 const ModalContainer = Styled.View`
   margin : 0px;
+  width: 60%;
   background-color : white;
   border-radius : 20px;
   padding : 35px;
-  align-items : center;
   shadow-color : #000;
   border-width : 1px;
   border-color : ${constants.PRIMARY}
@@ -93,7 +92,7 @@ const ModalContainer = Styled.View`
 
 const ButtonContainer = Styled.TouchableOpacity`
   background-color : ${constants.PRIMARY};
-  border-radius : 20;
+  border-radius : 15;
   padding : 10px;
 
 `;
@@ -104,8 +103,12 @@ const MainText =Styled.Text`
   text-align : center;
 `;
 const ModalText = Styled.Text`
-  margin-bottom : 15px;
-  text-align : center;
+  margin-bottom : 10px;
+`;
+const ModalTextTitle = Styled.Text`
+  margin-bottom : 10px;
+  color: ${constants.PRIMARY}
+  font-weight: bold;
 `;
 
 
@@ -188,25 +191,21 @@ const Calendars =  ({navigation } : Props) => {
       >
         <MContainer>
           <ModalContainer> 
-              <ModalText>
+              <ModalTextTitle>
                 {scheduleSelected?.title}
-              </ModalText>
+              </ModalTextTitle>
               <ModalText>
                 {scheduleSelected?.content}
               </ModalText>
               <ModalText>
-                {scheduleSelected?.datetime.split('T')[0]}
+                {scheduleSelected?.datetime.split('T')[0]} {scheduleSelected?.datetime.split('T')[1]}
                 
               </ModalText>
-              <ModalText>
-              {scheduleSelected?.datetime.split('T')[1]}
-              </ModalText>
-    
               <ButtonContainer
               onPress={hideModal}
               >
                 <MainText>
-                cancel
+                close
                 </MainText>
               </ButtonContainer>
           </ModalContainer>

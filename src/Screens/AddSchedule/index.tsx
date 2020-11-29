@@ -76,7 +76,7 @@ color: #292929;
 `
 
 const ButtonContainer = Styled.View`
-    width : 400px;
+    width : 95%;
     border : 0px;
     height : 100px;
 
