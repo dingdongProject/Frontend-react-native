@@ -13,7 +13,7 @@ interface Props {
     iconName : 
         // | 'camera'
         // | 'live'
-        // | 'send'
+         | 'add'
          | 'dotMenu'
         | 'info'
          | 'upload'
@@ -29,7 +29,7 @@ const IconButton = ({iconName,style,onPress}:Props)=>{
     const imageSource = {
         // camera : require('~/Assets/Image/ic_all.png'),
         // live : require('~/Assets/Image/ic_all.png'),
-        // send : require('~/Assets/Image/ic_all.png'),
+        add : require('~/Assets/Images/add_circle_w.png'),
          dotMenu : require('~/Assets/Images/baseline.png'),
         info : require('~/Assets/Images/info.png'),
         upload : require('~/Assets/Images/upload.png'),

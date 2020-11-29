@@ -36,7 +36,11 @@ import Read from '~/Screens/Read';
 import Information from '~/Screens/Information';
 import CirclePageEdit from '~/Screens/CirclePageEdit';
 import AddBoard from '~/Screens/AddBoard';
+<<<<<<< HEAD
 import CircleSearchInfo from '~/Screens/CircleSearchInfo';
+=======
+import AddSchedule from '~/Screens/AddSchedule';
+>>>>>>> feature/calendar
 
 
 
@@ -204,7 +208,7 @@ const MainStackNavigator = ({navigation } : Props) =>{
                 headerRight: () => (
                     <IconButton
                         onPress={()=> {circleMembers.map((isAdmin)=>{
-                            isAdmin? navigation.navigate('CirclePageEdit')
+                            isAdmin.isAdmin? navigation.navigate('CirclePageEdit')
                             :
                             console.warn('access')
                         })}}
@@ -240,23 +244,31 @@ const MainStackNavigator = ({navigation } : Props) =>{
 const CalendarNavigator = ({navigation } : Props) => {
     return(
         <Stack.Navigator>
-            <Stack.Screen name = "Calendar" component={Calendars}  //edit
+            <Stack.Screen name = "Calendar" component={Calendars}  
             options={{
                 headerStyle:{
                     backgroundColor : Constants.PRIMARY,
                 },
                 headerTintColor: '#fff',
-                headerLeft : () => (
+                headerRight : () => (
                     <IconButton
-                        onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
-                        iconName='menu'/>
+                        onPress={()=> navigation.navigate('AddSchedule')}
+                        iconName='add'/>
                 ),
-                headerRight: () => (
-                    <IconButton
-                        onPress={()=> navigation.dispatch(DrawerActions.openDrawer())}
-                        iconName='search'/>
-                )
+                
             }}
+            />
+            <Stack.Screen name = "AddSchedule" component={AddSchedule}
+
+                options={{
+                    headerStyle:{
+                        backgroundColor : Constants.PRIMARY,
+                    },
+                    headerTitle: 'Add Schedule',
+                    headerTintColor: '#fff',
+                    
+                    
+                }}
             />
         </Stack.Navigator>
     )
@@ -399,9 +411,6 @@ export default () => {
     if(isLoading === false){
         return <Loading/>
     }
-    // if(isCircleLoading === false){
-    //     return <Loading/>
-    // }
     console.log('여긴가?',tokenInfo);
     
     return (

@@ -92,7 +92,7 @@ const CircleContextProvider = ({children}: Props) => {
         .then((response)=> response.data)
         .then((data)=>{
         setISchedule(data.schedules)
-        return data.schedules;
+        setIsCircleLoading(true)
         })
         // .then((data)=>{
         //      data.map((name: { scheduleList: string | any[]; })=>{

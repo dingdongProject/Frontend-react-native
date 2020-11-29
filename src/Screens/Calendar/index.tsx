@@ -1,5 +1,5 @@
 import React, {useContext, useLayoutEffect, useEffect,useState} from 'react';
-import {FlatList,Modal,View,Text,Button} from 'react-native';
+import {FlatList,Modal,View,Text, Alert} from 'react-native';
 import Styled from 'styled-components/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
@@ -10,10 +10,12 @@ import constants from '~/Constants/constants';
 import { ModalContext, ModalContextType, useModal } from 'react-native-use-modal-hooks';
 import Bubbles from '~/Components/Bubbles';
 import Read from '../Read';
-import BottomSheet from '~/Components/BottomSheet';
 import {Calendar,CalendarList, Agenda} from 'react-native-calendars';
 
+
 import api from '~/Api/api';
+import Input from '~/Components/Input';
+import Button from '~/Components/Button';
 
 type NavigationProp = StackNavigationProp<TotalNaviParamList>;
 
@@ -33,8 +35,9 @@ const Container = Styled.SafeAreaView`
 
 const BubbleContainer = Styled.View`
   width : 400px;
-  height : 200px;
+  height : auto;
   padding : 25px;
+  padding-top : 10px;
   border : 0px;
   flex-direction : row;
 `;
@@ -62,7 +65,7 @@ const BubbleTouch = Styled.TouchableOpacity`
 
 const CalendarContainer = Styled.View`
   width : 400px;
-  height : 500px;
+  height : auto;
   border : 0px;
   padding : 25px;
 `;
@@ -71,24 +74,25 @@ const CalendarText = Styled.Text`
 `;
 
 const MContainer = Styled.View`
-  flex : 1;
   justify-content : center;
   align-items : center;
-  margin-top : 0;
+  flex: 1;
 `;
 const ModalContainer = Styled.View`
   margin : 0px;
+  width: 60%;
   background-color : white;
-  border-radius : 20;
+  border-radius : 20px;
   padding : 35px;
-  align-items : center;
   shadow-color : #000;
+  border-width : 1px;
+  border-color : ${constants.PRIMARY}
 
 `;
 
 const ButtonContainer = Styled.TouchableOpacity`
   background-color : ${constants.PRIMARY};
-  border-radius : 20;
+  border-radius : 15;
   padding : 10px;
 
 `;
@@ -99,8 +103,12 @@ const MainText =Styled.Text`
   text-align : center;
 `;
 const ModalText = Styled.Text`
-  margin-bottom : 15;
-  text-align : center;
+  margin-bottom : 10px;
+`;
+const ModalTextTitle = Styled.Text`
+  margin-bottom : 10px;
+  color: ${constants.PRIMARY}
+  font-weight: bold;
 `;
 
 
@@ -112,9 +120,9 @@ const ModalText = Styled.Text`
 const Calendars =  ({navigation } : Props) => {
     
     const [marked,setMarked] = useState<any>('');
-    const [circleMarked,setCircleMarked] = useState<any>('');
     const [datelist,setDatelist] = useState<Array<String>>([]);
-    const [circleDatelist,setCircleDatelist] = useState<Array<String>>([]);
+    
+    
 
 
     const [scheduleSelected,setScheduleSelected]  = useState<circleSchedules>();
@@ -167,10 +175,11 @@ const Calendars =  ({navigation } : Props) => {
            if(todayDate === new_daystring){
               setScheduleSelected(todayschedule[i])
               console.warn(todayschedule[i])
+              showModal();
            }
           }
         });
-        showModal();
+        
     }
     
     const [showModal , hideModal] = useModal(() => {
@@ -182,21 +191,21 @@ const Calendars =  ({navigation } : Props) => {
       >
         <MContainer>
           <ModalContainer> 
-              <ModalText>
+              <ModalTextTitle>
                 {scheduleSelected?.title}
-              </ModalText>
+              </ModalTextTitle>
               <ModalText>
                 {scheduleSelected?.content}
               </ModalText>
               <ModalText>
-                {scheduleSelected?.datetime}
+                {scheduleSelected?.datetime.split('T')[0]} {scheduleSelected?.datetime.split('T')[1]}
+                
               </ModalText>
-    
               <ButtonContainer
               onPress={hideModal}
               >
                 <MainText>
-                cancel
+                close
                 </MainText>
               </ButtonContainer>
           </ModalContainer>
@@ -205,6 +214,12 @@ const Calendars =  ({navigation } : Props) => {
     )
     }, [scheduleSelected])
 
+
+
+
+
+
+      
     
 
 
@@ -227,27 +242,24 @@ const Calendars =  ({navigation } : Props) => {
         )}
       />
       </BubbleContainer>
-      {
-        isCircle && circleChosen ?
-        <CalendarContainer>
-            <Calendar
-                  onDayPress={(day) => {selectSchedule(day);}}
-                  markedDates={circleMarked}
-                  />
-              
-
-        </CalendarContainer>
-        :
+      
         <CalendarContainer>
             <Calendar
                   onDayPress={(day) => {selectSchedule(day);}}
                   markedDates={marked}
+                  style={{
+                    backgroundColor : '#f4f4f4'
+                    
+                  }}
+                  theme={{
+                    backgroundColor : '#f4f4f4',
+                    calendarBackground : '#f4f4f4'
+                  }}
                   />
               
 
-        </CalendarContainer>
-
-      }      
+        </CalendarContainer>  
+            
             
       </Container> 
        
@@ -255,6 +267,5 @@ const Calendars =  ({navigation } : Props) => {
 };
 
 export default Calendars;
-
 
 
