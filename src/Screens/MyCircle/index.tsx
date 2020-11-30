@@ -132,6 +132,7 @@ font-weight : bold;
 `;
 const GalleryTouch = Styled.TouchableOpacity`
   flex :1;
+  
 `;
 
 
@@ -147,8 +148,9 @@ padding:10px;
 width : 350px;
 height : 250px;
 `;
-const Galleryproto = Styled.Image`
-resize-mode:center;
+const GalleryImage = Styled.Image`
+width : 100%;
+height : 100%;
 `;
 
 type NavigationProp = StackNavigationProp<TotalNaviParamList>;
@@ -160,7 +162,7 @@ interface Props {
 
 const MyCirlce =  ({navigation} : Props) => {
   const {userInfo,circleInfo} = useContext<IUserContext>(UserContext);
-  const {circleChosen, setMainPage, circleBoards,circleNotices} = useContext<ICircleContext>(CircleContext);
+  const {circleChosen, setMainPage, circleBoards,circleNotices, circleGallery} = useContext<ICircleContext>(CircleContext);
   
   
   useEffect(() => {
@@ -172,7 +174,7 @@ const MyCirlce =  ({navigation} : Props) => {
     return(
         <Container>
             <SubContainer>
-                <NoticeBox/>
+                <NoticeBox navigation={navigation}/>
                 <BulleteinboardContainer>
                   <BulleteinboardSubConatiner>
                   <BulleteinboardTitleContainer>
@@ -220,12 +222,12 @@ const MyCirlce =  ({navigation} : Props) => {
                     </GalleryTitle>
                   </GalleryTitleBox>
                   <GalleryTouch 
-                  onPress={()=>{navigation.navigate('Gallery')}}
+                  onPress={()=>{navigation.navigate('BulleteinBoard', circleBoards.filter((item) => item.name==="Gallery")[0])}}
                   >
 
                   <Gallerybox>
-                    <Galleryproto
-                    source={{uri: 'https://dingdong-bucket.s3.ap-northeast-2.amazonaws.com/1593075284.jpg'}}
+                    <GalleryImage
+                    source={{uri: circleGallery.image}}
                     />
                     
                     

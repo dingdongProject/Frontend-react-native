@@ -5,6 +5,7 @@ export default {
         return _promise(METHOD.POST, BASE_URL + `signup` , payload)
     },
     addCircle: function(payload) {
+        console.warn(payload)
         return _promise(METHOD.POST_FILES, BASE_URL + `circles` , payload, true)
     },
     logIn: function(payload) {
@@ -12,6 +13,9 @@ export default {
     },
     user : function() {
         return _promise(METHOD.GET,BASE_URL+`user`,{}, true)
+    },
+    getMain : function() {
+        return _promise(METHOD.GET, BASE_URL +`main`, {}, true );
     },
     getBoards: function(payload) {
         return _promise(METHOD.GET, BASE_URL + `circles/${payload.name}/boards`, {},true)
@@ -21,6 +25,9 @@ export default {
     },
     getNotices: function(payload) {
         return _promise(METHOD.GET, BASE_URL + `circles/${payload.name}/notices`, {}, true)
+    },
+    getGallery : function(payload) {
+        return _promise(METHOD.GET,BASE_URL+`circles/${payload.name}/gallery`,{}, true)
     },
     getPosts : function(payload) {
         return _promise(METHOD.GET,BASE_URL+`board/${payload.id}/post`,{}, true)

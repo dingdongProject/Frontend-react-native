@@ -272,13 +272,13 @@ const Read =  ({route, navigation } : Props) => {
                     <WriterContainer>
                         <WriterImageBox>
                             <WriterImage
-                            source={{uri : userInfo?.picture}}
+                            source={{uri : post?.owner.picture}}
                             />
                         </WriterImageBox>
                         <WriterInfoBox>
                             <WriterInfoNameBox>
                                 <WriterInfoName>
-                                    {post.owner}
+                                    {post.owner.username}
                                 </WriterInfoName>
 
                             </WriterInfoNameBox>

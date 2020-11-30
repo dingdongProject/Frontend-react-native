@@ -113,10 +113,6 @@ const ModalTextTitle = Styled.Text`
 
 
 
-
-
-
-
 const Calendars =  ({navigation } : Props) => {
     
     const [marked,setMarked] = useState<any>('');
@@ -131,6 +127,7 @@ const Calendars =  ({navigation } : Props) => {
 
     const {changeToCircle,isCircle,circleChosen,ISchedule} =useContext<ICircleContext>(CircleContext);
     const {circleInfo} = useContext<IUserContext>(UserContext)
+    const [circleList, setCircleList] = useState([{name: '', picture: 'https://dingdong-bucket.s3.ap-northeast-2.amazonaws.com/all.png'}, ...circleInfo]);
     
 
     useEffect(()=>{
@@ -230,7 +227,7 @@ const Calendars =  ({navigation } : Props) => {
               <FlatList
         horizontal={true}
         pagingEnabled={true}
-        data={circleInfo}
+        data={circleList}
         keyExtractor={(item, index) => {
           return `circle-${index}`;
         }}
@@ -238,6 +235,7 @@ const Calendars =  ({navigation } : Props) => {
           <Bubbles
             image={(item as ICircleInfo).picture}
             onPress={()=>{DatelistProvider(item.name);}}
+            chosen={true}
           />
         )}
       />

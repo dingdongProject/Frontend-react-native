@@ -174,7 +174,7 @@ const BulleteinBoard =  ({route, navigation } : any) => {
                         </BulleteinBodyBox>
                         <BulleteinCommentBox>
                             <BulleteinCommentText>
-                                {item.owner} · {item.created ? date : ''} {time? time : ''}
+                                {item.owner.username} · {item.created ? date : ''} {time? time : ''}
                             </BulleteinCommentText>
                         </BulleteinCommentBox>
                     </BulleteinContainer>

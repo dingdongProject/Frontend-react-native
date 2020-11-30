@@ -1,16 +1,17 @@
 import React, {useContext, useLayoutEffect, useEffect,useState} from 'react';
 import Styled, {ThemeProvider} from 'styled-components/native';
-import {TextInput, Text,  Platform,Alert} from 'react-native';
+import {FlatList, TextInput, Text,  Platform,Alert, View, Image} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import ImagePicker from 'react-native-image-crop-picker';
 
-
+import Bubbles from '~/Components/Bubbles';
 import Input from '~/Components/Input';
 import Button from '~/Components/Button';
 import constants from '~/Constants/constants';
 import api from '~/Api/api';
 import {RouteProp} from '@react-navigation/native';
+import {UserContext} from '~/Context/User';
 
 
 type NavigationProp = StackNavigationProp<CalendarNaviParamList>;
@@ -34,11 +35,10 @@ const SubContainer = Styled.View`
     padding : 32px;
     padding-top: 0px;
 `;
-const SelectCircleContainer = Styled.View`
+const SelectCircleContainer = Styled.ScrollView`
     width : 400px;
     height : 100px;
     border : 0px;
-
 `
 
 const BodyContainer = Styled.View`
@@ -81,6 +81,20 @@ const ButtonContainer = Styled.View`
     height : 100px;
 
 `
+const BubbleContainer = Styled.View`
+  width : 400px;
+  height : auto;
+  padding : 25px;
+  padding-top : 10px;
+  border : 0px;
+  flex-direction : row;
+`;
+interface ICircleList {
+  name: string;
+  picture: string;
+
+  chosen : boolean;
+}
 
 const AddSchedule =  ({route, navigation } : Props) => {
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -88,7 +102,20 @@ const AddSchedule =  ({route, navigation } : Props) => {
     const [title,setTitle] = useState<String>('');
     const [content,setContent] = useState<String>('');
     const [datetime,setDatetime] = useState<String>('')
-    
+    const {circleInfo} = useContext<IUserContext>(UserContext);
+    const [cirlceList, setCircleList] = useState<Array<ICircleList>>([]);
+
+    useEffect( ()=> {
+      var newCircles:Array<ICircleList> = []
+      circleInfo.forEach((item) => {
+        if (item.isAdmin) {
+          var circle = {name:item.name, picture:item.picture, chosen: false}
+          newCircles.push(circle);
+        }
+      })
+
+      setCircleList(newCircles);
+    }, [])
     
 
     const showDatePicker = () => {
@@ -147,20 +174,39 @@ const AddSchedule =  ({route, navigation } : Props) => {
             console.warn('Post failed')
         }
         })
-        
-      
-      
-        
-        
-      
-
+    }
+    const selectItem= (name: string) =>{
+      setCirclename(name);
+      var new_circles = cirlceList;
+      new_circles.forEach((item) => {
+        if (item.name === name)
+          item.chosen = true;
+        else
+          item.chosen = false
+      })
     }
 
     return (
       <Container>
           <SubContainer>
               <SelectCircleContainer>
-
+                <BubbleContainer>
+                  <FlatList
+                    horizontal={true}
+                    pagingEnabled={true}
+                    data={cirlceList}
+                    keyExtractor={(item, index) => {
+                      return `circle-${index}`;
+                    }}
+                    renderItem={({item, index}) => (
+                      <Bubbles
+                        image={(item as ICircleList).picture}
+                        onPress={()=>{selectItem(item.name)}}
+                        chosen = {item.chosen}
+                      />
+                    )}
+                    />
+                </BubbleContainer>
               </SelectCircleContainer>
               <BodyContainer>
               <Input

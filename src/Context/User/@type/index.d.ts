@@ -7,6 +7,7 @@ interface ICircleInfo {
     name: string;
     explanation: string;
     picture: string;
+    isAdmin: boolean;
 }
 
 interface IUserContext {
@@ -14,8 +15,11 @@ interface IUserContext {
     userInfo : IUserInfo | undefined;
     circleInfo : Array<ICircleInfo>;
     tokenInfo : string | null;
+    noticeMain: Array<IPostInfo>;
+    newsMain: Array<IPostInfo>;
     addCircle : (data: FormData) => void;
     login : (username : string, password : string) => void;
     logout: () => void;
     userset: () => void;
+    mainPageSet: () => void;
 }

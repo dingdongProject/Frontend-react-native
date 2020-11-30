@@ -10,10 +10,13 @@ const defaultContext : IUserContext = {
     userInfo : undefined,
     circleInfo: [],
     tokenInfo : null,
+    noticeMain: [],
+    newsMain: [],
     addCircle : (data : FormData) => {},
     login : (username: string, password: string) => {},
     logout: () =>{},
     userset : () => {},
+    mainPageSet: () => {},
 };
 
 
@@ -30,6 +33,8 @@ const UserContextProvider = ({children}:Props) => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const [circleInfo, setCircleInfo] = useState<Array<ICircleInfo>>([]);
     const [tokenInfo,setTokenInfo] = useState<string | null>(null);
+    const [noticeMain, setNoticeMain] = useState<Array<IPostInfo>>([]);
+    const [newsMain, setNewsMain] = useState<Array<IPostInfo>>([]);
 
     const showError = (message: string) : void => {
         setTimeout(()=> {
@@ -44,13 +49,23 @@ const UserContextProvider = ({children}:Props) => {
         SplashScreen.hide();
         userset().then(() => 
         {
-            setIsLoading(true)
+            mainPageSet().then(() => {
+                setIsLoading(true)
+            })
+            
         });
         
-        console.log('check usercontext useEffect')
+        console.warn('check usercontext useEffect')
         }, []);
     
-
+    const mainPageSet = async () => {
+        api.getMain().then((response)=> response.data).then((data) => {
+            if (data.success) {
+                setNoticeMain(data.notices);
+                setNewsMain(data.news);
+            }
+        })
+    }
         
 
     const login = (username: string, password : string) : void => {
@@ -66,7 +81,9 @@ const UserContextProvider = ({children}:Props) => {
             setUSerInfo(data.user);
             setCircleInfo(data.circles);
         }).then(() => {
-            setIsLoading(true);
+            mainPageSet().then(() => {
+                setIsLoading(true)
+            })
          }).catch(error =>{
                 setIsLoading(true);
                 showError('잘못된 정보 입력입니다!');
@@ -126,11 +143,14 @@ const UserContextProvider = ({children}:Props) => {
                 isLoading,
                 userInfo,
                 tokenInfo,
+                noticeMain, 
+                newsMain,
                 circleInfo,
                 addCircle,
                 login,
                 logout,
                 userset,
+                mainPageSet
             }}>
                 {children}
             </UserContext.Provider>

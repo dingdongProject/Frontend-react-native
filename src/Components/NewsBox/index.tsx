@@ -4,6 +4,9 @@ import { FlatList } from 'react-native-gesture-handler';
 import Styled from 'styled-components/native';
 import Constants from '~/Constants/constants';
 import {Dimensions} from 'react-native'
+import { UserContext } from '~/Context/User';
+import constants from '~/Constants/constants';
+import { CircleContext } from '~/Context/Circle';
 
 const NewsContainer = Styled.View`
     flex : 1;
@@ -36,11 +39,24 @@ padding:10px;
 width : 350px;
 height : 250px;
 `;
-const Newsproto = Styled.Text`
+const NewsContent = Styled.Text`
+font-size:16px;
+text-align:left;
+color: ${constants.TEXT1};
+margin-bottom : 0px;
+`;
+const NewsContentTitle = Styled.Text`
 font-size:20px;
 text-align:left;
-color:#212529;
+color: ${constants.TEXT1};
 margin-bottom : 0px;
+font-weight : bold;
+`;
+
+const PostImages = Styled.Image`
+max-width : 350px;
+height : 200px;
+resize-mode:center;
 `;
 
 interface Props{
@@ -48,24 +64,27 @@ interface Props{
 }
 
 const NewsBox = ({title}:Props) => {
+    const {circleInfo, newsMain} = useContext<IUserContext>(UserContext);
     return(
         <NewsContainer>
-                    <NewsTitleBox>
-    <NewsTitle>{title}</NewsTitle>
-                    </NewsTitleBox>
+            <NewsTitleBox>
+                <NewsTitle>{title}</NewsTitle>
+            </NewsTitleBox>
+            {
+                newsMain.map((item,key)=> (
+                    <Newsbox>
+                        <NewsContentTitle>{item.title}</NewsContentTitle>
+                        <NewsContent>{item.content}</NewsContent>
+                        {
+                            item.images && item.images.length !== 0  && item.images.map((image,key) => (
+                                <PostImages source={{uri: image.image}}/>
+                            ))
 
-                <Newsbox>
-                    <Newsproto></Newsproto>
-                </Newsbox>
-
-                <Newsbox>
-                <Newsproto></Newsproto>
-                </Newsbox>
-
-                <Newsbox>
-                <Newsproto></Newsproto>
-                </Newsbox>
-                </NewsContainer>
+                        }
+                    </Newsbox>
+                ))
+            }
+        </NewsContainer>
     )
 }
 

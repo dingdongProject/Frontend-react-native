@@ -3,16 +3,11 @@ interface IBoardInfo {
     id: number;
     memberWrite: boolean;
 }
-interface IPostSimpleInfo {
-    title: string;
-    content: string;
-    id: number;
-}
 interface IPostInfo {
     title: string;
     content: string;
     created: string;
-    owner: string;
+    owner: {username:string, picture:string};
     id: number;
     board: number;
     images: Array<{image: string}>;
@@ -38,9 +33,9 @@ interface ICircleContext {
     isCircleLoading : boolean;
     isCircle: boolean;
     circleChosen : ICircleInfo | undefined;
-    circleNotices: Array<IPostSimpleInfo>;
-    circleGallery: Array<string>;
-    circleFeeds: Array<IPostSimpleInfo>;
+    circleNotices: Array<IPostInfo>;
+    circleGallery: {image: string};
+    circleFeeds: Array<IPostInfo>;
     circleBoards: Array<IBoardInfo>;
     circleMembers : Array<IMembersInfo>;
     circleSchedule : Array<circleSchedules>;

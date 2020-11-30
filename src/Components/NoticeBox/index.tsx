@@ -10,6 +10,7 @@ import NoticeList from '~/Components/NoticeList';
 import { UserContext } from '~/Context/User';
 import constants from '~/Constants/constants';
 import { CircleContext } from '~/Context/Circle';
+import { useNavigation } from '@react-navigation/native';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -37,7 +38,7 @@ color: ${Constants.PRIMARY};
 font-weight : bold;
 
 `;
-const NoticeBodyBox = Styled.View`
+const NoticeBodyBox = Styled.TouchableOpacity`
     border:1px solid #ccc;
     border-radius:10px;
     border-bottom-width : 2px;
@@ -92,8 +93,9 @@ margin-bottom : 0px;
 
 
 const NoticeBox = () => {
-    const {circleInfo} = useContext<IUserContext>(UserContext);
+    const {circleInfo, noticeMain} = useContext<IUserContext>(UserContext);
     const {isCircle, circleNotices} = useContext<ICircleContext>(CircleContext);
+    const navigation = useNavigation();
     // const data = [
     //     {
     //         title : '테크노경영학',
@@ -112,13 +114,14 @@ const NoticeBox = () => {
     //         content : 'b4'
     //     }
     // ]
-    const data = circleNotices;
 
     const Item = ({notice}:any) => (
        
-            <NoticeBodyBox>
+            <NoticeBodyBox onPress={()=> {
+                navigation.navigate('Read', notice);
+            }}>
                 <NoticeBodyTitleBox>
-                        <NoticeTitleImage source={{ uri: 'https://dingdong-bucket.s3.ap-northeast-2.amazonaws.com/1593075284.jpg' }} />   
+                        <NoticeTitleImage source={{ uri: notice.owner.picture }} />   
                     {/* <NoticeTitleImage source={{uri: circle.picture ? circle.picture : 'https://dingdong-bucket.s3.ap-northeast-2.amazonaws.com/1593075284.jpg'}}/>
                      <NoticeBodyTitle>{title}</NoticeBodyTitle> */}
                      <NoticeBodyTitle>{notice.title}</NoticeBodyTitle>
@@ -133,7 +136,7 @@ const NoticeBox = () => {
     )
 
     const renderItem = ({item,index}:any)=> (
-        <Item notice={item} />
+        <Item notice={item}/>
     )
 
     
@@ -147,7 +150,7 @@ const NoticeBox = () => {
                 <FlatList
                 horizontal={true}
                 pagingEnabled={true}
-                data={isCircle? circleNotices: data}
+                data={isCircle? circleNotices: noticeMain}
                 
                 renderItem={renderItem}
                 keyExtractor={item => item.content
