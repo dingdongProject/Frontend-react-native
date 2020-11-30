@@ -21,6 +21,7 @@ const defaultContext: ICircleContext = {
     getCircleMembers : () => {},
     addBoard: (name: string) => {},
     getSchedule : () => {},
+    setSchedule: (schedules: ISchedules) => {},
     
 
 }
@@ -92,6 +93,10 @@ const CircleContextProvider = ({children}: Props) => {
         
         
     }
+
+    const setSchedule = (schedules: ISchedules) => {
+        setISchedule([...ISchedule, schedules]);
+    }
     
     const getSchedule = async () => {
         await api.getSchedule()
@@ -159,6 +164,7 @@ const CircleContextProvider = ({children}: Props) => {
                 getCircleMembers,
                 addBoard,
                 getSchedule,
+                setSchedule
             }}>
                 {children}
         </CircleContext.Provider>

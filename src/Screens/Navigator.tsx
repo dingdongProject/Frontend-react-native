@@ -38,6 +38,7 @@ import CirclePageEdit from '~/Screens/CirclePageEdit';
 import AddBoard from '~/Screens/AddBoard';
 import CircleSearchInfo from '~/Screens/CircleSearchInfo';
 import AddSchedule from '~/Screens/AddSchedule';
+import Requests from '~/Screens/Requests';
 
 
 
@@ -155,6 +156,15 @@ const MainStackNavigator = ({navigation } : Props) =>{
                 },
                 headerTintColor: '#fff',
                 headerTitle: 'Join a Circle',
+                headerBackTitleVisible: false
+            }}/>
+            <Stack.Screen name = "Requests" component={Requests}
+                options={{
+                headerStyle:{
+                    backgroundColor : Constants.PRIMARY,
+                },
+                headerTintColor: '#fff',
+                headerTitle: 'Requests',
                 headerBackTitleVisible: false
             }}/>
             <Stack.Screen name = "Gallery" component={Gallery}

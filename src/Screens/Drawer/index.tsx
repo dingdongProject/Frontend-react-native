@@ -88,7 +88,7 @@ interface Props {
 
 
 const Drawer = ({props}:Props) => {
-    const {logout,userInfo, circleInfo} = useContext<IUserContext>(UserContext);
+    const {logout,userInfo, circleInfo, requests} = useContext<IUserContext>(UserContext);
     const {changeToCircle,getCircleMembers,setMainPage} = useContext<ICircleContext>(CircleContext);
     return (
         <DrawerContentScrollView {...props}>
@@ -139,6 +139,15 @@ const Drawer = ({props}:Props) => {
                     <Label>Join a Circle</Label>
                 </ButtonContainer>
             </Button>
+            {
+                    requests && requests.length !== 0 &&
+            <Button onPress={()=>{props.navigation.navigate('Requests',{screen : 'Requests'})}}> 
+                <ButtonContainer>
+                    <Icon source={require('~/Assets/Images/mail.png')}/>
+                    <Label>New Requests!</Label>
+                </ButtonContainer>
+            </Button>
+            }
             <Footer>
                 <Button
                     onPress={()=>{

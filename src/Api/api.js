@@ -59,4 +59,8 @@ export default {
     postSchedule : function(payload) {
         return _promise(METHOD.POST, BASE_URL + `schedules`,payload,true)
     }
+    ,
+    postRespond : function(payload) {
+        return _promise(METHOD.POST, BASE_URL + `respond`,payload,true)
+    }
 }

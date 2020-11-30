@@ -45,4 +45,5 @@ interface ICircleContext {
     getCircleMembers : (name : string ) => void;
     addBoard:(name: string) => void;
     getSchedule : () => void;
+    setSchedule: (schedules: ISchedules) => void;
 }

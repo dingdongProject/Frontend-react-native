@@ -132,7 +132,7 @@ const Calendars =  ({navigation } : Props) => {
 
     useEffect(()=>{
         DatelistProvider();
-    },[])
+    },[ISchedule])
       
     
     const DatelistProvider = (name = '') => {

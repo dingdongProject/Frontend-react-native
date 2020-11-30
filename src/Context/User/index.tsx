@@ -12,6 +12,7 @@ const defaultContext : IUserContext = {
     tokenInfo : null,
     noticeMain: [],
     newsMain: [],
+    requests: [],
     addCircle : (data : FormData) => {},
     login : (username: string, password: string) => {},
     logout: () =>{},
@@ -35,6 +36,7 @@ const UserContextProvider = ({children}:Props) => {
     const [tokenInfo,setTokenInfo] = useState<string | null>(null);
     const [noticeMain, setNoticeMain] = useState<Array<IPostInfo>>([]);
     const [newsMain, setNewsMain] = useState<Array<IPostInfo>>([]);
+    const [requests, setRequests] = useState<Array<IRequest>>([]);
 
     const showError = (message: string) : void => {
         setTimeout(()=> {
@@ -63,6 +65,7 @@ const UserContextProvider = ({children}:Props) => {
             if (data.success) {
                 setNoticeMain(data.notices);
                 setNewsMain(data.news);
+                setRequests(data.requests);
             }
         })
     }
@@ -146,6 +149,7 @@ const UserContextProvider = ({children}:Props) => {
                 noticeMain, 
                 newsMain,
                 circleInfo,
+                requests,
                 addCircle,
                 login,
                 logout,

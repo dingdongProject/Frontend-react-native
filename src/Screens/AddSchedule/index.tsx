@@ -12,6 +12,7 @@ import constants from '~/Constants/constants';
 import api from '~/Api/api';
 import {RouteProp} from '@react-navigation/native';
 import {UserContext} from '~/Context/User';
+import { CircleContext } from '~/Context/Circle';
 
 
 type NavigationProp = StackNavigationProp<CalendarNaviParamList>;
@@ -92,17 +93,17 @@ const BubbleContainer = Styled.View`
 interface ICircleList {
   name: string;
   picture: string;
-
   chosen : boolean;
 }
 
 const AddSchedule =  ({route, navigation } : Props) => {
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
-    const [circlename,setCirclename] = useState<String>('');
-    const [title,setTitle] = useState<String>('');
-    const [content,setContent] = useState<String>('');
-    const [datetime,setDatetime] = useState<String>('')
+    const [circlename,setCirclename] = useState<string>('');
+    const [title,setTitle] = useState<string>('');
+    const [content,setContent] = useState<string>('');
+    const [datetime,setDatetime] = useState<string>('')
     const {circleInfo} = useContext<IUserContext>(UserContext);
+    const {setSchedule} = useContext<ICircleContext>(CircleContext);
     const [cirlceList, setCircleList] = useState<Array<ICircleList>>([]);
 
     useEffect( ()=> {
@@ -127,8 +128,10 @@ const AddSchedule =  ({route, navigation } : Props) => {
       setDatePickerVisibility(false);
     };
   
-    const handleConfirm = (date : any) => {
-      let new_date = JSON.stringify(date);
+    const handleConfirm = (date: any) => {
+      var copiedDate = new Date(date);
+      copiedDate.setHours(copiedDate.getHours() + 9);
+      let new_date = JSON.stringify(copiedDate);
       let day = new_date.split('T')[0];
       var new_day = day.replace(/\"/g,'');
       let prev_time = new_date.split('T')[1];
@@ -143,20 +146,22 @@ const AddSchedule =  ({route, navigation } : Props) => {
 
 
     const PostSchedule = async () => {
-        if(circlename || datetime === '' )
-        {
-            if(circlename === '')
-            setTimeout(()=>{
-                Alert.alert('please choose circle!');
-                
-              },1000)
-            if(datetime === ''){
-                setTimeout(()=>{
-                    Alert.alert('please choose circle!');
-                    
-                  },1000)
-            }
-        }
+      if(circlename === '' || datetime === '' )
+      {
+          if(circlename === '')
+          setTimeout(()=>{
+              Alert.alert('please choose circle!');
+              
+            },100)
+          else if(datetime === ''){
+              setTimeout(()=>{
+                  Alert.alert('please choose Date and Time!');
+                  
+                },100)
+          }
+          return;
+
+      }
         
         await api.postSchedule({
           circle : circlename,
@@ -169,10 +174,12 @@ const AddSchedule =  ({route, navigation } : Props) => {
         }).then((data)=>{
           if (data.success) {
             console.warn('Post successful')
+            setSchedule({circle: circlename, scheduleList:[data.schedules]})
         }
         else {
             console.warn('Post failed')
         }
+        navigation.pop()
         })
     }
     const selectItem= (name: string) =>{
@@ -239,12 +246,11 @@ const AddSchedule =  ({route, navigation } : Props) => {
               </BodyContainer>
               <ButtonContainer>
                     <Button label = "Select Date and Time" style={{marginBottom : 16}} onPress={showDatePicker}/>
-                    <Button label = "Add Schedule" onPress={()=>{PostSchedule(); navigation.pop()}} />
+                    <Button label = "Add Schedule" onPress={()=>{PostSchedule(); }} />
               </ButtonContainer>
               <DateTimePickerModal
               isVisible={isDatePickerVisible}
               mode="datetime"
-              locale="en"
               onConfirm={handleConfirm}
               onCancel={hideDatePicker}
               headerTextIOS="Pick a date and time"
