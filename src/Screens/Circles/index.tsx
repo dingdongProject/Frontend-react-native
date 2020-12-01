@@ -108,7 +108,7 @@ const CircleNameBox = Styled.View`
 `;
 const CircleName = Styled.Text`
   font-weight : bold;
-  font-size : 20;
+  font-size : 20px;
   color : ${constants.PRIMARY}
 `;
 

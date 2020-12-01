@@ -29,14 +29,20 @@ interface Props {
   image: string;
   onPress?: () => void;
   chosen?: boolean;
+  indexs?: number;
 }
 
-const Bubbles = ({image, onPress, chosen } : Props) => {
+
+
+const Bubbles = ({image, onPress, chosen ,indexs} : Props) => {
+  
+
   return (
     <Container
     onPress={onPress}
     >
       {
+        
         chosen ?
         <BubbleselectedImage
         source={{uri: image}}

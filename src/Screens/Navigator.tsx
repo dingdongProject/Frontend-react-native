@@ -50,11 +50,25 @@ const CircleIcon = Styled.Image`
     margin-right : 10px;
     width: 25px;
     height: 25px;
-    border-radius: 100;
+    border-radius: 100px;
     border: 0.5px;
     border-color : ${constants.TEXT2};
     resize-mode:center;
 `;
+const Circles1Icon = Styled.Image`
+margin-right : 10px;
+width: 35px;
+height: 35px;
+border-radius: 100px;
+resize-mode:center;
+`
+const Circles2Icon = Styled.Image`
+margin-right : 10px;
+width: 50px;
+height: 50px;
+border-radius: 100px;
+resize-mode:center;
+`
 
 
 type NavigationProp = StackNavigationProp<TotalNaviParamList>;
@@ -368,7 +382,7 @@ const MainTab = () => {
                         <Image
                         source={
                             focused
-                            ? require('~/Assets/Images/calendar.png')
+                            ? require('~/Assets/Images/base_calendar.png')
                             : require('~/Assets/Images/calendar.png')
                         }
                         />
@@ -382,13 +396,23 @@ const MainTab = () => {
                 options={{
                     tabBarLabel : 'Third',
                     tabBarIcon : ({color, focused}) => (
-                        <Image
+                        focused?
+                        <Circles2Icon
+                        
                         source={
-                            focused
-                            ? require('~/Assets/Images/blur_circle.png')
-                            : require('~/Assets/Images/blur_circle.png')
+                            
+                             require('~/Assets/Images/dingdong_splas.png')
+                            
                         }
                         />
+                        :
+                        <Circles1Icon
+                        source={
+                            
+                            require('~/Assets/Images/dingdong_splas.png')
+                           
+                       }
+                       />
                     ),
 
                 }}

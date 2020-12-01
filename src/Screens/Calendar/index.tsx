@@ -124,10 +124,12 @@ const Calendars =  ({navigation } : Props) => {
     const [scheduleSelected,setScheduleSelected]  = useState<circleSchedules>();
     let  myschdule : Array<String> =  [];
     
+    
 
     const {changeToCircle,isCircle,circleChosen,ISchedule} =useContext<ICircleContext>(CircleContext);
     const {circleInfo} = useContext<IUserContext>(UserContext)
     const [circleList, setCircleList] = useState([{name: '', picture: 'https://dingdong-bucket.s3.ap-northeast-2.amazonaws.com/all.png'}, ...circleInfo]);
+    const [circleIndex, setCircleIndex] = useState<Array<boolean>>([]);
     
 
     useEffect(()=>{
@@ -172,6 +174,7 @@ const Calendars =  ({navigation } : Props) => {
            if(todayDate === new_daystring){
               setScheduleSelected(todayschedule[i])
               console.warn(todayschedule[i])
+              console.warn('index',circleIndex)
               showModal();
            }
           }
@@ -213,9 +216,6 @@ const Calendars =  ({navigation } : Props) => {
 
 
 
-
-
-
       
     
 
@@ -232,11 +232,13 @@ const Calendars =  ({navigation } : Props) => {
           return `circle-${index}`;
         }}
         renderItem={({item, index}) => (
+           
           <Bubbles
             image={(item as ICircleInfo).picture}
             onPress={()=>{DatelistProvider(item.name);}}
             chosen={true}
           />
+          
         )}
       />
       </BubbleContainer>
