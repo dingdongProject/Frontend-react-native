@@ -36,11 +36,8 @@ import Read from '~/Screens/Read';
 import Information from '~/Screens/Information';
 import CirclePageEdit from '~/Screens/CirclePageEdit';
 import AddBoard from '~/Screens/AddBoard';
-<<<<<<< HEAD
 import CircleSearchInfo from '~/Screens/CircleSearchInfo';
-=======
 import AddSchedule from '~/Screens/AddSchedule';
->>>>>>> feature/calendar
 
 
 

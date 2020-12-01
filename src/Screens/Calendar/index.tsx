@@ -28,7 +28,7 @@ const Container = Styled.SafeAreaView`
   flex: 1;
   background-color: #f4f4f4;
   align-items: center;
-  justify-content: center;
+  
   flex-direction : column;
 `;
 
@@ -37,37 +37,33 @@ const BubbleContainer = Styled.View`
   width : 400px;
   height : auto;
   padding : 25px;
-  padding-top : 10px;
+  padding-top : 50px;
   border : 0px;
   flex-direction : row;
 `;
 //추후 수평 플랫리스트로 구현.
 
-const BubbleBox = Styled.View`
-  width : 100px;
-  height : 100px;
-  margin-right : 20px;
+const ShowallBox = Styled.View`
+  width : auto;
+  height : 50px;
+  align-items : center;
+  justify-content : flex-end;
   padding : 0px;
   border : 0px;
 `;
 
-const Bubble = Styled.Image`
-margin-right : 8px;
-width: 100px;
-height: 100px;   
-border-radius: 100px;
-border: 2px;
-border-color : ${constants.PRIMARY};
-resize-mode:center
+const Showall = Styled.Text`
+font-weight : bold;
+color : ${constants.PRIMARY}
 `;
-const BubbleTouch = Styled.TouchableOpacity`
+const ShowallTouch = Styled.TouchableOpacity`
 `;
 
 const CalendarContainer = Styled.View`
   width : 400px;
   height : auto;
   border : 0px;
-  padding : 25px;
+  padding : 16px;
 `;
 const CalendarText = Styled.Text`
 
@@ -242,6 +238,16 @@ const Calendars =  ({navigation } : Props) => {
         )}
       />
       </BubbleContainer>
+      <ShowallBox>
+        <ShowallTouch
+        onPress={()=>{DatelistProvider()}}
+        >
+          <Showall>
+            Show all schedule
+          </Showall>
+        </ShowallTouch>
+
+      </ShowallBox>
       
         <CalendarContainer>
             <Calendar
