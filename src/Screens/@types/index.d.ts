@@ -66,6 +66,7 @@ type TotalNaviParamList = {
     AddBoard : undefined;
     TestPage : undefined;
     AddSchedule : undefined;
+    CircleSearchInfo : undefined;
 }
 
 type BoardNaviParamList = {

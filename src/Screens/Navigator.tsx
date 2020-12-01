@@ -92,6 +92,16 @@ const MainNavigator = () => {
 const MainStackNavigator = ({navigation } : Props) =>{
     const {isCircle, circleChosen,circleMembers} = useContext<ICircleContext>(CircleContext);
     const {circleInfo} = useContext<IUserContext>(UserContext)
+    const checkAdmin = () => {
+        isCircle && circleChosen?
+        circleChosen?.isAdmin?
+        navigation.navigate('CirclePageEdit')
+        :
+        Alert.alert('No Access!!!')
+        :
+        Alert.alert('No Access!!!')
+        
+      }
     return(
         <Stack.Navigator screenOptions={{headerShown : true}}>
             <Stack.Screen name={isCircle && circleChosen ?  circleChosen.name: "dingdong"} component={isCircle ? MyCirlce: DDHome } 
@@ -214,11 +224,14 @@ const MainStackNavigator = ({navigation } : Props) =>{
                 headerBackTitleVisible: false ,
                 headerRight: () => (
                     <IconButton
-                        onPress={()=> {circleMembers.map((isAdmin)=>{
-                            isAdmin.isAdmin? navigation.navigate('CirclePageEdit')
-                            :
-                            console.warn('access')
-                        })}}
+                        // onPress={()=> {circleMembers.forEach((item)=>{
+                        //     item.isAdmin? navigation.navigate('CirclePageEdit')
+                        //     :
+                        //     Alert.alert("no acess!")
+                        onPress={()=>{
+                            checkAdmin()
+                        }}
+                        // })}}
                         iconName='dotMenu'/>
                 )
             }}/>
@@ -340,7 +353,7 @@ const MainTab = () => {
                         <Image
                         source={
                             focused
-                            ? require('~/Assets/Images/home.png')
+                            ? require('~/Assets/Images/home_out.png')
                             : require('~/Assets/Images/home.png')
                         }
                         />

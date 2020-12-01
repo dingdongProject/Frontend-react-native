@@ -12,7 +12,7 @@ const Icon = Styled.Image`
 interface Props {
     iconName : 
         // | 'camera'
-        // | 'live'
+         | 'cancel'
          | 'add'
          | 'dotMenu'
         | 'info'
@@ -28,7 +28,7 @@ const IconButton = ({iconName,style,onPress}:Props)=>{
 
     const imageSource = {
         // camera : require('~/Assets/Image/ic_all.png'),
-        // live : require('~/Assets/Image/ic_all.png'),
+        cancel : require('~/Assets/Images/cancel.png'),
         add : require('~/Assets/Images/add_circle_w.png'),
          dotMenu : require('~/Assets/Images/baseline.png'),
         info : require('~/Assets/Images/info.png'),

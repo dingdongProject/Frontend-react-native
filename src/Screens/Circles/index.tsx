@@ -9,7 +9,7 @@ import { Image } from 'react-native';
 import api from '~/Api/api';
 import { useAsyncStorage } from '@react-native-community/async-storage';
 
-type NavigationProp = StackNavigationProp<CirclesNaviParamList, 'Circles'>;
+type NavigationProp = StackNavigationProp<TotalNaviParamList>;
 
 interface Props {
   navigation: NavigationProp;
@@ -25,11 +25,11 @@ const SubConatiner = Styled.View`
   padding : 60px;
 `;
 const SearchConatainer = Styled.View`
-  border : 0px;
-  width : 350px;
+  border : 1px;
+  width : 340px;
   height : 50px;
   border:1px solid ${constants.PRIMARY}
-  border-radius : 10;
+  border-radius : 10px;
   flex-direction : row;
   background-color: white;
   
@@ -38,7 +38,8 @@ const SearchImageBox = Styled.TouchableOpacity`
   width : auto;
   height : 50px;
   border : 0px;
-  justify-content: center
+  padding-right : 1px;
+  justify-content: center;
 `;
 
 const SearchBox = Styled.TextInput`
@@ -159,9 +160,11 @@ const Circles =  ({navigation } : Props) => {
     .then((data) => {
       if (data.success) {
         setCircles(data.circles);
+        setSearchInput("all")
       }
       else {
         console.warn(data.message);
+        setSearchInput("all")
       }
     })
   }
@@ -185,7 +188,8 @@ const Circles =  ({navigation } : Props) => {
           placeholder={'Search'}
           placeholderTextColor={constants.TEXT1}
           onChangeText={(text) => setSearchInput(text)}
-
+          clearButtonMode = 'while-editing'
+          
           />
           <SearchImageBox
             onPress={() => {search()}}>
@@ -196,6 +200,13 @@ const Circles =  ({navigation } : Props) => {
               }}
             />
           </SearchImageBox>
+          <IconButton
+          iconName ='cancel'
+          onPress={()=>{
+            search();
+          }}
+      
+          />
 
         </SearchConatainer>
 

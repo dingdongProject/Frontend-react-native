@@ -11,7 +11,7 @@ import { onChange } from 'react-native-reanimated';
 import constants from '~/Constants/constants';
 
 import api from '~/Api/api'
-import {Text, TouchableOpacity} from 'react-native';
+import {Alert, Text, TouchableOpacity} from 'react-native';
 import IconButton from '~/Components/IconButton';
 import Button from '~/Components/Button';
 import Input from '~/Components/Input';
@@ -97,17 +97,18 @@ const CirclePageEdit =  ({navigation } : Props) => {
   const [circleName,onChangecircleName] = useState('')
   const [circleExplaination,onChangeExplaination] = useState('')
   const [circlePicture,onChangecirclePicture] =useState('')
-  const {addCircle} = useContext<IUserContext>(UserContext)
+  const {circleInfo} = useContext<IUserContext>(UserContext)
   const {isCircle,circleChosen,circleMembers} = useContext<ICircleContext>(CircleContext)
   
   
   const [Avatar,setAvatar] = useState('')
 
+
     const addImage = () => {
         ImagePicker.showImagePicker({
-            takePhotoButtonTitle : '사진찍기',
-            chooseFromLibraryButtonTitle : '앨범에서 고르기',
-            cancelButtonTitle : '취소'
+            takePhotoButtonTitle : 'take a photo',
+            chooseFromLibraryButtonTitle : 'select from album',
+            cancelButtonTitle : 'cancel'
         },response=>{
             setAvatar(response.uri)
             console.log(response.uri)
@@ -120,10 +121,12 @@ const CirclePageEdit =  ({navigation } : Props) => {
 }
   
 
+
     
 
 
     return (
+      
       <Container>
         <ScrollContainer>
           <FormContainer> 

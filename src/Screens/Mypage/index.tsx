@@ -68,7 +68,8 @@ const EtcSubContainer = Styled.View`
   border-bottom-width : 1px;
   border-bottom-color : ${constants.TEXT2}
   margin-top : 30px;
-  margin-bottom : 1px;
+  padding-bottom : 20px;
+  margin-bottom : 0px;
   padding : 10px;
   width : 400px;
   height : 40px;
@@ -78,6 +79,7 @@ const EtcText = Styled.Text`
 font-size:20px;
 text-align:left;
 color:${constants.TEXT1};
+padding-bottom : 70px;
 margin-bottom : 0px;
 `;
 
@@ -141,21 +143,21 @@ const Mypage =  ({navigation } : Props) => {
             <MyTouchContainer>
             <EtcSubContainer>
               <EtcText>
-                설정
+                setting
               </EtcText>
             </EtcSubContainer>
             </MyTouchContainer>
             <MyTouchContainer>
             <EtcSubContainer>
             <EtcText>
-                문의하기
+                Inquire
               </EtcText>
             </EtcSubContainer>
             </MyTouchContainer>
             <MyTouchContainer>
             <EtcSubContainer>
             <EtcText2>
-                회원탈퇴
+                withdraw
               </EtcText2>
             </EtcSubContainer>
             </MyTouchContainer>

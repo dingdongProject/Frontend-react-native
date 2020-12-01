@@ -9,7 +9,7 @@ margin-right : 8px;
 width: 100px;
 height: 100px;  
 border-radius: 50;
-border: 0.5px;
+border: 2px;
 border-color : #000000;
 resize-mode:center
 `;
@@ -31,7 +31,7 @@ interface Props {
   chosen?: boolean;
 }
 
-const Bubbles = ({image, onPress, chosen}: Props) => {
+const Bubbles = ({image, onPress, chosen } : Props) => {
   return (
     <Container
     onPress={onPress}
