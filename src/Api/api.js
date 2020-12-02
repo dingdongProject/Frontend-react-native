@@ -62,5 +62,8 @@ export default {
     ,
     postRespond : function(payload) {
         return _promise(METHOD.POST, BASE_URL + `respond`,payload,true)
+    },
+    putMemberAdmin : function(payload) {
+        return _promise(METHOD.PUT, BASE_URL + `circles/${payload.circlename}/members`,payload,true)
     }
 }

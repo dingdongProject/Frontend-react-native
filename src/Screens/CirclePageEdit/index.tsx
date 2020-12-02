@@ -16,6 +16,7 @@ import IconButton from '~/Components/IconButton';
 import Button from '~/Components/Button';
 import Input from '~/Components/Input';
 import ImageButton from '~/Components/ImageButton'
+import styled from 'styled-components';
 
 type NavigationProp = StackNavigationProp<TotalNaviParamList>;
 
@@ -26,7 +27,7 @@ interface Props {
 
 const Container = Styled.SafeAreaView`
     flex : 1;
-    background-color : #fff;
+    background-color : #f4f4f4;
 `;
 const ScrollContainer = Styled.ScrollView`
   flex :1;
@@ -37,6 +38,7 @@ const FormContainer = Styled.View`
     align-items : center;
     justify-content : center;
     padding : 32px;
+    border :0px;
 `;  
 
 const Description = Styled.Text`
@@ -63,20 +65,31 @@ const MembersContainer = Styled.View`
   flex : 1;
   border :0px;
   
-  flex-direction : row;
-  width : 50%;
+  align-items : center
+  width : auto;
   height : auto;
   padding : 0px;
   padding-bottom : 10px;
-  border-bottom-width : 0.3px;
+  
 `;
-const MembersSubContainer = Styled.View`
-  flex : 1;
-  border :0px;
+const MembersBox = Styled.View`
+  width: 100%;
+  height: auto;
+  padding-left: 16px;
+  padding-right: 16px;
+  border-radius: 4px;
+  background-color: #FAFAFA;
+  border-width: 1px;
+  border-color: #D3D3D3;
+`;
+const MembersSubBox = Styled.View`
+  border-bottom-width :0.3px;
+  border-top-width :0.3px;
+  border-color: #D3D3D3;
+  margin-bottom : 2px;
   width : 100%;
   height : auto;
-  padding : 0px;
-  padding-left : 0px;
+  
 `;
 const MemTouch = Styled.TouchableOpacity`
   flex-direction : row;
@@ -85,11 +98,14 @@ const MembersText =Styled.Text`
 font-size:15px;
 text-align:center;
 color:${constants.TEXT2};
-margin-bottom : 0px;
+margin-bottom : 10px;
 `;
 const MembersAdmin = Styled.Image`
 
 `;
+const ButtonContainer = Styled.View`
+  align-items : center;
+`
 
 
 const CirclePageEdit =  ({navigation } : Props) => {
@@ -98,7 +114,7 @@ const CirclePageEdit =  ({navigation } : Props) => {
   const [circleExplaination,onChangeExplaination] = useState('')
   const [circlePicture,onChangecirclePicture] =useState('')
   const {circleInfo} = useContext<IUserContext>(UserContext)
-  const {isCircle,circleChosen,circleMembers} = useContext<ICircleContext>(CircleContext)
+  const {isCircle,circleChosen,circleMembers,getCircleMembers} = useContext<ICircleContext>(CircleContext)
   
   
   const [Avatar,setAvatar] = useState('')
@@ -119,11 +135,60 @@ const CirclePageEdit =  ({navigation } : Props) => {
     
     return true;
 }
-  
 
 
-    
+const addAdmin = async (name : string, circlename : string) => {
+  let useradmin
+  circleMembers.forEach(async (item)=>{
+    if(item.name===name)
+    {
+      useradmin = item.isAdmin
+        
+        //이름과 fasle put
+      }
+    })
+      if(useradmin){
+        await api.putMemberAdmin({
+          circlename: circlename,
+          name : name,
+          isAdmin : "False"
+        }).then((response)=>{
+          return response.data;
+        })
+        .then((data)=>{
+          if(data)
+          {
+            console.warn('changed!')
+            getCircleMembers(circlename)
+          }
+          else
+          {
+            console.warn('faild!')
+          }
+        })
+      }
+      else{
+        await api.putMemberAdmin({
+          circlename: circlename,
+          name : name,
+          isAdmin : "True"
+        }).then((response)=>{
+          return response.data
+        }).then((data)=>{
+          if(data)
+          {
+            console.warn('changed!')
+            getCircleMembers(circlename)
+          }
+          else
+          {
+            console.warn('faild!')
+          }
+        })
+        //이름과 true put
+      }
 
+}
 
     return (
       
@@ -145,39 +210,87 @@ const CirclePageEdit =  ({navigation } : Props) => {
           <Description>Explanation</Description>
           <Input style={{marginBottom:32, flex: 5 }} placeholder="explanation"/>
           
-            <MembersSubContainer>
+            
+            <Description>Name</Description>
+              <MembersBox>
+                <MembersSubBox>
+              <MembersText>
+                Admin
+              </MembersText>
+              </MembersSubBox>
           {
                
-               circleMembers.map((name,isAdmin)=>{
-                 return(
-                   
-                  <MembersContainer>
-                    <MemTouch>
+               circleMembers.map((name)=>{
+                 if(name.isAdmin){
+                   return(
+                    <MembersContainer>
+                    <MemTouch
+                    onPress={()=>{addAdmin(name.name,circleChosen?.name!==undefined?circleChosen.name : '')}}
+                    >
+                    <MembersAdmin
+                        source={require('~/Assets/Images/remove.png')}
+                    />
                     <MembersText>
                     {name.name}
                     </MembersText>
-                    {name.isAdmin?
-                    <MembersAdmin
-                        source={require('~/Assets/Images/star.png')}
-                    />
                     
-                    : console.warn(isAdmin)
+                    
+                    </MemTouch>
+                    </MembersContainer>
+                    )
+                    }
+                  
+                 
                   }
-                  </MemTouch>
-                  </MembersContainer>
-                  
-                  
-
-                 )
-               }) 
+                 ) 
              }
-             </MembersSubContainer>
+             <MembersSubBox>
+             <MembersText>
+                Members
+              </MembersText>
+              </MembersSubBox>
+             {
+               
+               circleMembers.map((name)=>{
+                 if(!name.isAdmin){
+                   return(
+                    <MembersContainer>
+                    <MemTouch
+                    onPress={()=>{addAdmin(name.name,circleChosen?.name!==undefined?circleChosen.name : '')}}
+                    >
+                    <MembersAdmin
+                        source={require('~/Assets/Images/add.png')}
+                    />
+                    <MembersText>
+                    {name.name}
+                    </MembersText>
+                    
+                    
+                    </MemTouch>
+                    </MembersContainer>
+                    )
+                    }
+                  
+                 
+                  }
+                 ) 
+             }
+             </MembersBox>
+             
           
              </FormContainer>
-          <Button label="Circle Information Edit" onPress={() => {
+             <ButtonContainer>
+          <Button label="Circle Information Edit"
+          style={{
+            width : 300,
+            
+
+          }}
+          onPress={() => {
+            
             navigation.goBack()
           }}/>
-          
+          </ButtonContainer>
           </ScrollContainer>
       </Container> 
        
