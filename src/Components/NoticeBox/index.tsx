@@ -96,24 +96,6 @@ const NoticeBox = () => {
     const {circleInfo, noticeMain} = useContext<IUserContext>(UserContext);
     const {isCircle, circleNotices} = useContext<ICircleContext>(CircleContext);
     const navigation = useNavigation();
-    // const data = [
-    //     {
-    //         title : '테크노경영학',
-    //         content : 'b1'
-    //     },
-    //     {
-    //         title : 'sadads',
-    //         content : 'b2'
-    //     },
-    //     {
-    //         title : '테크노경영학',
-    //         content : 'b3'
-    //     },
-    //     {
-    //         title : '테크노경영학',
-    //         content : 'b4'
-    //     }
-    // ]
 
     const Item = ({notice}:any) => (
        
@@ -122,8 +104,6 @@ const NoticeBox = () => {
             }}>
                 <NoticeBodyTitleBox>
                         <NoticeTitleImage source={{ uri: notice.owner.picture }} />   
-                    {/* <NoticeTitleImage source={{uri: circle.picture ? circle.picture : 'https://dingdong-bucket.s3.ap-northeast-2.amazonaws.com/1593075284.jpg'}}/>
-                     <NoticeBodyTitle>{title}</NoticeBodyTitle> */}
                      <NoticeBodyTitle>{notice.title}</NoticeBodyTitle>
                 </NoticeBodyTitleBox>
                 <NoticeBodyBodyBox>

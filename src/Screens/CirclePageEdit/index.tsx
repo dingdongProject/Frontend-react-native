@@ -143,8 +143,6 @@ const addAdmin = async (name : string, circlename : string) => {
     if(item.name===name)
     {
       useradmin = item.isAdmin
-        
-        //이름과 fasle put
       }
     })
       if(useradmin){
@@ -185,7 +183,6 @@ const addAdmin = async (name : string, circlename : string) => {
             console.warn('faild!')
           }
         })
-        //이름과 true put
       }
 
 }

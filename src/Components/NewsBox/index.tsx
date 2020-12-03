@@ -35,9 +35,9 @@ margin-bottom : 10px;
 border-radius:10px;
 box-shadow:0 0 10px #ccc;
 background-color:#fff;
-padding:10px;
+padding:30px;
 width : 350px;
-height : 250px;
+height : auto;
 `;
 const NewsContent = Styled.Text`
 font-size:16px;
