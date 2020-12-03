@@ -1,6 +1,6 @@
 import React, {useContext, useLayoutEffect, useEffect, useState, useRef} from 'react';
 import Styled from 'styled-components/native';
-import {TextInput} from 'react-native';
+import {TextInput, View, Text} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import {UserContext} from '~/Context/User';
@@ -9,6 +9,7 @@ import Input from '~/Components/Input';
 import constants from '~/Constants/constants';
 import {RouteProp} from '@react-navigation/native';
 import api from '~/Api/api';
+import ReadList from '../ReadList';
 
 
 type NavigationProp = StackNavigationProp<MyCircleNaviParamList>;
@@ -38,6 +39,8 @@ const WriterContainer = Styled.View`
     height : 70px;
     flex-direction : row;
     border : 0px;
+    justify-content: space-between;
+    align-items: center;
 `;
 const WriterImageBox = Styled.View`
     width : 80px;
@@ -59,7 +62,6 @@ const WriterInfoBox = Styled.View`
     width : 150px;
     height : 70px;
     padding-left : 10px;
-    margin-top : 5px;
     border : 0px;
 `;
 const WriterInfoNameBox = Styled.View`
@@ -234,12 +236,29 @@ const BodyImage = Styled.Image`
     resize-mode:center;
 `
 
+const ReadCheckBox = Styled.TouchableOpacity`
+    width: 60px;
+    height: 40px;
+    margin-right: 10px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    background-color: ${constants.PRIMARY};
+
+`;
+const ReadCheckText = Styled.Text`
+    text-align: center;
+    color: white;
+`;
+
 
 
 const Read =  ({route, navigation } : Props) => {
     const {userInfo} = useContext<IUserContext>(UserContext)
     const [comment, setComment] = useState('')
     const [post, setPost] = useState<IPostInfo>(route.params);
+    const [read, setRead] = useState({text: post.hasRead? 'Checked':'Check Read', hasRead: post.hasRead});
+
     var date = post.created.split('T')[0]
     var time = post.created.split('T')[1].slice(0, 8)
     const scrollViewRef = useRef();
@@ -264,35 +283,62 @@ const Read =  ({route, navigation } : Props) => {
             }
         )
     }
+    const CheckRead = () => {
+        api.postRead({id: post.id})
+        .then(response => response.data)
+        .then(data => {
+            if (data.success) {
+                setRead({text: 'Checked', hasRead: true})
+            }
+            else {
+                console.warn(data.message)
+            }
+        })
+    }
+    const ReadList =() => {
+        navigation.navigate('ReadList', post);
+    }
 
     return (
         <Container>
             <ScrollContainer ref={scrollViewRef}>
                 <SubContainer>
                     <WriterContainer>
-                        <WriterImageBox>
-                            <WriterImage
-                            source={{uri : post?.owner.picture}}
-                            />
-                        </WriterImageBox>
-                        <WriterInfoBox>
-                            <WriterInfoNameBox>
-                                <WriterInfoName>
-                                    {post.owner.username}
-                                </WriterInfoName>
+                        <View style={{flexDirection: "row"}}>
+                            <WriterImageBox>
+                                <WriterImage
+                                source={{uri : post?.owner.picture}}
+                                />
+                            </WriterImageBox>
+                            <WriterInfoBox>
+                                <WriterInfoNameBox>
+                                    <WriterInfoName>
+                                        {post.owner.username}
+                                    </WriterInfoName>
 
-                            </WriterInfoNameBox>
-                            <WriterInfoTimeBox>
-                                <WriterInfoTime>
-                                    {date}
-                                </WriterInfoTime>
-                                <WriterInfoTime>
-                                {time}
-                                </WriterInfoTime>
-                            </WriterInfoTimeBox>
-
-                        </WriterInfoBox>
-
+                                </WriterInfoNameBox>
+                                <WriterInfoTimeBox>
+                                    <WriterInfoTime>
+                                        {date}
+                                    </WriterInfoTime>
+                                    <WriterInfoTime>
+                                    {time}
+                                    </WriterInfoTime>
+                                </WriterInfoTimeBox>
+                            </WriterInfoBox>
+                        </View>
+                        { 
+                            post.check_read && post.owner.username !=  userInfo?.username &&
+                            <ReadCheckBox onPress={() => CheckRead()} >
+                                <ReadCheckText>{read.text}</ReadCheckText>
+                            </ReadCheckBox>
+                        }
+                        {
+                            post.owner.username ==  userInfo?.username &&
+                            <ReadCheckBox onPress={() => ReadList()}>
+                                <ReadCheckText>Check List</ReadCheckText>
+                            </ReadCheckBox>
+                        }
                     </WriterContainer>
                     <BodyContainer>
                         <BodyBox>

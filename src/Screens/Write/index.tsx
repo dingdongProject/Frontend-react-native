@@ -122,7 +122,6 @@ const Write =  ({route, navigation } : Props) => {
         {name: "Ladder Game", chosen: false},
         {name: "Add Images", chosen: false}
     ])
-    console.warn(route.params)
 
     const getImages = async () => { 
         ImagePicker.openPicker({
@@ -166,11 +165,11 @@ const Write =  ({route, navigation } : Props) => {
         
         form.append('title', title)
         form.append('content', content)
+        form.append('check_read', functions[0].chosen)
         formImageFiles.forEach((item, i) => {
             form.append('images[]', item)
         });
         form.append('Content-Type', 'image/png');
-        console.warn(form)
         return form;
     }
 
@@ -180,13 +179,14 @@ const Write =  ({route, navigation } : Props) => {
             form: setForm()
         }).then(response => response.data)
         .then(data => {
+            console.warn(data)
             navigation.navigate('BulleteinBoard', {post: data.post})
         })
     }
 
 
 
-    return (
+    return (    
       <Container>
           <SubContainer>
               <FuncBox>

@@ -33,6 +33,7 @@ import Gallery from '~/Screens/Gallery';
 import BulleteinBoard from '~/Screens/BulleteinBoard';
 import Write from '~/Screens/Write';
 import Read from '~/Screens/Read';
+import ReadList from '~/Screens/ReadList';
 import Information from '~/Screens/Information';
 import CirclePageEdit from '~/Screens/CirclePageEdit';
 import AddBoard from '~/Screens/AddBoard';
@@ -225,6 +226,15 @@ const MainStackNavigator = ({navigation } : Props) =>{
                 },
                 headerTintColor: '#fff',
                 headerTitle: 'Read',
+                headerBackTitleVisible: false ,
+            }}/>
+            <Stack.Screen name = "ReadList" component={ReadList}
+            options= {{
+                headerStyle:{
+                    backgroundColor : Constants.PRIMARY,
+                },
+                headerTintColor: '#fff',
+                headerTitle: 'ReadList',
                 headerBackTitleVisible: false 
             }}/>
             

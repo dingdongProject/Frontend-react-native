@@ -30,4 +30,5 @@ interface IUserContext {
     logout: () => void;
     userset: () => void;
     mainPageSet: () => void;
+    setNewRequests: (newRequests: Array<IRequest>) => void;
 }

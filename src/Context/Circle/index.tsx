@@ -65,7 +65,6 @@ const CircleContextProvider = ({children}: Props) => {
         await api.getBoards({name: circleChosen?.name})
         .then( (response) => response.data)
         .then((data) => {
-            console.warn(data)
             if (data.success){
                 setCircleBoards(data.boards)
             }
@@ -76,7 +75,6 @@ const CircleContextProvider = ({children}: Props) => {
         await api.getNotices({name: circleChosen?.name})
         .then( (response) => response.data)
         .then((data) => {
-            console.warn(data);
             if (data.success){
                 setCircleNotices(data.posts)
             }
@@ -87,7 +85,6 @@ const CircleContextProvider = ({children}: Props) => {
         await api.getGallery({name: circleChosen?.name})
         .then((response) => response.data)
         .then((data) => {
-            console.warn(data);
             setCircleGallery(data.gallery)
         })
         
@@ -137,10 +134,8 @@ const CircleContextProvider = ({children}: Props) => {
         api.addBoard({circle: circleChosen?.name, board: name})
         .then((response) => response.data)
         .then((data)=> {
-            console.warn(data)
             if (data.success) {
                 setCircleBoards([...circleBoards, data.board])
-                console.warn(data.board)
             }
         })
     }

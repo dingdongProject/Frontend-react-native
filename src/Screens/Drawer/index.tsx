@@ -112,7 +112,6 @@ const Drawer = ({props}:Props) => {
             {
             circleInfo?
             circleInfo.map((circle, key) => {
-                console.warn(circle)
                 return (
                     <Button 
                     onPress={()=>{changeToCircle(true, key); getCircleMembers(circle.name); props.navigation.closeDrawer();}}>

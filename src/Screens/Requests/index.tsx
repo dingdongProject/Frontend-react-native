@@ -86,17 +86,17 @@ interface Props {
 
 
 const Requests = ({navigation}:Props) => {
-    const {requests} = useContext<IUserContext>(UserContext);
+    const {requests,setNewRequests}  = useContext<IUserContext>(UserContext);
     const [currentRequests, setCurrentRequests] = useState<Array<IRequest>>(requests);
 
     const acceptRequest = (item: IRequest, accept=false) =>{
-        console.warn(item);
         api.postRespond({id: item.id, accept: accept})
         .then((response) => response.data)
         .then((data) => {
             if (data.success) {
                 const new_list = currentRequests.filter((r) =>{return r.id !== item.id})
                 setCurrentRequests(new_list);
+                setNewRequests(new_list);
             }
             else {
                 console.warn(data.message);

@@ -161,7 +161,7 @@ const CirclePageEdit =  ({navigation } : Props) => {
                         source={require('~/Assets/Images/star.png')}
                     />
                     
-                    : console.warn(isAdmin)
+                    : null
                   }
                   </MemTouch>
                   </MembersContainer>

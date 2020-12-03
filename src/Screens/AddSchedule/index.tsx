@@ -169,15 +169,13 @@ const AddSchedule =  ({route, navigation } : Props) => {
           content : content,
           datetime : datetime
         }).then((response)=>{
-          console.warn(response.data)
           return response.data
         }).then((data)=>{
           if (data.success) {
-            console.warn('Post successful')
             setSchedule({circle: circlename, scheduleList:[data.schedules]})
         }
         else {
-            console.warn('Post failed')
+            console.warn(data.message);
         }
         navigation.pop()
         })

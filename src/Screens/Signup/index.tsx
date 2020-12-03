@@ -123,7 +123,6 @@ const Signup = ({navigation}:Props) => {
                             }).then((data) => {
                                 if (data.success) {
                                     navigation.navigate('Login')
-                                    console.warn('sign up successful')
                                 }
                                 else {
                                     console.warn('sign up failed')
