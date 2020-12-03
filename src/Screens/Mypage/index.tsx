@@ -32,8 +32,6 @@ const MyContainer = Styled.View`
  
   align-items : flex-start;
   flex-direction : row;
-  border-bottom-width : 1px;
-  border-bottom-color : ${constants.TEXT2}
 `;
 
 const MyTouchContainer = Styled.TouchableOpacity`
@@ -61,28 +59,25 @@ margin-bottom : 0px;
 `;
 
 const EtcContainer = Styled.View`
-  border : 0px;
+  border : 1.5px solid ${constants.TEXT2};
+  border-radius: 20px;
   width : 400px;
-  height : 250px;
-  margin-top : 25px;
-  
-  margin-left : 0px;
+  height : 210px;
+  margin: auto;
+  margin-top: 20px;
 `;
 const EtcSubContainer = Styled.View`
-  border-bottom-width : 0.5px;
-  border-bottom-color : ${constants.TEXT2}
-  margin-top : 50px;
-  padding-bottom : 0px;
-  padding : 0px;
-  padding-left : 30px;
-  width : 400px;
-  height : 40px;
+  padding-left: 10px;
+  width : 370px;
+  height : 70px;
+  margin: auto;
   flex-direction : row;
+  align-items: center;
+  border : 0px solid ${constants.TEXT2};
+  border-bottom-width: 0.5px;
+
 `;
 const EtcImageBox = Styled.View`
-
-border : 0px;
-padding-top : 1px;
 margin-right : 8px;
 width : auto;
 `;
@@ -96,14 +91,12 @@ const EtcText = Styled.Text`
 font-size:20px;
 text-align:left;
 color:${constants.TEXT1};
-padding-bottom : 70px;
-margin-bottom : 0px;
 `;
 
 const EtcText2 = Styled.Text`
 font-size:20px;
 text-align:left;
-color:red;
+color: #f66;
 margin-bottom : 0px;
 `;
 
@@ -141,7 +134,6 @@ const Mypage =  ({navigation } : Props) => {
           <SubContainer>
           <MyContainer>
             <MyTouchContainer
-            onPress={()=>{navigation.navigate("MyPageEdit")}}
             >
              <MyImage source={{uri: userInfo?.picture ? userInfo.picture : 'https://dingdong-bucket.s3.ap-northeast-2.amazonaws.com/1593075284.jpg'}}/> 
              <MyScript>
@@ -199,14 +191,6 @@ const Mypage =  ({navigation } : Props) => {
             </MyTouchContainer>
           </EtcContainer>
           </SubContainer>
-            
-              <ButtonContainer>
-                <IconButton iconName = 'menu'
-                onPress={()=>{navigation.navigate("MyPageEdit")}}
-                />
-              </ButtonContainer>
-            
-        
       </Container> 
        
     );

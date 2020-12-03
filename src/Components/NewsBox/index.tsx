@@ -49,6 +49,7 @@ text-align:left;
 color: ${constants.TEXT1};
 margin-bottom : 0px;
 font-weight : bold;
+max-width: 90%;
 `;
 
 const PostImages = Styled.Image`
