@@ -47,12 +47,21 @@ const Stack = createStackNavigator();
 const BottomTab = createBottomTabNavigator();
 const Drawer = createDrawerNavigator();
 //tab->drawer->stack
-const CircleIcon = Styled.Image`
+const Circle1Icon = Styled.Image`
     margin-right : 10px;
-    width: 25px;
-    height: 25px;
+    width: 35px;
+    height: 35px;
     border-radius: 100px;
-    border: 0.5px;
+    
+    border-color : ${constants.TEXT2};
+    resize-mode:center;
+`;
+const Circle2Icon = Styled.Image`
+    margin-right : 10px;
+    width: 50px;
+    height: 48px;
+    border-radius: 100px;
+    
     border-color : ${constants.TEXT2};
     resize-mode:center;
 `;
@@ -66,7 +75,7 @@ resize-mode:center;
 const Circles2Icon = Styled.Image`
 margin-right : 10px;
 width: 50px;
-height: 50px;
+height: 48px;
 border-radius: 100px;
 resize-mode:center;
 `
@@ -162,7 +171,7 @@ const MainStackNavigator = ({navigation } : Props) =>{
                     backgroundColor : Constants.PRIMARY,
                 },
                 headerTintColor: '#fff',
-                headerTitle: '개인정보수정',
+                headerTitle: 'MyPage Edit',
                 headerBackTitleVisible: false 
             }}/>
             <Stack.Screen name = "AddCircle" component={AddCircle}
@@ -431,16 +440,19 @@ const MainTab = () => {
                 name = "Mypage"
                 component ={MypageNavigator}
                 options={{
-                    
                     tabBarIcon : ({color, focused}) => (
-                        <CircleIcon
-                        // source={
-                        //     focused
-                        //     ? userInfo?.picture
-                        //     : userInfo?.picture
-                        // }
+                        focused?
+                        <Circle2Icon
+                        
                         source={{uri: userInfo?.picture ? userInfo.picture : 'https://dingdong-bucket.s3.ap-northeast-2.amazonaws.com/1593075284.jpg'}}
                         />
+                        :
+                        <Circle1Icon
+                        
+                            source={{uri: userInfo?.picture ? userInfo.picture : 'https://dingdong-bucket.s3.ap-northeast-2.amazonaws.com/1593075284.jpg'}}
+                           
+                       
+                       />
                     ),
 
                 }}

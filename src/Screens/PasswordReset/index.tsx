@@ -23,13 +23,21 @@ const FormContainer = Styled.View`
 
 const LockImageContainer = Styled.View`
     padding : 24px;
-    border-width : 2px;
+   
     border-color : #292929;
-    border-radius : 80px;
+    
     margin-bottom : 24px;
 `;
 
-const LockImage = Styled.Image``;
+const LockImage = Styled.Image`
+   
+    margin: auto;
+  
+  width: 100px;
+  height: 100px;
+  border-radius: 100;
+  border: 0px;
+`;
 const Title = Styled.Text`
     color : #5F89FA;
     font-size : 16px;
@@ -70,9 +78,9 @@ const PasswordReset = ({navigation}:Props) => {
         <Container>
             <FormContainer>
                 <LockImageContainer>
-                    <LockImage source={require('~/Assets/Images/ic_all.png')} />
+                    <LockImage source={require('~/Assets/Images/dingdong_icon.png')} />
                 </LockImageContainer>
-            <Title>비밀번호를 잊어버리셨나요?</Title>
+            <Title>Forgot your password?</Title>
     
        
         <TextInput
@@ -83,11 +91,11 @@ const PasswordReset = ({navigation}:Props) => {
         />
        
 
-            <Button label="다음" style={{marginBottom : 24}} />
-            <HelpLabel>도움</HelpLabel>
+            <Button label="next" style={{marginBottom : 24}} />
+            <HelpLabel>help</HelpLabel>
             </FormContainer>
             <Footer>
-                <GoBack onPress={()=>navigation.goBack()}>돌아가기</GoBack>
+                <GoBack onPress={()=>navigation.goBack()}>Back</GoBack>
             </Footer>
         </Container>
     );

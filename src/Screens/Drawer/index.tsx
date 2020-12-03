@@ -156,7 +156,7 @@ const Drawer = ({props}:Props) => {
                         <Icon
                             source = {require('~/Assets/Images/ic_all.png')}
                         />
-                        <Label>로그아웃</Label>
+                        <Label>Logout</Label>
                         </ButtonContainer>
                     </Button>
             </Footer>

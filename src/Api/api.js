@@ -68,5 +68,7 @@ export default {
     getReadList : function(payload) {
         return _promise(METHOD.GET, BASE_URL + `post/${payload.id}/read`, {},true)
     },
- 
+    putMemberAdmin : function(payload) {
+        return _promise(METHOD.PUT, BASE_URL + `circles/${payload.circlename}/members`,payload,true)
+    }
 }
