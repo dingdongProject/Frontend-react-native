@@ -39,6 +39,7 @@ import AddBoard from '~/Screens/AddBoard';
 import CircleSearchInfo from '~/Screens/CircleSearchInfo';
 import AddSchedule from '~/Screens/AddSchedule';
 import Requests from '~/Screens/Requests';
+import Inquire from '~/Screens/Inquire';
 
 
 
@@ -247,14 +248,7 @@ const MainStackNavigator = ({navigation } : Props) =>{
                 headerBackTitleVisible: false ,
                 headerRight: () => (
                     <IconButton
-                        // onPress={()=> {circleMembers.forEach((item)=>{
-                        //     item.isAdmin? navigation.navigate('CirclePageEdit')
-                        //     :
-                        //     Alert.alert("no acess!")
-                        onPress={()=>{
-                            checkAdmin()
-                        }}
-                        // })}}
+                        onPress={()=>{checkAdmin()}}                        
                         iconName='dotMenu'/>
                 )
             }}/>
@@ -352,6 +346,15 @@ const MypageNavigator = ({navigation } : Props) => {
                 headerTintColor: '#fff',
             }}
             />
+            <Stack.Screen name = "Inquire" component={Inquire}
+            options={{
+                headerStyle:{
+                    backgroundColor : Constants.PRIMARY,
+                },
+                headerTintColor: '#fff',
+            }}
+            />
+            
            
         </Stack.Navigator>
     )

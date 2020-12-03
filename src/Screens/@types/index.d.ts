@@ -17,6 +17,7 @@ type CirclesNaviParamList = {
 type MypageNaviParamList = {
     Mypage : undefined;
     MyPadgeEdit : undefined;
+    Inquire : undefined;
 };
 
 type HomeNaviParamList = {
@@ -67,6 +68,7 @@ type TotalNaviParamList = {
     TestPage : undefined;
     AddSchedule : undefined;
     CircleSearchInfo : undefined;
+    Inquire : undefined;
 }
 
 type BoardNaviParamList = {

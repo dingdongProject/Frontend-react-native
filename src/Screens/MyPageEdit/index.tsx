@@ -25,24 +25,31 @@ interface Props {
 
 const Container = Styled.SafeAreaView`
     flex : 1;
-    background-color : #fff;
+    background-color : #f4f4f4;
 `;
 const FormContainer = Styled.View`
-    width : 100%;
-    height: 90%;
+    flex : 1;
     align-items : center;
     justify-content : center;
     padding : 32px;
 `;  
+const ImageButtonContainer = Styled.View`
+  border : 0px;
+  margin-bottom : 36px;
+`;
 
 const ContentContainer = Styled.View`
   flex : 1;
   border : 0px;
   width : 100%;
+  height : auto;
+  
 `;
-const NameContainer = Styled.View`
-
-`;
+const ButtonContainer = Styled.View`
+  margin-top : 54px;
+  width : 300px;
+  border : 0px;
+`
 
 const Description = Styled.Text`
   width: 100%;
@@ -51,21 +58,6 @@ const Description = Styled.Text`
   color : #929292;
   margin-left: 20px;
   margin-bottom: 5px;
-`;
-const MyImageTouch = Styled.TouchableOpacity``;
-const MyImage = Styled.Image`
-margin: auto;
-  margin-bottom: 10px;
-  width: 100px;
-  height: 100px;
-  border-radius: 100;
-  border: 1px;
-  border-color : ${constants.PRIMARY};
-`;
-
-
-const GoBack = Styled.Text`
-    color : #5F89FA;
 `;
 
 const MyPageEdit =  ({navigation } : Props) => {
@@ -102,19 +94,24 @@ const MyPageEdit =  ({navigation } : Props) => {
     return (
       <Container>
           <FormContainer> 
+            <ImageButtonContainer>
           <ImageButton 
           onPress={()=>{addImage()}}
           source = {userInfo?.picture ? userInfo.picture : undefined}
           />
+          </ImageButtonContainer>
           <ContentContainer>
           <Description>Name</Description>
-          <Input style={{marginBottom:32,}} placeholder="name"/>
+          <Input style={{marginBottom:48,}} placeholder="name"/>
           <Description>Introduction</Description>
-          <Input style={{marginBottom:32, flex : 0.6}} placeholder="introduction"/>
+          <Input style={{marginBottom:32, height :200}} placeholder="introduction"/>
           </ContentContainer>
+          <ButtonContainer>
           <Button label="My Information Edit!" onPress={() => {
-            navigation.goBack()
+            navigation.navigate('Mypage')
+            
           }}/>
+          </ButtonContainer>
           </FormContainer>
       </Container> 
        

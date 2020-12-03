@@ -1,4 +1,5 @@
 import React, {useContext, useLayoutEffect, useEffect,useState} from 'react';
+import { Linking } from 'react-native'
 import Styled from 'styled-components/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
@@ -12,21 +13,23 @@ import constants from '~/Constants/constants';
 
 const Container = Styled.SafeAreaView`
   flex: 1;
-  background-color: #ffffff;
+  background-color: #f4f4f4;
   align-items: center;
   justify-content: center;
 `;
 
 const SubContainer = Styled.View`
-  flex : 0.9;
-  width  : 400px;
-  height : 375px;
+  flex : 1;
+  width  : 100%;
+  height : auto;
   border : 0px;
 `;
 const MyContainer = Styled.View`
   border : 0px;
-  width : 400px;
-  height : 180px;
+  width : 100%;
+  height : 220px;
+  padding-top : 30px;
+ 
   align-items : flex-start;
   flex-direction : row;
   border-bottom-width : 1px;
@@ -41,7 +44,7 @@ const MyImage = Styled.Image`
   margin-bottom: 10px;
   width: 100px;
   height: 100px;
-  border-radius: 100;
+  border-radius: 100px;
   border: 1px;
   border-color : ${constants.PRIMARY};
 
@@ -53,27 +56,41 @@ const MyScript = Styled.View`
 const MyScriptText =Styled.Text`
 font-size:20px;
 text-align:center;
-color:${constants.TEXT2};
+color:${constants.TEXT1};
 margin-bottom : 0px;
 `;
 
 const EtcContainer = Styled.View`
   border : 0px;
-  width : 375px;
+  width : 400px;
   height : 250px;
   margin-top : 25px;
+  
   margin-left : 0px;
 `;
 const EtcSubContainer = Styled.View`
-  border-bottom-width : 1px;
+  border-bottom-width : 0.5px;
   border-bottom-color : ${constants.TEXT2}
-  margin-top : 30px;
-  padding-bottom : 20px;
-  margin-bottom : 0px;
-  padding : 10px;
+  margin-top : 50px;
+  padding-bottom : 0px;
+  padding : 0px;
+  padding-left : 30px;
   width : 400px;
   height : 40px;
-  margin-left : 0px;
+  flex-direction : row;
+`;
+const EtcImageBox = Styled.View`
+
+border : 0px;
+padding-top : 1px;
+margin-right : 8px;
+width : auto;
+`;
+
+const EtcImage = Styled.Image`
+ width : 24px;
+ height : 24px;
+
 `;
 const EtcText = Styled.Text`
 font-size:20px;
@@ -140,15 +157,29 @@ const Mypage =  ({navigation } : Props) => {
             </MyTouchContainer>
           </MyContainer>
           <EtcContainer>
-            <MyTouchContainer>
+            <MyTouchContainer
+            onPress={()=>Linking.openSettings()}
+            >
             <EtcSubContainer>
+              <EtcImageBox>
+              <EtcImage
+              source={require('~/Assets/Images/setting.png')}
+              />
+              </EtcImageBox>
               <EtcText>
                 setting
               </EtcText>
             </EtcSubContainer>
             </MyTouchContainer>
-            <MyTouchContainer>
+            <MyTouchContainer
+            onPress={()=>{navigation.navigate("Inquire")}}
+            >
             <EtcSubContainer>
+              <EtcImageBox>
+            <EtcImage
+              source={require('~/Assets/Images/help.png')}
+              />
+              </EtcImageBox>
             <EtcText>
                 Inquire
               </EtcText>
@@ -156,6 +187,11 @@ const Mypage =  ({navigation } : Props) => {
             </MyTouchContainer>
             <MyTouchContainer>
             <EtcSubContainer>
+              <EtcImageBox>
+            <EtcImage
+              source={require('~/Assets/Images/withdraw.png')}
+              />
+              </EtcImageBox>
             <EtcText2>
                 withdraw
               </EtcText2>
