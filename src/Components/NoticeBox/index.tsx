@@ -54,12 +54,12 @@ const NoticeBodyBox = Styled.TouchableOpacity`
 
 `;
 const NoticeBodyTitleBox = Styled.View`
-    flex : 1;
     flex-direction: row;
     align-items: center;
     margin-bottom : 20px;
     margin-left : 5px;
     margin-right : 50px;
+    height: 18px;
     
 `;
 
@@ -90,6 +90,28 @@ color:${Constants.TEXT2};
 margin-bottom : 0px;
 `;
 
+const NoticeFooter = Styled.View`
+    width: 100%; 
+    justify-content: flex-end;
+    flex-direction: row;
+    align-items: center;
+`
+
+
+const NoticeFooterText = Styled.Text`
+    margin-left: 10px;
+    color: ${constants.TEXT3}
+`;
+const NoticeFooterImage = Styled.Image`
+    width: 30px;
+    height: 30px;
+    border-radius: 100;
+    border: 0.5px;
+    border-color : ${constants.PRIMARY};
+    resize-mode:center
+`;
+
+
 
 
 const NoticeBox = () => {
@@ -109,6 +131,13 @@ const NoticeBox = () => {
                 <NoticeBodyBodyBox>
                         <NoticeBodyBody>{notice.content}</NoticeBodyBody>
                 </NoticeBodyBodyBox>
+                {
+                            circleInfo.length > 0 &&
+                    <NoticeFooter>
+                        <NoticeFooterImage source={{ uri: circleInfo[0].picture }} />   
+                        <NoticeFooterText>{circleInfo[0].name}</NoticeFooterText>
+                    </NoticeFooter>
+                }
             </NoticeBodyBox>
                     
                 

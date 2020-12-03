@@ -12,6 +12,8 @@ interface IPostInfo {
     board: number;
     images: Array<{image: string}>;
     comments: Array<{content: string, owner: {username: string, picture:string}, created_at: string}>;
+    check_read: boolean;
+    hasRead: boolean;
 }
 interface IMembersInfo {
     name : string;

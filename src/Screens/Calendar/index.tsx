@@ -138,7 +138,6 @@ const Calendars =  ({navigation } : Props) => {
       
     
     const DatelistProvider = (name = '') => {
-      console.warn(name);
       ISchedule.forEach((item)=>{
         var schedulelist = item.scheduleList
         var split;
@@ -173,8 +172,6 @@ const Calendars =  ({navigation } : Props) => {
           var todayDate = todayschedule[i].datetime.split('T')[0];
            if(todayDate === new_daystring){
               setScheduleSelected(todayschedule[i])
-              console.warn(todayschedule[i])
-              console.warn('index',circleIndex)
               showModal();
            }
           }

@@ -5,7 +5,6 @@ export default {
         return _promise(METHOD.POST, BASE_URL + `signup` , payload)
     },
     addCircle: function(payload) {
-        console.warn(payload)
         return _promise(METHOD.POST_FILES, BASE_URL + `circles` , payload, true)
     },
     logIn: function(payload) {
@@ -62,6 +61,12 @@ export default {
     ,
     postRespond : function(payload) {
         return _promise(METHOD.POST, BASE_URL + `respond`,payload,true)
+    },
+    postRead : function(payload) {
+        return _promise(METHOD.POST, BASE_URL + `post/${payload.id}/read`,payload,true)
+    },
+    getReadList : function(payload) {
+        return _promise(METHOD.GET, BASE_URL + `post/${payload.id}/read`, {},true)
     },
     putMemberAdmin : function(payload) {
         return _promise(METHOD.PUT, BASE_URL + `circles/${payload.circlename}/members`,payload,true)

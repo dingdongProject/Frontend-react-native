@@ -21,7 +21,7 @@ interface Props {
 
 const Container = Styled.SafeAreaView`
   flex: 1;
-  background-color: #f4f4f4;
+  background-color: #fff;
   justify-content: center;
   align-items: center;
 `;
@@ -30,7 +30,7 @@ const ScrollConatainer = Styled.ScrollView`
 `;
 const DingdongImage = Styled.Image`
   width : 420px;
-  height : 800px;
+  height : 400px;
   
 `;
 
@@ -115,6 +115,10 @@ margin-bottom : 0px;
 const MembersAdmin = Styled.Image`
 
 `;
+const DingdongText = Styled.Text`
+color: ${constants.TEXT2};
+
+`;
 
 
 
@@ -179,6 +183,8 @@ const Information =  ({navigation } : Props) => {
        : 
        <Container>
        <DingdongImage source = {require('~/Assets/Images/dingdong_splas.png')}/>
+       <DingdongText>dingdong v1.0</DingdongText>
+       <DingdongText>Team Waffles</DingdongText>
        </Container>
 
       

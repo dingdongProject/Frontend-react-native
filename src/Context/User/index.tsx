@@ -18,6 +18,7 @@ const defaultContext : IUserContext = {
     logout: () =>{},
     userset : () => {},
     mainPageSet: () => {},
+    setNewRequests: (newRequests: Array<IRequest>) => {},
 };
 
 
@@ -57,7 +58,6 @@ const UserContextProvider = ({children}:Props) => {
             
         });
         
-        console.warn('check usercontext useEffect')
         }, []);
     
     const mainPageSet = async () => {
@@ -117,7 +117,6 @@ const UserContextProvider = ({children}:Props) => {
 
     const addCircle = (form: FormData) : void=> {
         api.addCircle(form).then( (response) => {
-            console.warn(response.data)
             return response.data
           }).then( (data) => {
             if (data.success) {
@@ -137,7 +136,9 @@ const UserContextProvider = ({children}:Props) => {
     };
 
 
-
+    const setNewRequests = (newRequests: Array<IRequest>) => {
+        setRequests(newRequests);
+    }
 
     
     return (
@@ -154,7 +155,8 @@ const UserContextProvider = ({children}:Props) => {
                 login,
                 logout,
                 userset,
-                mainPageSet
+                mainPageSet,
+                setNewRequests
             }}>
                 {children}
             </UserContext.Provider>

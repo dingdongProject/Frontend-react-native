@@ -118,7 +118,6 @@ const BulleteinBoard =  ({route, navigation } : any) => {
     await api.getPosts({id: id})
     .then(response => response.data)
     .then((data) => {
-        console.warn(data)
         if (data.success) {
             setPostList(data.post);
         }
@@ -128,8 +127,6 @@ const BulleteinBoard =  ({route, navigation } : any) => {
 
 
   useEffect(() => {
-    console.warn(route.params)
-    console.warn(postList)
     
     if (route.params.post) {
         setPostList([route.params.post, ...postList]);

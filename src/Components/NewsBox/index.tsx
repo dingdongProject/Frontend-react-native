@@ -9,13 +9,11 @@ import constants from '~/Constants/constants';
 import { CircleContext } from '~/Context/Circle';
 
 const NewsContainer = Styled.View`
-    flex : 1;
     padding : 25px;
     align-items : flex-start;
 
 `;
 const NewsTitleBox = Styled.View`
-    flex : 1;
     border-bottom-width : 0px;
     margin-bottom : 10px;
 `;
@@ -28,21 +26,21 @@ font-weight : bold;
 `;
 
 const Newsbox = Styled.View`
-flex:9;
-border:1px solid #ccc;
+
 margin:2px;
 margin-bottom : 10px;
 border-radius:10px;
 box-shadow:0 0 10px #ccc;
 background-color:#fff;
-padding:30px;
+padding: 15px 25px;
 width : 350px;
-height : auto;
+min-height : 200px;
+justify-content: space-between;
 `;
 const NewsContent = Styled.Text`
 font-size:16px;
 text-align:left;
-color: ${constants.TEXT1};
+color: ${constants.TEXT2};
 margin-bottom : 0px;
 `;
 const NewsContentTitle = Styled.Text`
@@ -58,6 +56,42 @@ max-width : 350px;
 height : 200px;
 resize-mode:center;
 `;
+const NewsTitleImage = Styled.Image`
+    margin-right : 10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 100;
+    border: 0.5px;
+    border-color : ${constants.PRIMARY};
+    resize-mode:center
+`;
+const TitleBox = Styled.View`
+flex-direction: row;
+margin-bottom: 10px;
+`;
+const NewsFooter = Styled.View`
+    bottom: 0px;
+    width: 100%; 
+    justify-content: flex-end;
+    flex-direction: row;
+    align-items: center;
+`
+
+
+const NewsFooterText = Styled.Text`
+    margin-left: 10px;
+    color: ${constants.TEXT3}
+`;
+const NewsFooterImage = Styled.Image`
+    width: 30px;
+    height: 30px;
+    border-radius: 100;
+    border: 0.5px;
+    border-color : ${constants.PRIMARY};
+    resize-mode:center
+`;
+
+
 
 interface Props{
     title : string
@@ -73,7 +107,11 @@ const NewsBox = ({title}:Props) => {
             {
                 newsMain.map((item,key)=> (
                     <Newsbox>
+                        <View>
+                        <TitleBox>
+                        <NewsTitleImage source={{uri: item.owner.picture}}></NewsTitleImage>
                         <NewsContentTitle>{item.title}</NewsContentTitle>
+                        </TitleBox>
                         <NewsContent>{item.content}</NewsContent>
                         {
                             item.images && item.images.length !== 0  && item.images.map((image,key) => (
@@ -81,9 +119,19 @@ const NewsBox = ({title}:Props) => {
                             ))
 
                         }
+                        </View>
+                        {
+                            circleInfo.length > 0 &&
+                            <NewsFooter>
+                                <NewsFooterImage source={{ uri: circleInfo[0].picture }} />   
+                                <NewsFooterText>{circleInfo[0].name}</NewsFooterText>
+                            </NewsFooter>
+                        }
+                        
                     </Newsbox>
                 ))
             }
+            
         </NewsContainer>
     )
 }
