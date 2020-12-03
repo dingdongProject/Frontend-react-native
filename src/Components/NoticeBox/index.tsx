@@ -54,12 +54,12 @@ const NoticeBodyBox = Styled.TouchableOpacity`
 
 `;
 const NoticeBodyTitleBox = Styled.View`
-    flex : 1;
     flex-direction: row;
     align-items: center;
     margin-bottom : 20px;
     margin-left : 5px;
     margin-right : 50px;
+    height: 18px;
     
 `;
 
@@ -131,10 +131,13 @@ const NoticeBox = () => {
                 <NoticeBodyBodyBox>
                         <NoticeBodyBody>{notice.content}</NoticeBodyBody>
                 </NoticeBodyBodyBox>
-                <NoticeFooter>
-                    <NoticeFooterImage source={{ uri: circleInfo[0].picture }} />   
-                    <NoticeFooterText>{circleInfo[0].name}</NoticeFooterText>
-                </NoticeFooter>
+                {
+                            circleInfo.length > 0 &&
+                    <NoticeFooter>
+                        <NoticeFooterImage source={{ uri: circleInfo[0].picture }} />   
+                        <NoticeFooterText>{circleInfo[0].name}</NoticeFooterText>
+                    </NoticeFooter>
+                }
             </NoticeBodyBox>
                     
                 

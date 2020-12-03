@@ -120,10 +120,14 @@ const NewsBox = ({title}:Props) => {
 
                         }
                         </View>
-                        <NewsFooter>
-                            <NewsFooterImage source={{ uri: circleInfo[0].picture }} />   
-                            <NewsFooterText>{circleInfo[0].name}</NewsFooterText>
-                        </NewsFooter>
+                        {
+                            circleInfo.length > 0 &&
+                            <NewsFooter>
+                                <NewsFooterImage source={{ uri: circleInfo[0].picture }} />   
+                                <NewsFooterText>{circleInfo[0].name}</NewsFooterText>
+                            </NewsFooter>
+                        }
+                        
                     </Newsbox>
                 ))
             }
