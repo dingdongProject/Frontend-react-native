@@ -155,6 +155,7 @@ const Information =  ({navigation } : Props) => {
              {
                
                circleMembers.map((name,isAdmin)=>{
+                 if(name.isAdmin){
                  return(
                    
                   <MembersContainer>
@@ -165,13 +166,33 @@ const Information =  ({navigation } : Props) => {
                     {name.isAdmin?
                     <MembersAdmin
                         source={require('~/Assets/Images/star.png')}
-                    /> : console.warn(isAdmin)
+                    /> : ''
                   }
                   </MemberCenter>
                   </MembersContainer>
                   
 
                  )
+                }
+               }) 
+             }
+             {
+               
+               circleMembers.map((name,isAdmin)=>{
+                 if(!name.isAdmin){
+                 return(
+                   
+                  <MembersContainer>
+                    <MemberCenter>
+                    <MembersText>
+                    {name.name}
+                    </MembersText>
+                  </MemberCenter>
+                  </MembersContainer>
+                  
+
+                 )
+                }
                }) 
              }
             
