@@ -96,7 +96,7 @@ const AddCircle =  ({navigation } : Props) => {
           <Description>Introduction</Description>
           <Input style={{marginBottom:32, flex: 5 }} onChangeText={(text)=> onChangeExplaination(text)} 
           placeholder="Introduction" multi={true} max={300}/>
-          <Button label="동아리 생성" onPress={async () => {
+          <Button label="Create Circle!" onPress={async () => {
 
             var form = new FormData();
             let formCircleFile = circlePicture

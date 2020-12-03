@@ -88,13 +88,13 @@ const Login = ({navigation} :Props) => {
         <Container>
             <FormContainer>
                 <Logo>dingdong</Logo>
-                <Input style={{marginBottom:16}} placeholder="아이디" onChangeText={text => onChangeEmail(text)}/>
-                <Input style={{marginBottom:16}} placeholder="비밀번호" onChangeText={text => onChangePassword(text)} secureTextEntry={true}/>
+                <Input style={{marginBottom:16}} placeholder="username" onChangeText={text => onChangeEmail(text)}/>
+                <Input style={{marginBottom:16}} placeholder="password" onChangeText={text => onChangePassword(text)} secureTextEntry={true}/>
                 <PasswordReset onPress={()=>navigation.navigate('PasswordReset')}>
-                    비밀번호 재설정
+                    Password Reset
                 </PasswordReset>
                 <Button
-                    label ="로그인"
+                    label ="Login"
                     style = {{
                         marginBottom : 24
                     }}
@@ -111,14 +111,14 @@ const Login = ({navigation} :Props) => {
                     }}
                     />
                 <SignupText>
-                    계정이 없으신가요?{'  '}
+                    Don't have an account?{'  '}
                     <SignupLink onPress={()=>navigation.navigate('Signup')}>
-                        회원가입
+                        Sign up
                     </SignupLink>
                 </SignupText>
             </FormContainer>
             <Footer>
-                <Copyright>SNS-Application from colorful_ahn</Copyright>
+                <Copyright>dingdong project. Team waffles</Copyright>
             </Footer>
         </Container>
     );

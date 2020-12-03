@@ -201,7 +201,7 @@ const BulleteinBoard =  ({route, navigation } : any) => {
                 >
             <Footer>
                 <FooterText>
-                    글쓰기
+                    Write
                 </FooterText>
             </Footer>
             </FooterTouch>

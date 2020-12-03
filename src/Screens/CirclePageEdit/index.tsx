@@ -208,7 +208,7 @@ const addAdmin = async (name : string, circlename : string) => {
           <Input style={{marginBottom:32, flex: 5 }} placeholder="explanation"/>
           
             
-            <Description>Name</Description>
+            <Description>Members</Description>
               <MembersBox>
                 <MembersSubBox>
               <MembersText>

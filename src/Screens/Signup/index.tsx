@@ -137,15 +137,15 @@ const Signup = ({navigation}:Props) => {
                  }
                 
                 }
-                label="회원가입" 
+                label="sign up" 
                 style={{marginBottom : 24,
                     
                         }}/>
             </FormContainer>
            <Footer>
             <FooterDescription>
-                이미 계정이 있으신가요?{' '}
-                <GoBack onPress={()=>navigation.goBack()}>로그인</GoBack>
+                Already have an account?{' '}
+                <GoBack onPress={()=>navigation.goBack()}>Login</GoBack>
             </FooterDescription>
             </Footer>
         </Container>

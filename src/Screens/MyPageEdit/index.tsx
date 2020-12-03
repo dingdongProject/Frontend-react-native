@@ -81,9 +81,9 @@ const MyPageEdit =  ({navigation } : Props) => {
 
     const addImage = () => {
         ImagePicker.showImagePicker({
-            takePhotoButtonTitle : '사진찍기',
-            chooseFromLibraryButtonTitle : '앨범에서 고르기',
-            cancelButtonTitle : '취소'
+            takePhotoButtonTitle : 'take a photo',
+            chooseFromLibraryButtonTitle : 'choose from album',
+            cancelButtonTitle : 'cancel'
         },response=>{
             setAvatar(response.uri)
             console.log(response.uri)
@@ -108,11 +108,11 @@ const MyPageEdit =  ({navigation } : Props) => {
           />
           <ContentContainer>
           <Description>Name</Description>
-          <Input style={{marginBottom:32,}} placeholder="이름"/>
+          <Input style={{marginBottom:32,}} placeholder="name"/>
           <Description>Introduction</Description>
-          <Input style={{marginBottom:32, flex : 0.6}} placeholder="소개"/>
+          <Input style={{marginBottom:32, flex : 0.6}} placeholder="introduction"/>
           </ContentContainer>
-          <Button label="개인정보 수정" onPress={() => {
+          <Button label="My Information Edit!" onPress={() => {
             navigation.goBack()
           }}/>
           </FormContainer>

@@ -170,7 +170,7 @@ const MainStackNavigator = ({navigation } : Props) =>{
                     backgroundColor : Constants.PRIMARY,
                 },
                 headerTintColor: '#fff',
-                headerTitle: '개인정보수정',
+                headerTitle: 'MyPage Edit',
                 headerBackTitleVisible: false 
             }}/>
             <Stack.Screen name = "AddCircle" component={AddCircle}

@@ -65,12 +65,12 @@ const AddBoard =  ({navigation } : Props) => {
       <Container>
           <FormContainer> 
           <CircleImage source={{uri: circleChosen?.picture}}/>
-          <Description>Name</Description>
+          <Description>Board Name</Description>
           <Input style={{marginBottom:32, flex:0.2}} onChangeText={(text)=> onChangeName(text)} 
           placeholder="Board Name" max={20}/>
           
           
-          <Button label="게시판 생성" onPress={() => {
+          <Button label="Add board" onPress={() => {
             addBoard(name);
             navigation.pop();
           }}/>
