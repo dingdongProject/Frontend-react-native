@@ -134,6 +134,7 @@ const Mypage =  ({navigation } : Props) => {
           <SubContainer>
           <MyContainer>
             <MyTouchContainer
+            onPress={()=>navigation.navigate('MyPageEdit')}
             >
              <MyImage source={{uri: userInfo?.picture ? userInfo.picture : 'https://dingdong-bucket.s3.ap-northeast-2.amazonaws.com/1593075284.jpg'}}/> 
              <MyScript>

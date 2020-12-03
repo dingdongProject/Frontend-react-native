@@ -92,16 +92,14 @@ const Drawer = ({props}:Props) => {
     const {changeToCircle,getCircleMembers,setMainPage} = useContext<ICircleContext>(CircleContext);
     return (
         <DrawerContentScrollView {...props}>
-            <Button
-                onPress={()=>{props.navigation.navigate('MyPageEdit',{screen : 'MyPageEdit'})}}
-                >
+            
                 <Header>
                 <ProfilePic source={{uri: userInfo?.picture ? userInfo.picture : constants.DEFAULT_USER_IMG}}
                 />
                 <Title>{userInfo?.username}</Title>
                 <Title>{userInfo?.email}</Title>
                 </Header>
-            </Button>
+            
             <Button onPress={()=>{changeToCircle(false, 0); props.navigation.closeDrawer();}}>
             <ButtonContainer
                 >

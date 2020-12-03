@@ -166,15 +166,7 @@ const MainStackNavigator = ({navigation } : Props) =>{
                 }}
             
             />
-            <Stack.Screen name = "MyPageEdit" component={MyPageEdit}
-             options= {{
-                headerStyle:{
-                    backgroundColor : Constants.PRIMARY,
-                },
-                headerTintColor: '#fff',
-                headerTitle: 'MyPage Edit',
-                headerBackTitleVisible: false 
-            }}/>
+            
             <Stack.Screen name = "AddCircle" component={AddCircle}
                 options={{
                 headerStyle:{
@@ -364,6 +356,15 @@ const MypageNavigator = ({navigation } : Props) => {
                 headerTintColor: '#fff',
             }}
             />
+            <Stack.Screen name = "MyPageEdit" component={MyPageEdit}
+             options= {{
+                headerStyle:{
+                    backgroundColor : Constants.PRIMARY,
+                },
+                headerTintColor: '#fff',
+                headerTitle: 'MyPage Edit',
+                headerBackTitleVisible: false 
+            }}/>
             
            
         </Stack.Navigator>
