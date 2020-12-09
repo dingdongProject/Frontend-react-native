@@ -193,7 +193,6 @@ const Circles =  ({navigation } : Props) => {
           placeholder={'Search'}
           placeholderTextColor={constants.TEXT1}
           onChangeText={(text) => setSearchInput(text)}
-          clearButtonMode = 'while-editing'
           
           />
           <SearchImageBox

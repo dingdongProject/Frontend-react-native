@@ -52,6 +52,7 @@ const Input = ({
         onChangeText={onChangeText}
         multiline = {multi}
         maxLength = {max? max : 1000}
+        
       
       />
     </Container>

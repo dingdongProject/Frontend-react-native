@@ -124,7 +124,7 @@ const MainStackNavigator = ({navigation } : Props) =>{
         :
         Alert.alert('No Access!!!')
         :
-        Alert.alert('No Access!!!')
+        ''
         
       }
     return(
