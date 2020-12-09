@@ -101,10 +101,10 @@ const MyPageEdit =  ({navigation } : Props) => {
           />
           </ImageButtonContainer>
           <ContentContainer>
-          <Description>Name</Description>
+          <Description>Username</Description>
           <Input style={{marginBottom:48,}} placeholder="name"/>
-          <Description>Introduction</Description>
-          <Input style={{marginBottom:32, height :200}} placeholder="introduction"/>
+          <Description>E-mail</Description>
+          <Input style={{marginBottom:32, }} placeholder="introduction"/>
           </ContentContainer>
           <ButtonContainer>
           <Button label="My Information Edit!" onPress={() => {
