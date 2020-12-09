@@ -8,6 +8,7 @@ interface IPostInfo {
     content: string;
     created: string;
     owner: {username:string, picture:string};
+    circle: ICircleInfo,
     id: number;
     board: number;
     images: Array<{image: string}>;

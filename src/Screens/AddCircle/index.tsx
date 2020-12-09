@@ -100,7 +100,7 @@ const AddCircle =  ({navigation } : Props) => {
 
             var form = new FormData();
             let formCircleFile = circlePicture
-            formCircleFile.uri = Platform.OS === "android" ? formCircleFile.uri : formCircleFile.uri.replace("file://", ""),
+            formCircleFile.uri = Platform.OS === "android" ? formCircleFile.uri : formCircleFile.uri.replace("file://", "")
             form.append('name', circleName)
             form.append('explanation', circleExplaination)
             form.append('tags', circleTag)

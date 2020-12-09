@@ -5,7 +5,7 @@ import SplashScreen from 'react-native-splash-screen';
 import {UserContext} from '~/Context/User';
 import {CircleContext} from '~/Context/Circle';
 import ImagePicker from 'react-native-image-picker';
-
+import {Platform} from 'react-native';
 import { onChange } from 'react-native-reanimated';
 import constants from '~/Constants/constants';
 
@@ -61,15 +61,15 @@ const Description = Styled.Text`
 `;
 
 const MyPageEdit =  ({navigation } : Props) => {
-  const {userInfo} = useContext<IUserContext>(UserContext)
-  const [circleName,onChangecircleName] = useState('')
-  const [circleExplaination,onChangeExplaination] = useState('')
-  const [circlePicture,onChangecirclePicture] =useState('')
+  const {userInfo, modifyUserInfo} = useContext<IUserContext>(UserContext)
+  const [name,onChangeName] = useState(userInfo?.username)
+  const [email,onChangeEmail] = useState(userInfo?.email)
+  const [userPicture,onChangeuserPicture] =useState({uri: '', name: '', type:''})
   const {addCircle} = useContext<IUserContext>(UserContext)
   const {isCircle,circleChosen} = useContext<ICircleContext>(CircleContext)
+  var pictureChanged = false;
   
-  
-  const [Avatar,setAvatar] = useState('')
+
 
     const addImage = () => {
         ImagePicker.showImagePicker({
@@ -77,14 +77,32 @@ const MyPageEdit =  ({navigation } : Props) => {
             chooseFromLibraryButtonTitle : 'choose from album',
             cancelButtonTitle : 'cancel'
         },response=>{
-            setAvatar(response.uri)
-            console.log(response.uri)
+          if (response.didCancel) return;
+          pictureChanged = true;
+          onChangeuserPicture({
+            uri: response.uri,
+            name: `${Math.floor(Math.random() * 100000000)}.png`,
+            type: 'image/png'
+          });
         })
     }
 
   const checkInputs= () => {
     
     return true;
+  }
+  const changeUser = () => {
+    var form = new FormData();
+    let formUserFile = userPicture
+    formUserFile.uri = Platform.OS === "android" ? formUserFile.uri : formUserFile.uri.replace("file://", "")
+    form.append('name', name)
+    form.append('email', email)
+    if (userPicture.uri !== '')
+      form.append('picture', formUserFile)
+    form.append('Content-Type', 'image/png');
+    modifyUserInfo(form);
+    navigation.pop();
+  }
 }
   
 
@@ -101,15 +119,14 @@ const MyPageEdit =  ({navigation } : Props) => {
           />
           </ImageButtonContainer>
           <ContentContainer>
-          <Description>Username</Description>
-          <Input style={{marginBottom:48,}} placeholder="name"/>
-          <Description>E-mail</Description>
-          <Input style={{marginBottom:32, }} placeholder="introduction"/>
+          <Description>Name</Description>
+          <Input style={{marginBottom:20}} placeholder="name" onChangeText={(text) =>onChangeName(text)}/>
+          <Description>Email</Description>
+          <Input style={{marginBottom:48,}} placeholder="email" onChangeText={(text) =>onChangeEmail(text)}/>
           </ContentContainer>
           <ButtonContainer>
-          <Button label="My Information Edit!" onPress={() => {
-            navigation.navigate('Mypage')
-            
+          <Button label="Change My Info" onPress={() => {
+            changeUser();
           }}/>
           </ButtonContainer>
           </FormContainer>
