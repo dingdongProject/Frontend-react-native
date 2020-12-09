@@ -1,5 +1,5 @@
 import React , { createContext, useState, useEffect } from 'react';
-import Alert from 'react-native';
+import {Alert} from 'react-native';
 import AsyncStorage from '@react-native-community/async-storage';
 import SplashScreen from 'react-native-splash-screen';
 import api from '~/Api/api'
@@ -41,7 +41,7 @@ const UserContextProvider = ({children}:Props) => {
 
     const showError = (message: string) : void => {
         setTimeout(()=> {
-            console.warn(message);
+            Alert.alert(message)
     
         },200);
         };
@@ -76,9 +76,13 @@ const UserContextProvider = ({children}:Props) => {
         api.logIn({
             username : username,
             password : password,
-        }).then((response)=>{
+        })
+        .then((response)=>{
             return response.data
         }).then((data)=>{
+            if(data.success === false){
+                Alert.alert('Login Failed!')
+            }
             AsyncStorage.setItem('token',data.token)
             setTokenInfo(data.token)
             setUSerInfo(data.user);
@@ -87,10 +91,8 @@ const UserContextProvider = ({children}:Props) => {
             mainPageSet().then(() => {
                 setIsLoading(true)
             })
-         }).catch(error =>{
-                setIsLoading(true);
-                showError('잘못된 정보 입력입니다!');
-            // });  
+         }).catch(() =>{
+                setIsLoading(true); 
         })
     
     };

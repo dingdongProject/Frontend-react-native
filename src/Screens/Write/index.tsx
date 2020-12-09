@@ -1,6 +1,6 @@
 import React, {useContext, useLayoutEffect, useEffect,useState} from 'react';
 import Styled, {ThemeProvider} from 'styled-components/native';
-import {TextInput, Text,  Platform} from 'react-native';
+import {TextInput, Text,  Platform, Alert} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import {UserContext} from '~/Context/User';
@@ -235,8 +235,16 @@ const Write =  ({route, navigation } : Props) => {
               <Button
               label="post" 
               onPress ={ ()=> {
+                  if(title.length !==0 && content.length !==0){
                   sendPost();
                   navigation.pop();
+                  }
+                  else if(title.length ===0){
+                      Alert.alert('Please Input Title!')
+                  }
+                  else if(content.length ===0){
+                    Alert.alert('Please Input Content!')
+                }
               }}
               />
           </SubContainer>

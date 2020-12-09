@@ -1,6 +1,6 @@
 import React, {useContext, useLayoutEffect, useEffect, useState, useRef} from 'react';
 import Styled from 'styled-components/native';
-import {TextInput, View, Text} from 'react-native';
+import {TextInput, View, Text, Alert} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import SplashScreen from 'react-native-splash-screen';
 import {UserContext} from '~/Context/User';
@@ -288,6 +288,7 @@ const Read =  ({route, navigation } : Props) => {
         .then(response => response.data)
         .then(data => {
             if (data.success) {
+                Alert.alert("Checked!!!")
                 setRead({text: 'Checked', hasRead: true})
             }
             else {
@@ -395,7 +396,14 @@ const Read =  ({route, navigation } : Props) => {
             </ScrollContainer>
             <Footer>
                 <CommentInput onChangeText = {(text) => setComment(text)} value={comment}/>
-                <SendImageContainer onPress={() => sendComment()}>
+                <SendImageContainer onPress={() => {
+                    if(comment.length!==0){
+                    sendComment()
+                    }
+                    else{
+                        Alert.alert('No Text!')
+                    }
+                    }}>
                 <SendImage source={require('~/Assets/Images/send.png')}/>
                 </SendImageContainer>
             </Footer>

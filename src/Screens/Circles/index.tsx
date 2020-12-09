@@ -5,7 +5,7 @@ import SplashScreen from 'react-native-splash-screen';
 import {UserContext} from '~/Context/User';
 import constants from '~/Constants/constants';
 import IconButton from '~/Components/IconButton';
-import { Image } from 'react-native';
+import { Alert, Image } from 'react-native';
 import api from '~/Api/api';
 import { useAsyncStorage } from '@react-native-community/async-storage';
 
@@ -155,6 +155,7 @@ const Circles =  ({navigation } : Props) => {
   }, [])
 
   const search= () => {
+    if(searchInput.length !==0){
     api.getCircleSearch({search: searchInput})
     .then((response) => response.data)
     .then((data) => {
@@ -167,6 +168,10 @@ const Circles =  ({navigation } : Props) => {
         setSearchInput("all")
       }
     })
+  }
+  else{
+    Alert.alert('No Text');
+  }
   }
 
 

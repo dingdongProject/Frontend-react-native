@@ -9,7 +9,7 @@ import { onChange } from 'react-native-reanimated';
 import constants from '~/Constants/constants';
 
 import api from '~/Api/api'
-import {Platform, Image} from 'react-native';
+import {Platform, Image, Alert} from 'react-native';
 import IconButton from '~/Components/IconButton';
 import Button from '~/Components/Button';
 import Input from '~/Components/Input';
@@ -71,8 +71,13 @@ const AddBoard =  ({navigation } : Props) => {
           
           
           <Button label="Add board" onPress={() => {
+            if(name.length!==0){
             addBoard(name);
             navigation.pop();
+            }
+            else{
+              Alert.alert('Please Input Board Name!')
+            }
           }}/>
           </FormContainer>
       </Container> 
