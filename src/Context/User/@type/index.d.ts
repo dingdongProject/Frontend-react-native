@@ -31,4 +31,5 @@ interface IUserContext {
     userset: () => void;
     mainPageSet: () => void;
     setNewRequests: (newRequests: Array<IRequest>) => void;
+    modifyUserInfo: (payload: any) => void; 
 }

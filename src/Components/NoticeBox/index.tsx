@@ -120,9 +120,11 @@ const NoticeBox = () => {
     const navigation = useNavigation();
 
     const Item = ({notice}:any) => (
-       
+            
             <NoticeBodyBox onPress={()=> {
+                console.warn(notice)
                 navigation.navigate('Read', notice);
+                
             }}>
                 <NoticeBodyTitleBox>
                         <NoticeTitleImage source={{ uri: notice.owner.picture }} />   
@@ -132,10 +134,9 @@ const NoticeBox = () => {
                         <NoticeBodyBody>{notice.content}</NoticeBodyBody>
                 </NoticeBodyBodyBox>
                 {
-                            circleInfo.length > 0 &&
                     <NoticeFooter>
-                        <NoticeFooterImage source={{ uri: circleInfo[0].picture }} />   
-                        <NoticeFooterText>{circleInfo[0].name}</NoticeFooterText>
+                        <NoticeFooterImage source={{ uri: notice.circle.picture }} />   
+                        <NoticeFooterText>{notice.circle.name}</NoticeFooterText>
                     </NoticeFooter>
                 }
             </NoticeBodyBox>

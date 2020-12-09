@@ -56,6 +56,7 @@ const PostImages = Styled.Image`
 max-width : 350px;
 height : 200px;
 resize-mode:center;
+margin: 10px 0;
 `;
 const NewsTitleImage = Styled.Image`
     margin-right : 10px;
@@ -122,10 +123,9 @@ const NewsBox = ({title}:Props) => {
                         }
                         </View>
                         {
-                            circleInfo.length > 0 &&
                             <NewsFooter>
-                                <NewsFooterImage source={{ uri: circleInfo[0].picture }} />   
-                                <NewsFooterText>{circleInfo[0].name}</NewsFooterText>
+                                <NewsFooterImage source={{ uri: item.circle.picture }} />   
+                                <NewsFooterText>{item.circle.name}</NewsFooterText>
                             </NewsFooter>
                         }
                         

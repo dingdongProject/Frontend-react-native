@@ -19,6 +19,7 @@ const defaultContext : IUserContext = {
     userset : () => {},
     mainPageSet: () => {},
     setNewRequests: (newRequests: Array<IRequest>) => {},
+    modifyUserInfo: (payload: any) => {},
 };
 
 
@@ -141,6 +142,18 @@ const UserContextProvider = ({children}:Props) => {
     const setNewRequests = (newRequests: Array<IRequest>) => {
         setRequests(newRequests);
     }
+    const modifyUserInfo = (payload: any) => {
+        api.putUser(payload)
+        .then(response => response.data)
+        .then(data => {
+            if (data.success) {
+                setUSerInfo(data.user)
+            }
+            else {
+                console.warn(data.message)
+            }
+        })
+    }
 
     
     return (
@@ -158,7 +171,8 @@ const UserContextProvider = ({children}:Props) => {
                 logout,
                 userset,
                 mainPageSet,
-                setNewRequests
+                setNewRequests,
+                modifyUserInfo
             }}>
                 {children}
             </UserContext.Provider>
