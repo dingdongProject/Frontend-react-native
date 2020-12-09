@@ -14,7 +14,7 @@ export default {
         return _promise(METHOD.GET,BASE_URL+`user`,{}, true)
     },
     putUser : function(payload) {
-        return _promise(METHOD.PUT,BASE_URL+`user`,{payload}, true)
+        return _promise(METHOD.PUT,BASE_URL+`user`,payload, true)
     },
     getMain : function() {
         return _promise(METHOD.GET, BASE_URL +`main`, {}, true );

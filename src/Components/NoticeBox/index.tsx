@@ -110,7 +110,25 @@ const NoticeFooterImage = Styled.Image`
     border-color : ${constants.PRIMARY};
     resize-mode:center
 `;
-
+const NoPostsBox = Styled.View`
+    margin: 20px 0;
+    margin-left: 10px;
+    width: 350px;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+`;
+const NoPostText =  Styled.Text`
+    text-align: center;
+    width: 350px;
+    height: 100px;
+    line-height: 100px;
+    justify-content: center;
+    font-weight: bold;
+    color: ${constants.TEXT2}
+    border: 1px solid #ccc;
+    border-radius: 20px;
+`
 
 
 
@@ -156,7 +174,21 @@ const NoticeBox = () => {
                 <NoticeContainer>
                 <NoticeTitleBox>
                     <NoticeTitle>Notice</NoticeTitle>    
-                </NoticeTitleBox>            
+                </NoticeTitleBox>         
+                {
+                    isCircle && circleNotices.length === 0 && (
+                    <NoPostsBox>
+                        <NoPostText>No Posts Yet!</NoPostText>
+                    </NoPostsBox>
+                )   
+                }
+                {
+                    !isCircle && noticeMain.length === 0 && (
+                    <NoPostsBox>
+                        <NoPostText>No Posts Yet!</NoPostText>
+                    </NoPostsBox>
+                )   
+                }
                 <FlatList
                 horizontal={true}
                 pagingEnabled={true}
