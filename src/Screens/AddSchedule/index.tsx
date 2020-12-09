@@ -146,7 +146,7 @@ const AddSchedule =  ({route, navigation } : Props) => {
 
 
     const PostSchedule = async () => {
-      if(circlename === '' || datetime === '' )
+      if(circlename === '' || datetime === '' || title === '' || content === '')
       {
           if(circlename === '')
           setTimeout(()=>{
@@ -159,6 +159,18 @@ const AddSchedule =  ({route, navigation } : Props) => {
                   
                 },100)
           }
+          else if(title === ''){
+            setTimeout(()=>{
+                Alert.alert('Please Input Title!!');
+                
+              },100)
+        }
+        else if(content === ''){
+          setTimeout(()=>{
+              Alert.alert('please Input Content!');
+              
+            },100)
+      }
           return;
 
       }

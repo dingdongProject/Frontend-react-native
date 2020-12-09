@@ -9,7 +9,7 @@ import { onChange } from 'react-native-reanimated';
 import constants from '~/Constants/constants';
 
 import api from '~/Api/api'
-import {Platform, Image} from 'react-native';
+import {Platform, Image, Alert} from 'react-native';
 import IconButton from '~/Components/IconButton';
 import Button from '~/Components/Button';
 import Input from '~/Components/Input';
@@ -72,12 +72,6 @@ const AddCircle =  ({navigation } : Props) => {
         })
     }
 
-  const checkInputs= () => {
-    
-    return true;
-}
-  
-
     
 
 
@@ -97,7 +91,7 @@ const AddCircle =  ({navigation } : Props) => {
           <Input style={{marginBottom:32, flex: 5 }} onChangeText={(text)=> onChangeExplaination(text)} 
           placeholder="Introduction" multi={true} max={300}/>
           <Button label="Create Circle!" onPress={async () => {
-
+            if(circleName.length !== 0){
             var form = new FormData();
             let formCircleFile = circlePicture
             formCircleFile.uri = Platform.OS === "android" ? formCircleFile.uri : formCircleFile.uri.replace("file://", "")
@@ -109,6 +103,10 @@ const AddCircle =  ({navigation } : Props) => {
             form.append('Content-Type', 'image/png');
             addCircle(form);
             navigation.pop();
+            }
+            else{
+              Alert.alert('Please Input Circle Name!')
+            }
           }}/>
           </FormContainer>
       </Container> 

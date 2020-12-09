@@ -7,7 +7,7 @@ import {UserContext} from '~/Context/User';
 
 import Input from '~/Components/Input';
 import Button from '~/Components/Button';
-import { AppRegistry } from 'react-native';
+import { Alert, AppRegistry } from 'react-native';
 import Colors from '~/Constants/constants';
 
 const Container = Styled.SafeAreaView`
@@ -105,7 +105,7 @@ const Login = ({navigation} :Props) => {
                         }
                         else
                         {
-                            console.warn('No!')
+                            Alert.alert('Login Failed')
                         }
                         
                     }}

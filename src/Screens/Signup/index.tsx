@@ -1,5 +1,5 @@
 import React, {useState,useContext} from 'react';
-import {TextInput, CheckBox} from 'react-native';
+import {TextInput, CheckBox, Alert} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import Styled from 'styled-components/native';
 
@@ -130,7 +130,7 @@ const Signup = ({navigation}:Props) => {
                             })
                         }
                         else {
-                            console.warn('wrong email or pw');
+                            Alert.alert('wrong email or pw');
                         }
                      }
                  }

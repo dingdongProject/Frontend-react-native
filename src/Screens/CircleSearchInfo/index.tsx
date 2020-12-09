@@ -11,6 +11,7 @@ import {RouteProp} from '@react-navigation/native';
 import api from '~/Api/api';
 import Loading from '~/Components/Loading';
 import Button from '~/Components/Button';
+import { Alert } from 'react-native';
 type NavigationProp = StackNavigationProp<TotalNaviParamList>;
 type CircleInfoScreenRouteProp = RouteProp<CircleInfoNaviParamList, 'circle'>;
 
@@ -70,7 +71,9 @@ const CircleSearchInfo =  ({route, navigation } : Props) => {
                 </MyExpText>
             <Button label="Send Request" 
                 style={{marginBottom : 24,width: '80%'
-                        }}/>
+                        }}
+                onPress={()=>{Alert.alert('Requset Successful!')}}
+                        />
         </Container>   
       
     );
