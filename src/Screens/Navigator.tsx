@@ -481,7 +481,7 @@ export default () => {
     if(isLoading === false){
         return <Loading/>
     }
-    console.log('여긴가?',tokenInfo);
+   
     
     return (
         <NavigationContainer>

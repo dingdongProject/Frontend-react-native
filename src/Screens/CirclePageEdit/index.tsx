@@ -55,7 +55,7 @@ const MyImage = Styled.Image`
   margin-bottom: 10px;
   width: 100px;
   height: 100px;
-  border-radius: 100;
+  border-radius: 100px;
   border: 1px;
   border-color : ${constants.PRIMARY};
 `;
@@ -127,7 +127,7 @@ const CirclePageEdit =  ({navigation } : Props) => {
             cancelButtonTitle : 'cancel'
         },response=>{
             setAvatar(response.uri)
-            console.log(response.uri)
+            
         })
     }
 
@@ -156,12 +156,12 @@ const addAdmin = async (name : string, circlename : string) => {
         .then((data)=>{
           if(data)
           {
-            console.warn('changed!')
+            
             getCircleMembers(circlename)
           }
           else
           {
-            console.warn('faild!')
+            
           }
         })
       }
@@ -175,12 +175,12 @@ const addAdmin = async (name : string, circlename : string) => {
         }).then((data)=>{
           if(data)
           {
-            console.warn('changed!')
+            
             getCircleMembers(circlename)
           }
           else
           {
-            console.warn('faild!')
+            
           }
         })
       }

@@ -69,7 +69,7 @@ const CircleContextProvider = ({children}: Props) => {
                 setCircleBoards(data.boards)
             }
             else {
-                console.warn(data.message)
+                
             }
         })
         await api.getNotices({name: circleChosen?.name})
@@ -79,7 +79,7 @@ const CircleContextProvider = ({children}: Props) => {
                 setCircleNotices(data.posts)
             }
             else {
-                console.warn(data.message)
+                
             }
         })
         await api.getGallery({name: circleChosen?.name})
@@ -102,18 +102,6 @@ const CircleContextProvider = ({children}: Props) => {
         setISchedule(data.schedules)
         setIsCircleLoading(true)
         })
-        // .then((data)=>{
-        //      data.map((name: { scheduleList: string | any[]; })=>{
-        //         for(let i=0; i<name.scheduleList.length; i++)
-        //         {
-        //             let sch = name.scheduleList[i]
-        //             setCircleSchedule([sch, ...circleSchedule])
-                    
-        //         }
-                 
-               
-        //     })        
-        // })
 
         
     }
@@ -125,7 +113,7 @@ const CircleContextProvider = ({children}: Props) => {
             }
             
         }).catch(()=>{
-            console.warn('no one!')
+            
         })
 
         

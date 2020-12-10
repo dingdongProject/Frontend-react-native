@@ -8,7 +8,7 @@ const BubbleImage = Styled.Image`
 margin-right : 8px;
 width: 100px;
 height: 100px;  
-border-radius: 50;
+border-radius: 50px;
 border: 2px;
 border-color : #000000;
 resize-mode:center
@@ -18,7 +18,7 @@ const BubbleselectedImage = Styled.Image`
 margin-right : 8px;
 width: 100px;
 height: 100px;   
-border-radius: 100;
+border-radius: 100px;
 border: 2px;
 border-color : ${constants.PRIMARY};
 resize-mode:center

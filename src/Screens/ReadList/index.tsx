@@ -42,7 +42,7 @@ const Image = Styled.Image`
   margin-right : 10px;
   width: 40px;
   height: 40px;
-  border-radius: 20;
+  border-radius: 20px;
   border: 0.5px;
   border-color : ${constants.PRIMARY};
   resize-mode:center
@@ -72,7 +72,7 @@ const ReadList =  ({route, navigation } : Props) => {
           setReadList(data.list);
         } 
         else {
-          console.warn(data.message)
+         
         }
       })
     }

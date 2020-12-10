@@ -54,7 +54,7 @@ const Gallery = ({navigation} : Props) => {
                 cancelButtonTitle : '취소'
             },response=>{
                 setAvatar(response.uri)
-                console.log(response.uri)
+                
             })
         }
         

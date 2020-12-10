@@ -179,7 +179,7 @@ const Write =  ({route, navigation } : Props) => {
             form: setForm()
         }).then(response => response.data)
         .then(data => {
-            console.warn(data)
+            
             navigation.navigate('BulleteinBoard', {post: data.post})
         })
     }

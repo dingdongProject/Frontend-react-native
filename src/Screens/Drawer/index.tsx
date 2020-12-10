@@ -47,7 +47,7 @@ const CircleIcon = Styled.Image`
     margin-right : 8px;
     width: 35px;
     height: 35px;   
-    border-radius: 100;
+    border-radius: 100px;
     border: 0.5px;
     border-color : ${constants.PRIMARY};
     resize-mode:center
@@ -57,7 +57,7 @@ const ProfilePic = Styled.Image`
     margin-bottom: 10px;
     width: 100px;
     height: 100px;
-    border-radius: 100;
+    border-radius: 100px;
     border: 2px;
     border-color : ${constants.PRIMARY};
 `
@@ -119,7 +119,10 @@ const Drawer = ({props}:Props) => {
                         </ButtonContainer>
                     </Button>
                 )
-            }) : console.log('')
+            }) : 
+            <ButtonContainer>
+                
+            </ButtonContainer>
             }
             <Button
                 onPress={()=>{props.navigation.navigate('AddCircle',{screen : 'AddCircle'})}}

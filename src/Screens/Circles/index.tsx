@@ -87,7 +87,7 @@ const CircleImage = Styled.Image`
   margin-bottom: 10px;
   width: 50px;
   height: 50px;
-  border-radius: 10;
+  border-radius: 10px;
   border: 0.5px;
   border-color : ${constants.PRIMARY};
   
@@ -121,7 +121,7 @@ margin-left : 3px;
 
 const CircleTag = Styled.Text`
 
-font-size : 10;
+font-size : 10px;
 color : ${constants.TEXT2}
 `;
 
@@ -149,7 +149,7 @@ const Circles =  ({navigation } : Props) => {
         setCircles(data.circles);
       }
       else {
-        console.warn(data.message);
+        
       }
     })
   }, [])
@@ -164,7 +164,7 @@ const Circles =  ({navigation } : Props) => {
         setSearchInput("all")
       }
       else {
-        console.warn(data.message);
+       
         setSearchInput("all")
       }
     })

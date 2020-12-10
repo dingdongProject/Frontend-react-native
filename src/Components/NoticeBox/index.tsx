@@ -67,7 +67,7 @@ const NoticeTitleImage = Styled.Image`
     margin-right : 10px;
     width: 30px;
     height: 30px;
-    border-radius: 100;
+    border-radius: 100px;
     border: 0.5px;
     border-color : ${constants.PRIMARY};
     resize-mode:center
@@ -105,7 +105,7 @@ const NoticeFooterText = Styled.Text`
 const NoticeFooterImage = Styled.Image`
     width: 30px;
     height: 30px;
-    border-radius: 100;
+    border-radius: 100px;
     border: 0.5px;
     border-color : ${constants.PRIMARY};
     resize-mode:center
@@ -140,7 +140,6 @@ const NoticeBox = () => {
     const Item = ({notice}:any) => (
             
             <NoticeBodyBox onPress={()=> {
-                console.warn(notice)
                 navigation.navigate('Read', notice);
                 
             }}>

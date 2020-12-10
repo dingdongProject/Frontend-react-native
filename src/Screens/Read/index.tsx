@@ -53,7 +53,7 @@ const WriterImage = Styled.Image`
     margin-right : 0px;
     width: 70px;
     height: 70px;
-    border-radius: 20;
+    border-radius: 20px;
     border: 0.5px;
     border-color : ${constants.PRIMARY};
     resize-mode:center
@@ -152,7 +152,7 @@ const CommentImage = Styled.Image`
     margin-right : 0px;
     width: 40px;
     height: 40px;
-    border-radius: 20;
+    border-radius: 20px;
     border: 0.5px;
     border-color : ${constants.PRIMARY};
     resize-mode:center
@@ -292,7 +292,7 @@ const Read =  ({route, navigation } : Props) => {
                 setRead({text: 'Checked', hasRead: true})
             }
             else {
-                console.warn(data.message)
+                
             }
         })
     }

@@ -150,7 +150,7 @@ const UserContextProvider = ({children}:Props) => {
                 setUSerInfo(data.user)
             }
             else {
-                console.warn(data.message)
+                
             }
         })
     }

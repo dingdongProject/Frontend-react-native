@@ -52,7 +52,7 @@ const BulleteinTitleBox = Styled.View`
 const BulleteinTitleText = Styled.Text`
     color : ${constants.PRIMARY};
     font-weight : bold;
-    font-size : 20;
+    font-size : 20px;
 `;
 const BulleteinBodyBox =Styled.View`
     height : 40px;
@@ -61,7 +61,7 @@ const BulleteinBodyBox =Styled.View`
 `;
 const BulleteinBodyText = Styled.Text`
     color : ${constants.TEXT1};
-    font-size : 12;
+    font-size : 12px;
     
 `;
 const BulleteinCommentBox = Styled.View`
@@ -72,7 +72,7 @@ const BulleteinCommentBox = Styled.View`
 `;
 const BulleteinCommentText = Styled.Text`
     color : ${constants.TEXT2};
-    font-size : 10;
+    font-size : 10px;
 `;
 const BulleteinImageBox = Styled.View`
     width : 100px;
@@ -91,7 +91,7 @@ const FooterTouch = Styled.TouchableOpacity`
     align-items : center;
 `
 const Footer = Styled.View`
-    border-radius : 20;
+    border-radius : 20px;
     background-color : ${constants.PRIMARY}
     width : 100px;
     height : 45px;

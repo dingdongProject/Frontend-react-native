@@ -20,10 +20,10 @@ export const METHOD = {
 //await 기다릴래
 export async function _promise(method, url, payload = {}, sendToken = false) {
     var token = await AsyncStorage.getItem('token').then( (val) => {
-        console.log('config.js : async : ', val);
+        
         return val;
     }).catch((error)=> {
-        console.log(error)
+        
         return '';
     });
     let axiosConfig = { method: method.type, url: url };
@@ -45,14 +45,13 @@ export async function _promise(method, url, payload = {}, sendToken = false) {
             }
     }
     
-    console.log(axiosConfig)
+    
     return new Promise((resolve, reject) => {
         axios(axiosConfig)
             .then(resp => {
                 resolve(resp);
             })
             .catch(err => {
-                console.warn(err);
                 reject(err);
             });
     });

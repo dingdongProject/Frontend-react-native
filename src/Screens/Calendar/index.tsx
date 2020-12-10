@@ -41,27 +41,7 @@ const BubbleContainer = Styled.View`
   border : 0px;
   flex-direction : row;
 `;
-//추후 수평 플랫리스트로 구현.
 
-const BubbleBox = Styled.View`
-  width : 100px;
-  height : 100px;
-  margin-right : 20px;
-  padding : 0px;
-  border : 0px;
-`;
-
-const Bubble = Styled.Image`
-margin-right : 8px;
-width: 100px;
-height: 100px;   
-border-radius: 100px;
-border: 2px;
-border-color : ${constants.PRIMARY};
-resize-mode:center
-`;
-const BubbleTouch = Styled.TouchableOpacity`
-`;
 
 const CalendarContainer = Styled.View`
   width : 400px;
@@ -69,9 +49,7 @@ const CalendarContainer = Styled.View`
   border : 0px;
   padding : 25px;
 `;
-const CalendarText = Styled.Text`
 
-`;
 
 const MContainer = Styled.View`
   justify-content : center;
@@ -92,7 +70,7 @@ const ModalContainer = Styled.View`
 
 const ButtonContainer = Styled.TouchableOpacity`
   background-color : ${constants.PRIMARY};
-  border-radius : 15;
+  border-radius : 15px;
   padding : 10px;
 
 `;
@@ -129,7 +107,7 @@ const Calendars =  ({navigation } : Props) => {
     const {changeToCircle,isCircle,circleChosen,ISchedule} =useContext<ICircleContext>(CircleContext);
     const {circleInfo} = useContext<IUserContext>(UserContext)
     const [circleList, setCircleList] = useState([{name: '', picture: 'https://dingdong-bucket.s3.ap-northeast-2.amazonaws.com/all.png'}, ...circleInfo]);
-    const [circleIndex, setCircleIndex] = useState<Array<boolean>>([]);
+    
     
 
     useEffect(()=>{

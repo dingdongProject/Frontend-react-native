@@ -99,7 +99,7 @@ const Requests = ({navigation}:Props) => {
                 setNewRequests(new_list);
             }
             else {
-                console.warn(data.message);
+                
             }
         })
     }

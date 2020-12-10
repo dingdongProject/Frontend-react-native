@@ -8,7 +8,7 @@ const Container = Styled.TouchableOpacity`
 const Image = Styled.Image`
     width: 100px;
     height: 100px;
-    border-radius: 100; 
+    border-radius: 100px; 
     border: 1px solid ${constants.PRIMARY};
 `;
 

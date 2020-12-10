@@ -85,7 +85,7 @@ const Signup = ({navigation}:Props) => {
             <Description>Email</Description>
             <Input
                 style ={{marginBottom:16}}
-                placeholder={'Email should be valid' }
+                placeholder={'Email should be valid(example@email.com)' }
                 onChangeText={text => onChangeEmail(text)}
             />
             <Description>Username</Description>
@@ -104,7 +104,7 @@ const Signup = ({navigation}:Props) => {
             <Description>Re-enter Password</Description>
             <Input
                 style ={{marginBottom:16}}
-                placeholder={'Password' }
+                placeholder={'It must be the same as the value entered above' }
                 onChangeText={text => onChangeRepassword(text)}
                 secureTextEntry={true}
             />
@@ -125,7 +125,7 @@ const Signup = ({navigation}:Props) => {
                                     navigation.navigate('Login')
                                 }
                                 else {
-                                    Alert.alert('wrong email or pw');
+                                    Alert.alert('Already register');
                                 }
                             })
                         }

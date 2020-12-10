@@ -62,7 +62,7 @@ const NewsTitleImage = Styled.Image`
     margin-right : 10px;
     width: 30px;
     height: 30px;
-    border-radius: 100;
+    border-radius: 100px;
     border: 0.5px;
     border-color : ${constants.PRIMARY};
     resize-mode:center
@@ -87,7 +87,7 @@ const NewsFooterText = Styled.Text`
 const NewsFooterImage = Styled.Image`
     width: 30px;
     height: 30px;
-    border-radius: 100;
+    border-radius: 100px;
     border: 0.5px;
     border-color : ${constants.PRIMARY};
     resize-mode:center

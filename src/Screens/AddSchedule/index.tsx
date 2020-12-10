@@ -187,7 +187,7 @@ const AddSchedule =  ({route, navigation } : Props) => {
             setSchedule({circle: circlename, scheduleList:[data.schedules]})
         }
         else {
-            console.warn(data.message);
+            
         }
         navigation.pop()
         })
