@@ -125,7 +125,7 @@ const Signup = ({navigation}:Props) => {
                                     navigation.navigate('Login')
                                 }
                                 else {
-                                    console.warn('sign up failed')
+                                    Alert.alert('wrong email or pw');
                                 }
                             })
                         }

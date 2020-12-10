@@ -103,7 +103,7 @@ const MyPageEdit =  ({navigation } : Props) => {
     modifyUserInfo(form);
     navigation.pop();
   }
-}
+
   
 
     
