@@ -123,7 +123,6 @@ color: ${constants.TEXT2};
 
 
 const Information =  ({navigation } : Props) => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
   const {userInfo,circleInfo} = useContext<IUserContext>(UserContext);
   const {isCircle,circleChosen,circleMembers} = useContext<ICircleContext>(CircleContext)
 

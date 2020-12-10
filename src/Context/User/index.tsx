@@ -51,10 +51,10 @@ const UserContextProvider = ({children}:Props) => {
 
         useEffect(() => {
         SplashScreen.hide();
-        userset().then(() => 
+        userset().then(async () => 
         {
-            mainPageSet().then(() => {
-                setIsLoading(true)
+            await mainPageSet().then(() => {
+                
             })
             
         });
@@ -62,12 +62,15 @@ const UserContextProvider = ({children}:Props) => {
         }, []);
     
     const mainPageSet = async () => {
-        api.getMain().then((response)=> response.data).then((data) => {
+        await api.getMain().then((response)=> response.data).then((data) => {
             if (data.success) {
+                
                 setNoticeMain(data.notices);
                 setNewsMain(data.news);
                 setRequests(data.requests);
             }
+        }).then(()=>{
+            setIsLoading(true)
         })
     }
         
@@ -90,10 +93,10 @@ const UserContextProvider = ({children}:Props) => {
             setCircleInfo(data.circles);
         }).then(() => {
             mainPageSet().then(() => {
-                setIsLoading(true)
+                
             })
          }).catch(() =>{
-                setIsLoading(true); 
+                 
         })
     
     };
@@ -110,11 +113,11 @@ const UserContextProvider = ({children}:Props) => {
                 setUSerInfo(response.data.user);
                 setCircleInfo(response.data.circles)
             }
-            setIsLoading(true);
+            
         })
         .catch(()=>{
             setUSerInfo(undefined);
-            setIsLoading(true);
+            
         });
     }
 
