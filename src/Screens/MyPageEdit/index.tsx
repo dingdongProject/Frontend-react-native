@@ -5,7 +5,7 @@ import SplashScreen from 'react-native-splash-screen';
 import {UserContext} from '~/Context/User';
 import {CircleContext} from '~/Context/Circle';
 import ImagePicker from 'react-native-image-picker';
-import {Platform} from 'react-native';
+import {Platform, Alert} from 'react-native';
 import { onChange } from 'react-native-reanimated';
 import constants from '~/Constants/constants';
 
@@ -68,7 +68,8 @@ const MyPageEdit =  ({navigation } : Props) => {
   const {addCircle} = useContext<IUserContext>(UserContext)
   const {isCircle,circleChosen} = useContext<ICircleContext>(CircleContext)
   var pictureChanged = false;
-  
+  const placeholderName = name;
+  const placeholderEmail = email;
 
 
     const addImage = () => {
@@ -87,11 +88,19 @@ const MyPageEdit =  ({navigation } : Props) => {
         })
     }
 
-  const checkInputs= () => {
-    
-    return true;
+    const checkInputs= () => {
+      let re = /\S+@\S+\.\S+/;
+      let emailTest = re.test(email!);
+      let usernameTest= name!.length >= 4 && name!.length <= 20
+      return (emailTest && usernameTest);
+
   }
   const changeUser = () => {
+    if (!checkInputs()){
+      Alert.alert('Failed', 'Either Email does not match the format, or the username is not between 4 to 20 letters')
+      return;
+    }
+    
     var form = new FormData();
     let formUserFile = userPicture
     formUserFile.uri = Platform.OS === "android" ? formUserFile.uri : formUserFile.uri.replace("file://", "")
@@ -103,7 +112,6 @@ const MyPageEdit =  ({navigation } : Props) => {
     modifyUserInfo(form);
     navigation.pop();
   }
-
   
 
     
@@ -115,14 +123,14 @@ const MyPageEdit =  ({navigation } : Props) => {
             <ImageButtonContainer>
           <ImageButton 
           onPress={()=>{addImage()}}
-          source = {userInfo?.picture ? userInfo.picture : undefined}
+          source = {userPicture.uri !== "" ? userPicture.uri : userInfo?.picture}
           />
           </ImageButtonContainer>
           <ContentContainer>
           <Description>Name</Description>
-          <Input style={{marginBottom:20}} placeholder="name" onChangeText={(text) =>onChangeName(text)}/>
+          <Input style={{marginBottom:20}} placeholder={placeholderName} onChangeText={(text) =>onChangeName(text)}/>
           <Description>Email</Description>
-          <Input style={{marginBottom:48,}} placeholder="email" onChangeText={(text) =>onChangeEmail(text)}/>
+          <Input style={{marginBottom:48,}} placeholder={placeholderEmail} onChangeText={(text) =>onChangeEmail(text)}/>
           </ContentContainer>
           <ButtonContainer>
           <Button label="Change My Info" onPress={() => {
@@ -133,6 +141,6 @@ const MyPageEdit =  ({navigation } : Props) => {
       </Container> 
        
     );
-};
+  }
 
 export default MyPageEdit;

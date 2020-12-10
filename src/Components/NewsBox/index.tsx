@@ -92,7 +92,25 @@ const NewsFooterImage = Styled.Image`
     border-color : ${constants.PRIMARY};
     resize-mode:center
 `;
-
+const NoPostsBox = Styled.View`
+    margin: 20px 0;
+    margin-left: 10px;
+    width: 350px;
+    height: 100px;
+    justify-content: center;
+    align-items: center;
+`;
+const NoPostText =  Styled.Text`
+    text-align: center;
+    width: 350px;
+    height: 100px;
+    line-height: 100px;
+    justify-content: center;
+    font-weight: bold;
+    color: ${constants.TEXT2}
+    border: 1px solid #ccc;
+    border-radius: 20px;
+`
 
 
 interface Props{
@@ -105,6 +123,13 @@ const NewsBox = ({title}:Props) => {
         <NewsContainer>
             <NewsTitleBox>
                 <NewsTitle>{title}</NewsTitle>
+            {
+                newsMain.length === 0 && (
+                    <NoPostsBox>
+                        <NoPostText>No Posts Yet...</NoPostText>
+                    </NoPostsBox>
+                )   
+            }
             </NewsTitleBox>
             {
                 newsMain.map((item,key)=> (
