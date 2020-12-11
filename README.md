@@ -17,6 +17,27 @@ $ npm start
 $ react-native run-ios (or react-native run-android)
 ```
 
+## Packages
+- react-native-community/async-storage 1.12.1
+- react-native-community/datetimepicker 3.0.6
+- react-native-community/masked-view 0.1.10
+- react-navigation/bottom-tabs 5.10.1
+- react-navigation/drawer 5.10.1
+- react-navigation/native": "5.8.1",
+- react-navigation/stack": "5.11.0",
+- axios 0.21.0
+- react-native "0.63.3
+- react-native-calendar-picker 7.0.3
+- react-native-calendars 1.437.0
+- react-native-date-picker 3.2.5
+- react-native-gesture-handler 1.8.0
+- react-native-image-crop-picker 0.35.1
+- react-native-image-picker 2.3.4
+- react-native-moda 11.5.6
+- react-native-modal-datetime-picker 9.1.0
+- react-native-splash-screen 3.2.0
+- styled-components 5.2.0
+
 
 ## To-do
 - Vote function api
