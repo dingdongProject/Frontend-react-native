@@ -18,15 +18,15 @@ $ react-native run-ios (or react-native run-android)
 ```
 
 ## Packages
+- react-native 0.63.3
+- axios 0.21.0
 - react-native-community/async-storage 1.12.1
 - react-native-community/datetimepicker 3.0.6
 - react-native-community/masked-view 0.1.10
 - react-navigation/bottom-tabs 5.10.1
 - react-navigation/drawer 5.10.1
-- react-navigation/native": "5.8.1",
-- react-navigation/stack": "5.11.0",
-- axios 0.21.0
-- react-native "0.63.3
+- react-navigation/native 5.8.1
+- react-navigation/stack 5.11.0
 - react-native-calendar-picker 7.0.3
 - react-native-calendars 1.437.0
 - react-native-date-picker 3.2.5
