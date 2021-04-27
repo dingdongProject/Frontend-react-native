@@ -1,8 +1,8 @@
 # 🔔 Dingdong 🔔
 
-<img src="https://github.com/dingdongProject/Backend-django/blob/master/image/dingdong.gif?raw=true" width="150"/>
+**동아리를 위한 커뮤니티 앱 서비스: 딩동**
 
-## 동아리를 위한 커뮤니티 앱 서비스: 딩동
+<img src="https://github.com/dingdongProject/Backend-django/blob/master/image/dingdong.gif?raw=true" width="150"/>
 
 
 ## ❔ 딩동이란 
