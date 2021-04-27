@@ -1,18 +1,17 @@
-# 🔔 Dingdong 🔔
-
-**동아리를 위한 커뮤니티 앱 서비스: 딩동**
+# 🛎  Dingdong <img src="https://img.shields.io/badge/React%20Native-0.63.3-blue" /> 
+**동아리를 위한 커뮤니티 앱 서비스: 딩동** 
 
 <img src="https://github.com/dingdongProject/Backend-django/blob/master/image/dingdong.gif?raw=true" width="150"/>
 
 
-## ❔ 딩동이란 
+## ❔  딩동이란 
 
 
-### 🔍 왜 딩동이 나왔을까 
+### 🔍  왜 딩동이 나왔을까 
 
 우리 팀의 팀원들은 모두 동아리, 대외활동을 최소 한 개 이상씩 참여하고 있습니다. 그러다 보니 여러 단체 카톡방에 초대되어 있었습니다. 또한 동아리마다 그룹별로 여러개의 카톡방을 운영하는 경우도 있죠. 그러다 보니 공지사항이나 스케쥴 등 필요한 정보들이 제각각 흩어져 있어서 한꺼번에 모아보기가 매우 불편했습니다. 특히 카톡에서는 공지를 하나밖에 띄우지 못하기 때문에 공지가 두개 이상이면 하나는 직접 스크롤을 올려서 확인해야 했습니다. 우리들은 이러한 방식이 불편하고 비효율적이라 생각했습니다. 
 
-### 🖥 딩동의 기능 
+### 🖥  딩동의 기능 
 
 따라서 우리는 "딩동"을 생각하게 되었습니다. 딩동은 동아리 관리, 소통을 위한 모바일 앱입니다. 딩동은 크게 3가지 기능으로 나눌 수 있습니다. 
 
@@ -32,11 +31,11 @@
 
 
 
-## 📺 데모 링크 
-### ⚠️ 자막을 키고 봐주시면 감사하겠습니다! ⚠️
+## 📺  데모 링크 
+###  자막을 키고 봐주시면 감사하겠습니다! 
 [dingdong_demo](https://www.youtube.com/watch?v=3OvvbV-6EnE&t=188s)
 
-## 🛠 Project Setup 
+## 🛠  Project Setup 
 Server should be running before running the app.
 ```
 $ npm install
@@ -46,7 +45,7 @@ $ npm start
 $ react-native run-ios (or react-native run-android)
 ```
 
-## 📦 Packages 
+## 📦  Packages 
 - react-native 0.63.3
 - axios 0.21.0
 - react-native-community/async-storage 1.12.1
@@ -68,7 +67,7 @@ $ react-native run-ios (or react-native run-android)
 - styled-components 5.2.0
 
 
-## 🗒 To-do 
+## 🗒  To-do 
 - Vote function api
 - Ladder game funciton api
 - Modify user information
@@ -86,6 +85,6 @@ $ react-native run-ios (or react-native run-android)
 - 🇰🇷 [colorful-ahn](https://github.com/colorful-ahn)
 - 🇰🇷 [chh12497](https://github.com/chh12497)
 
-## 🔗 Related Repositories 
+## 🔗  Related Repositories 
 - [dingdong-backend](https://github.com/dingdongProject/Backend-django)
 - [dingdong-documents](https://github.com/dingdongProject/documentation)
