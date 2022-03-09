@@ -67,6 +67,7 @@ $ react-native run-ios (or react-native run-android)
 - react-native-modal-datetime-picker 9.1.0
 - react-native-splash-screen 3.2.0
 - styled-components 5.2.0
+- react-native-tooltip-alert 1.0.0
 
 
 ## 🗒  To-do 
